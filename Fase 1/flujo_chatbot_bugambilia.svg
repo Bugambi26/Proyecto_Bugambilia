@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1370" viewBox="0 0 1120 1370" font-family="DejaVu Sans, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#222"/></marker></defs>
+<rect width="1120" height="1370" fill="#fff"/>
+<text x="560.0" y="38" text-anchor="middle" font-size="20" font-weight="bold" fill="#7A2E5A">Diagrama de flujo del chatbot de recomendación — Proyecto Bugambilia</text>
+<rect x="265.0" y="65.0" width="330" height="50" rx="25.0" fill="#7A2E5A"/>
+<text x="430" y="95" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">Inicio: el visitante abre el chatbot</text>
+<rect x="270.0" y="154.0" width="320" height="62" fill="#F7EDF3" stroke="#7A2E5A" stroke-width="1.6"/>
+<text x="430" y="181" text-anchor="middle" font-size="14" fill="#222">Cargar la pregunta inicial</text>
+<text x="430" y="199" text-anchor="middle" font-size="14" fill="#222">(PREGUNTA con es_inicial = verdadero)</text>
+<path d="M288.0 256.0 H608.0 L572.0 314.0 H252.0 Z" fill="#fff" stroke="#7A2E5A" stroke-width="1.6"/>
+<text x="430" y="290" text-anchor="middle" font-size="14" fill="#222">Mostrar la pregunta y sus opciones</text>
+<path d="M288.0 351.0 H608.0 L572.0 409.0 H252.0 Z" fill="#fff" stroke="#7A2E5A" stroke-width="1.6"/>
+<text x="430" y="385" text-anchor="middle" font-size="14" fill="#222">El visitante elige una opción</text>
+<rect x="240.0" y="449.0" width="380" height="62" fill="#F7EDF3" stroke="#7A2E5A" stroke-width="1.6"/>
+<text x="430" y="476" text-anchor="middle" font-size="14" fill="#222">Agregar las necesidades ligadas a la opción</text>
+<text x="430" y="494" text-anchor="middle" font-size="14" fill="#222">(OPCION_NECESIDAD) a la sesión</text>
+<path d="M430 555.0 L575.0 610 L430 665.0 L285.0 610 Z" fill="#FFF8E6" stroke="#B45309" stroke-width="1.6"/>
+<text x="430" y="606" text-anchor="middle" font-size="13.5" fill="#222">¿La opción lleva a</text>
+<text x="430" y="624" text-anchor="middle" font-size="13.5" fill="#222">otra pregunta?</text>
+<rect x="705.0" y="579.0" width="230" height="62" fill="#F7EDF3" stroke="#7A2E5A" stroke-width="1.6"/>
+<text x="820" y="606" text-anchor="middle" font-size="14" fill="#222">Cargar la pregunta</text>
+<text x="820" y="624" text-anchor="middle" font-size="14" fill="#222">siguiente</text>
+<rect x="240.0" y="714.0" width="380" height="62" fill="#F7EDF3" stroke="#7A2E5A" stroke-width="1.6"/>
+<text x="430" y="741" text-anchor="middle" font-size="14" fill="#222">Buscar productos activos asociados a</text>
+<text x="430" y="759" text-anchor="middle" font-size="14" fill="#222">esas necesidades (PRODUCTO_NECESIDAD)</text>
+<path d="M430 825.0 L575.0 880 L430 935.0 L285.0 880 Z" fill="#FFF8E6" stroke="#B45309" stroke-width="1.6"/>
+<text x="430" y="876" text-anchor="middle" font-size="13.5" fill="#222">¿Hay productos que</text>
+<text x="430" y="894" text-anchor="middle" font-size="13.5" fill="#222">cubran la necesidad?</text>
+<path d="M698.0 841.0 H978.0 L942.0 919.0 H662.0 Z" fill="#fff" stroke="#7A2E5A" stroke-width="1.6"/>
+<text x="820" y="867" text-anchor="middle" font-size="14" fill="#222">Sugerir agendar una cita de</text>
+<text x="820" y="885" text-anchor="middle" font-size="14" fill="#222">diagnóstico y mostrar el</text>
+<text x="820" y="903" text-anchor="middle" font-size="14" fill="#222">botón de Instagram</text>
+<rect x="270.0" y="979.0" width="320" height="62" fill="#F7EDF3" stroke="#7A2E5A" stroke-width="1.6"/>
+<text x="430" y="1006" text-anchor="middle" font-size="14" fill="#222">Armar el contexto: necesidades</text>
+<text x="430" y="1024" text-anchor="middle" font-size="14" fill="#222">seleccionadas + productos candidatos</text>
+<rect x="230.0" y="1082.0" width="400" height="66" fill="#E8F0FB" stroke="#2F5E9E" stroke-width="1.6"/>
+<line x1="242.0" y1="1082.0" x2="242.0" y2="1148.0" stroke="#2F5E9E" stroke-width="1.6"/>
+<line x1="618.0" y1="1082.0" x2="618.0" y2="1148.0" stroke="#2F5E9E" stroke-width="1.6"/>
+<text x="430" y="1111" text-anchor="middle" font-size="14" fill="#222">La IA generativa redacta la recomendación</text>
+<text x="430" y="1129" text-anchor="middle" font-size="14" fill="#222">usando solo los productos del contexto</text>
+<path d="M268.0 1189.0 H628.0 L592.0 1251.0 H232.0 Z" fill="#fff" stroke="#7A2E5A" stroke-width="1.6"/>
+<text x="430" y="1216" text-anchor="middle" font-size="14" fill="#222">Mostrar la recomendación con enlace</text>
+<text x="430" y="1234" text-anchor="middle" font-size="14" fill="#222">al detalle de cada producto</text>
+<rect x="350.0" y="1295.0" width="160" height="50" rx="25.0" fill="#7A2E5A"/>
+<text x="430" y="1325" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">Fin</text>
+<path d="M430 115 L430 154" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M430 216 L430 256" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M430 314 L430 351" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M430 409 L430 449" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M430 511 L430 555" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M430 665 L430 714" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M430 776 L430 825" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M430 935 L430 979" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M430 1041 L430 1082" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M430 1148 L430 1189" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M430 1251 L430 1295" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="442" y="694" font-size="13" font-weight="bold" fill="#B45309">No</text>
+<text x="442" y="962" font-size="13" font-weight="bold" fill="#B45309">Sí</text>
+<path d="M575 610 L705 610" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="590" y="600" text-anchor="start" font-size="13" font-weight="bold" fill="#B45309">Sí</text>
+<path d="M820 579 L820 285 L608 285" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<path d="M575 880 L670 880" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="590" y="870" text-anchor="start" font-size="13" font-weight="bold" fill="#B45309">No</text>
+<path d="M820 919 L820 1320 L510 1320" fill="none" stroke="#222" stroke-width="1.6" marker-end="url(#ah)"/>
+<rect x="40" y="560" width="172" height="104" rx="4" fill="#FAFAFA" stroke="#CCC"/>
+<text x="52" y="586" font-size="13" fill="#333">El árbol (preguntas</text>
+<text x="52" y="605" font-size="13" fill="#333">y opciones) lo edita</text>
+<text x="52" y="624" font-size="13" fill="#333">la dueña desde el</text>
+<text x="52" y="643" font-size="13" fill="#333">panel admin.</text>
+<rect x="40" y="1060" width="172" height="104" rx="4" fill="#FAFAFA" stroke="#CCC"/>
+<text x="52" y="1086" font-size="13" fill="#333">No se guarda nada</text>
+<text x="52" y="1105" font-size="13" fill="#333">de la conversación;</text>
+<text x="52" y="1124" font-size="13" fill="#333">las necesidades viven</text>
+<text x="52" y="1143" font-size="13" fill="#333">solo en la sesión.</text>
+<rect x="700" y="58" width="380" height="208" rx="4" fill="#FAFAFA" stroke="#CCC"/>
+<text x="714" y="82" font-size="13" font-weight="bold" fill="#222">Simbología</text>
+<rect x="720" y="96" width="60" height="24" rx="12" fill="#7A2E5A"/>
+<text x="800" y="113" font-size="13" fill="#222">Inicio / fin</text>
+<rect x="720" y="130" width="60" height="24" fill="#F7EDF3" stroke="#7A2E5A" stroke-width="1.4"/>
+<text x="800" y="147" font-size="13" fill="#222">Proceso del sistema</text>
+<path d="M728 164 H784 L772 188 H716 Z" fill="#fff" stroke="#7A2E5A" stroke-width="1.4"/>
+<text x="800" y="181" font-size="13" fill="#222">Entrada / salida con el visitante</text>
+<path d="M750 195 L782 210 L750 225 L718 210 Z" fill="#FFF8E6" stroke="#B45309" stroke-width="1.4"/>
+<text x="800" y="215" font-size="13" fill="#222">Decisión</text>
+<rect x="720" y="232" width="60" height="24" fill="#E8F0FB" stroke="#2F5E9E" stroke-width="1.4"/>
+<line x1="728" y1="232" x2="728" y2="256" stroke="#2F5E9E" stroke-width="1.4"/><line x1="772" y1="232" x2="772" y2="256" stroke="#2F5E9E" stroke-width="1.4"/>
+<text x="800" y="249" font-size="13" fill="#222">Proceso externo (IA generativa)</text>
+</svg>

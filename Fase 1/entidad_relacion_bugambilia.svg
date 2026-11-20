@@ -1,0 +1,268 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1420" height="960" viewBox="0 0 1420 960" font-family="DejaVu Sans, Arial, sans-serif">
+<rect width="1420" height="960" fill="#fff"/>
+<text x="710.0" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#7A2E5A">Diagrama entidad-relación — Proyecto Bugambilia (notación Crow's Foot)</text>
+<rect x="60" y="90" width="260" height="84" rx="4" fill="#FFFFFF" stroke="#7A2E5A" stroke-width="1.6"/>
+<path d="M60 122 V94 Q60 90 64 90 H316 Q320 90 320 94 V122 Z" fill="#7A2E5A"/>
+<text x="190.0" y="111" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">CATEGORIA</text>
+<text x="70" y="141" font-size="11" font-weight="bold" fill="#7A2E5A">PK</text>
+<text x="118" y="141" font-size="13" fill="#222" text-decoration="underline">id_categoria</text>
+<rect x="61" y="148" width="258" height="22" fill="#F7EDF3"/>
+<text x="70" y="163" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="163" font-size="13" fill="#222">nombre</text>
+<line x1="110" y1="124" x2="110" y2="172" stroke="#E2CFDA" stroke-width="1"/>
+<rect x="60" y="290" width="260" height="150" rx="4" fill="#FFFFFF" stroke="#7A2E5A" stroke-width="1.6"/>
+<path d="M60 322 V294 Q60 290 64 290 H316 Q320 290 320 294 V322 Z" fill="#7A2E5A"/>
+<text x="190.0" y="311" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">LINEA</text>
+<text x="70" y="341" font-size="11" font-weight="bold" fill="#7A2E5A">PK</text>
+<text x="118" y="341" font-size="13" fill="#222" text-decoration="underline">id_linea</text>
+<rect x="61" y="348" width="258" height="22" fill="#F7EDF3"/>
+<text x="70" y="363" font-size="11" font-weight="bold" fill="#7A2E5A">FK</text>
+<text x="118" y="363" font-size="13" fill="#222">id_categoria</text>
+<text x="70" y="385" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="385" font-size="13" fill="#222">nombre</text>
+<rect x="61" y="392" width="258" height="22" fill="#F7EDF3"/>
+<text x="70" y="407" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="407" font-size="13" fill="#222">nombre_ritual</text>
+<text x="70" y="429" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="429" font-size="13" fill="#222">descripcion</text>
+<line x1="110" y1="324" x2="110" y2="438" stroke="#E2CFDA" stroke-width="1"/>
+<rect x="60" y="540" width="280" height="282" rx="4" fill="#FFFFFF" stroke="#7A2E5A" stroke-width="1.6"/>
+<path d="M60 572 V544 Q60 540 64 540 H336 Q340 540 340 544 V572 Z" fill="#7A2E5A"/>
+<text x="200.0" y="561" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">PRODUCTO</text>
+<text x="70" y="591" font-size="11" font-weight="bold" fill="#7A2E5A">PK</text>
+<text x="118" y="591" font-size="13" fill="#222" text-decoration="underline">id_producto</text>
+<rect x="61" y="598" width="278" height="22" fill="#F7EDF3"/>
+<text x="70" y="613" font-size="11" font-weight="bold" fill="#7A2E5A">FK</text>
+<text x="118" y="613" font-size="13" fill="#222">id_linea</text>
+<text x="70" y="635" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="635" font-size="13" fill="#222">nombre</text>
+<rect x="61" y="642" width="278" height="22" fill="#F7EDF3"/>
+<text x="70" y="657" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="657" font-size="13" fill="#222">tipo_producto</text>
+<text x="70" y="679" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="679" font-size="13" fill="#222">ingredientes_protagonistas</text>
+<rect x="61" y="686" width="278" height="22" fill="#F7EDF3"/>
+<text x="70" y="701" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="701" font-size="13" fill="#222">beneficio_principal</text>
+<text x="70" y="723" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="723" font-size="13" fill="#222">contenido_neto</text>
+<rect x="61" y="730" width="278" height="22" fill="#F7EDF3"/>
+<text x="70" y="745" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="745" font-size="13" fill="#222">precio</text>
+<text x="70" y="767" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="767" font-size="13" fill="#222">imagen_url</text>
+<rect x="61" y="774" width="278" height="22" fill="#F7EDF3"/>
+<text x="70" y="789" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="789" font-size="13" fill="#222">stock</text>
+<text x="70" y="811" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="118" y="811" font-size="13" fill="#222">activo</text>
+<line x1="110" y1="574" x2="110" y2="820" stroke="#E2CFDA" stroke-width="1"/>
+<rect x="440" y="640" width="240" height="84" rx="4" fill="#FFFFFF" stroke="#7A2E5A" stroke-width="1.6"/>
+<path d="M440 672 V644 Q440 640 444 640 H676 Q680 640 680 644 V672 Z" fill="#7A2E5A"/>
+<text x="560.0" y="661" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">PRODUCTO_NECESIDAD</text>
+<text x="450" y="691" font-size="11" font-weight="bold" fill="#7A2E5A">PK,FK</text>
+<text x="498" y="691" font-size="13" fill="#222" text-decoration="underline">id_producto</text>
+<rect x="441" y="698" width="238" height="22" fill="#F7EDF3"/>
+<text x="450" y="713" font-size="11" font-weight="bold" fill="#7A2E5A">PK,FK</text>
+<text x="498" y="713" font-size="13" fill="#222" text-decoration="underline">id_necesidad</text>
+<line x1="490" y1="674" x2="490" y2="722" stroke="#E2CFDA" stroke-width="1"/>
+<rect x="790" y="629" width="240" height="106" rx="4" fill="#FFFFFF" stroke="#7A2E5A" stroke-width="1.6"/>
+<path d="M790 661 V633 Q790 629 794 629 H1026 Q1030 629 1030 633 V661 Z" fill="#7A2E5A"/>
+<text x="910.0" y="650" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">NECESIDAD</text>
+<text x="800" y="680" font-size="11" font-weight="bold" fill="#7A2E5A">PK</text>
+<text x="848" y="680" font-size="13" fill="#222" text-decoration="underline">id_necesidad</text>
+<rect x="791" y="687" width="238" height="22" fill="#F7EDF3"/>
+<text x="800" y="702" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="848" y="702" font-size="13" fill="#222">nombre</text>
+<text x="800" y="724" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="848" y="724" font-size="13" fill="#222">descripcion</text>
+<line x1="840" y1="663" x2="840" y2="733" stroke="#E2CFDA" stroke-width="1"/>
+<rect x="790" y="430" width="240" height="84" rx="4" fill="#FFFFFF" stroke="#7A2E5A" stroke-width="1.6"/>
+<path d="M790 462 V434 Q790 430 794 430 H1026 Q1030 430 1030 434 V462 Z" fill="#7A2E5A"/>
+<text x="910.0" y="451" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">OPCION_NECESIDAD</text>
+<text x="800" y="481" font-size="11" font-weight="bold" fill="#7A2E5A">PK,FK</text>
+<text x="848" y="481" font-size="13" fill="#222" text-decoration="underline">id_opcion</text>
+<rect x="791" y="488" width="238" height="22" fill="#F7EDF3"/>
+<text x="800" y="503" font-size="11" font-weight="bold" fill="#7A2E5A">PK,FK</text>
+<text x="848" y="503" font-size="13" fill="#222" text-decoration="underline">id_necesidad</text>
+<line x1="840" y1="464" x2="840" y2="512" stroke="#E2CFDA" stroke-width="1"/>
+<rect x="790" y="180" width="240" height="128" rx="4" fill="#FFFFFF" stroke="#7A2E5A" stroke-width="1.6"/>
+<path d="M790 212 V184 Q790 180 794 180 H1026 Q1030 180 1030 184 V212 Z" fill="#7A2E5A"/>
+<text x="910.0" y="201" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">OPCION</text>
+<text x="800" y="231" font-size="11" font-weight="bold" fill="#7A2E5A">PK</text>
+<text x="848" y="231" font-size="13" fill="#222" text-decoration="underline">id_opcion</text>
+<rect x="791" y="238" width="238" height="22" fill="#F7EDF3"/>
+<text x="800" y="253" font-size="11" font-weight="bold" fill="#7A2E5A">FK</text>
+<text x="848" y="253" font-size="13" fill="#222">id_pregunta</text>
+<text x="800" y="275" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="848" y="275" font-size="13" fill="#222">texto</text>
+<rect x="791" y="282" width="238" height="22" fill="#F7EDF3"/>
+<text x="800" y="297" font-size="11" font-weight="bold" fill="#7A2E5A">FK</text>
+<text x="848" y="297" font-size="13" fill="#222">id_pregunta_siguiente</text>
+<line x1="840" y1="214" x2="840" y2="306" stroke="#E2CFDA" stroke-width="1"/>
+<rect x="1130" y="180" width="240" height="106" rx="4" fill="#FFFFFF" stroke="#7A2E5A" stroke-width="1.6"/>
+<path d="M1130 212 V184 Q1130 180 1134 180 H1366 Q1370 180 1370 184 V212 Z" fill="#7A2E5A"/>
+<text x="1250.0" y="201" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">PREGUNTA</text>
+<text x="1140" y="231" font-size="11" font-weight="bold" fill="#7A2E5A">PK</text>
+<text x="1188" y="231" font-size="13" fill="#222" text-decoration="underline">id_pregunta</text>
+<rect x="1131" y="238" width="238" height="22" fill="#F7EDF3"/>
+<text x="1140" y="253" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="253" font-size="13" fill="#222">texto</text>
+<text x="1140" y="275" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="275" font-size="13" fill="#222">es_inicial</text>
+<line x1="1180" y1="214" x2="1180" y2="284" stroke="#E2CFDA" stroke-width="1"/>
+<rect x="1130" y="400" width="240" height="238" rx="4" fill="#FFFFFF" stroke="#7A2E5A" stroke-width="1.6"/>
+<path d="M1130 432 V404 Q1130 400 1134 400 H1366 Q1370 400 1370 404 V432 Z" fill="#7A2E5A"/>
+<text x="1250.0" y="421" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">SUCURSAL</text>
+<text x="1140" y="451" font-size="11" font-weight="bold" fill="#7A2E5A">PK</text>
+<text x="1188" y="451" font-size="13" fill="#222" text-decoration="underline">id_sucursal</text>
+<rect x="1131" y="458" width="238" height="22" fill="#F7EDF3"/>
+<text x="1140" y="473" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="473" font-size="13" fill="#222">nombre</text>
+<text x="1140" y="495" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="495" font-size="13" fill="#222">tipo (propia / tercero)</text>
+<rect x="1131" y="502" width="238" height="22" fill="#F7EDF3"/>
+<text x="1140" y="517" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="517" font-size="13" fill="#222">direccion</text>
+<text x="1140" y="539" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="539" font-size="13" fill="#222">latitud</text>
+<rect x="1131" y="546" width="238" height="22" fill="#F7EDF3"/>
+<text x="1140" y="561" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="561" font-size="13" fill="#222">longitud</text>
+<text x="1140" y="583" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="583" font-size="13" fill="#222">telefono</text>
+<rect x="1131" y="590" width="238" height="22" fill="#F7EDF3"/>
+<text x="1140" y="605" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="605" font-size="13" fill="#222">whatsapp</text>
+<text x="1140" y="627" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="627" font-size="13" fill="#222">foto_url</text>
+<line x1="1180" y1="434" x2="1180" y2="636" stroke="#E2CFDA" stroke-width="1"/>
+<rect x="1130" y="740" width="240" height="150" rx="4" fill="#FFFFFF" stroke="#7A2E5A" stroke-width="1.6"/>
+<path d="M1130 772 V744 Q1130 740 1134 740 H1366 Q1370 740 1370 744 V772 Z" fill="#7A2E5A"/>
+<text x="1250.0" y="761" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">HORARIO</text>
+<text x="1140" y="791" font-size="11" font-weight="bold" fill="#7A2E5A">PK</text>
+<text x="1188" y="791" font-size="13" fill="#222" text-decoration="underline">id_horario</text>
+<rect x="1131" y="798" width="238" height="22" fill="#F7EDF3"/>
+<text x="1140" y="813" font-size="11" font-weight="bold" fill="#7A2E5A">FK</text>
+<text x="1188" y="813" font-size="13" fill="#222">id_sucursal</text>
+<text x="1140" y="835" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="835" font-size="13" fill="#222">dia_semana</text>
+<rect x="1131" y="842" width="238" height="22" fill="#F7EDF3"/>
+<text x="1140" y="857" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="857" font-size="13" fill="#222">hora_apertura</text>
+<text x="1140" y="879" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="1188" y="879" font-size="13" fill="#222">hora_cierre</text>
+<line x1="1180" y1="774" x2="1180" y2="888" stroke="#E2CFDA" stroke-width="1"/>
+<rect x="440" y="90" width="260" height="150" rx="4" fill="#FFFFFF" stroke="#7A2E5A" stroke-width="1.6"/>
+<path d="M440 122 V94 Q440 90 444 90 H696 Q700 90 700 94 V122 Z" fill="#7A2E5A"/>
+<text x="570.0" y="111" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">ADMINISTRADOR</text>
+<text x="450" y="141" font-size="11" font-weight="bold" fill="#7A2E5A">PK</text>
+<text x="498" y="141" font-size="13" fill="#222" text-decoration="underline">id_admin</text>
+<rect x="441" y="148" width="258" height="22" fill="#F7EDF3"/>
+<text x="450" y="163" font-size="11" font-weight="bold" fill="#7A2E5A">UQ</text>
+<text x="498" y="163" font-size="13" fill="#222">correo</text>
+<text x="450" y="185" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="498" y="185" font-size="13" fill="#222">contrasena_hash</text>
+<rect x="441" y="192" width="258" height="22" fill="#F7EDF3"/>
+<text x="450" y="207" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="498" y="207" font-size="13" fill="#222">token_recuperacion</text>
+<text x="450" y="229" font-size="11" font-weight="bold" fill="#7A2E5A"></text>
+<text x="498" y="229" font-size="13" fill="#222">token_expiracion</text>
+<line x1="490" y1="124" x2="490" y2="238" stroke="#E2CFDA" stroke-width="1"/>
+<line x1="190" y1="174" x2="190" y2="290" stroke="#222" stroke-width="1.6"/>
+<line x1="181.0" y1="182.0" x2="199.0" y2="182.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="181.0" y1="189.0" x2="199.0" y2="189.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="190.0" y1="274.0" x2="180.0" y2="290.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="190.0" y1="274.0" x2="190.0" y2="290.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="190.0" y1="274.0" x2="200.0" y2="290.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<circle cx="190.0" cy="264.0" r="5.5" fill="#fff" stroke="#222" stroke-width="1.6"/>
+<text x="202" y="236" text-anchor="start" font-size="12.5" font-style="italic" fill="#7A2E5A">agrupa</text>
+<line x1="190" y1="440" x2="190" y2="540" stroke="#222" stroke-width="1.6"/>
+<line x1="181.0" y1="448.0" x2="199.0" y2="448.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="181.0" y1="455.0" x2="199.0" y2="455.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="190.0" y1="524.0" x2="180.0" y2="540.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="190.0" y1="524.0" x2="190.0" y2="540.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="190.0" y1="524.0" x2="200.0" y2="540.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="199.0" y1="518.0" x2="181.0" y2="518.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<text x="202" y="494" text-anchor="start" font-size="12.5" font-style="italic" fill="#7A2E5A">contiene</text>
+<line x1="340" y1="682" x2="440" y2="682" stroke="#222" stroke-width="1.6"/>
+<line x1="348.0" y1="691.0" x2="348.0" y2="673.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="355.0" y1="691.0" x2="355.0" y2="673.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="424.0" y1="682.0" x2="440.0" y2="692.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="424.0" y1="682.0" x2="440.0" y2="682.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="424.0" y1="682.0" x2="440.0" y2="672.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<circle cx="414.0" cy="682.0" r="5.5" fill="#fff" stroke="#222" stroke-width="1.6"/>
+<text x="390" y="670" text-anchor="middle" font-size="12.5" font-style="italic" fill="#7A2E5A">se etiqueta</text>
+<line x1="790" y1="682" x2="680" y2="682" stroke="#222" stroke-width="1.6"/>
+<line x1="782.0" y1="673.0" x2="782.0" y2="691.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="775.0" y1="673.0" x2="775.0" y2="691.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="696.0" y1="682.0" x2="680.0" y2="672.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="696.0" y1="682.0" x2="680.0" y2="682.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="696.0" y1="682.0" x2="680.0" y2="692.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<circle cx="706.0" cy="682.0" r="5.5" fill="#fff" stroke="#222" stroke-width="1.6"/>
+<line x1="910" y1="308" x2="910" y2="430" stroke="#222" stroke-width="1.6"/>
+<line x1="901.0" y1="316.0" x2="919.0" y2="316.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="901.0" y1="323.0" x2="919.0" y2="323.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="910.0" y1="414.0" x2="900.0" y2="430.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="910.0" y1="414.0" x2="910.0" y2="430.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="910.0" y1="414.0" x2="920.0" y2="430.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<circle cx="910.0" cy="404.0" r="5.5" fill="#fff" stroke="#222" stroke-width="1.6"/>
+<text x="922" y="374" text-anchor="start" font-size="12.5" font-style="italic" fill="#7A2E5A">apunta a</text>
+<line x1="910" y1="629" x2="910" y2="514" stroke="#222" stroke-width="1.6"/>
+<line x1="919.0" y1="621.0" x2="901.0" y2="621.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="919.0" y1="614.0" x2="901.0" y2="614.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="910.0" y1="530.0" x2="920.0" y2="514.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="910.0" y1="530.0" x2="910.0" y2="514.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="910.0" y1="530.0" x2="900.0" y2="514.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<circle cx="910.0" cy="540.0" r="5.5" fill="#fff" stroke="#222" stroke-width="1.6"/>
+<line x1="1130" y1="215" x2="1030" y2="215" stroke="#222" stroke-width="1.6"/>
+<line x1="1122.0" y1="206.0" x2="1122.0" y2="224.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="1115.0" y1="206.0" x2="1115.0" y2="224.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="1046.0" y1="215.0" x2="1030.0" y2="205.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="1046.0" y1="215.0" x2="1030.0" y2="215.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="1046.0" y1="215.0" x2="1030.0" y2="225.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="1052.0" y1="224.0" x2="1052.0" y2="206.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<text x="1080" y="205" text-anchor="middle" font-size="12.5" font-style="italic" fill="#7A2E5A">tiene</text>
+<line x1="1130" y1="268" x2="1030" y2="268" stroke="#222" stroke-width="1.6"/>
+<line x1="1122.0" y1="259.0" x2="1122.0" y2="277.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<circle cx="1109.0" cy="268.0" r="5.5" fill="#fff" stroke="#222" stroke-width="1.6"/>
+<line x1="1046.0" y1="268.0" x2="1030.0" y2="258.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="1046.0" y1="268.0" x2="1030.0" y2="268.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="1046.0" y1="268.0" x2="1030.0" y2="278.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<circle cx="1056.0" cy="268.0" r="5.5" fill="#fff" stroke="#222" stroke-width="1.6"/>
+<text x="1080" y="290" text-anchor="middle" font-size="12.5" font-style="italic" fill="#7A2E5A">lleva a</text>
+<line x1="1250" y1="638" x2="1250" y2="740" stroke="#222" stroke-width="1.6"/>
+<line x1="1241.0" y1="646.0" x2="1259.0" y2="646.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="1241.0" y1="653.0" x2="1259.0" y2="653.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="1250.0" y1="724.0" x2="1240.0" y2="740.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="1250.0" y1="724.0" x2="1250.0" y2="740.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="1250.0" y1="724.0" x2="1260.0" y2="740.0" stroke="#222" stroke-width="1.6" fill="none"/>
+<circle cx="1250.0" cy="714.0" r="5.5" fill="#fff" stroke="#222" stroke-width="1.6"/>
+<text x="1262" y="694" text-anchor="start" font-size="12.5" font-style="italic" fill="#7A2E5A">tiene</text>
+<rect x="440" y="790" width="590" height="120" rx="4" fill="#FAFAFA" stroke="#CCC"/>
+<text x="454" y="814" font-size="13" font-weight="bold" fill="#222">Cardinalidad (Crow's Foot)</text>
+<line x1="460" y1="845" x2="530" y2="845" stroke="#222" stroke-width="1.6"/>
+<line x1="530" y1="833" x2="530" y2="857" stroke="#999" stroke-width="2"/>
+<line x1="522" y1="836" x2="522" y2="854" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="515" y1="836" x2="515" y2="854" stroke="#222" stroke-width="1.6" fill="none"/>
+<text x="546" y="850" font-size="13" fill="#222">Exactamente uno</text>
+<line x1="750" y1="845" x2="820" y2="845" stroke="#222" stroke-width="1.6"/>
+<line x1="820" y1="833" x2="820" y2="857" stroke="#999" stroke-width="2"/>
+<line x1="812" y1="836" x2="812" y2="854" stroke="#222" stroke-width="1.6" fill="none"/>
+<circle cx="799" cy="845" r="5.5" fill="#fff" stroke="#222" stroke-width="1.6"/>
+<text x="836" y="850" font-size="13" fill="#222">Cero o uno</text>
+<line x1="460" y1="883" x2="530" y2="883" stroke="#222" stroke-width="1.6"/>
+<line x1="530" y1="871" x2="530" y2="895" stroke="#999" stroke-width="2"/>
+<line x1="514" y1="883" x2="530" y2="893" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="514" y1="883" x2="530" y2="883" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="514" y1="883" x2="530" y2="873" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="508" y1="874" x2="508" y2="892" stroke="#222" stroke-width="1.6" fill="none"/>
+<text x="546" y="888" font-size="13" fill="#222">Uno o muchos</text>
+<line x1="750" y1="883" x2="820" y2="883" stroke="#222" stroke-width="1.6"/>
+<line x1="820" y1="871" x2="820" y2="895" stroke="#999" stroke-width="2"/>
+<line x1="804" y1="883" x2="820" y2="893" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="804" y1="883" x2="820" y2="883" stroke="#222" stroke-width="1.6" fill="none"/>
+<line x1="804" y1="883" x2="820" y2="873" stroke="#222" stroke-width="1.6" fill="none"/>
+<circle cx="794" cy="883" r="5.5" fill="#fff" stroke="#222" stroke-width="1.6"/>
+<text x="836" y="888" font-size="13" fill="#222">Cero o muchos</text>
+</svg>
