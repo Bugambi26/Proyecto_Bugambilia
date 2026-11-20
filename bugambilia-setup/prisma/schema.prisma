@@ -1,0 +1,234 @@
+// Esquema de la base de datos de Bugambilia Hair Boutique.
+// Fuente: modelo de datos de CLAUDE.md (ER de la Fase 1) + restricciones de la Fase 5.
+// Convención: modelos y campos en español (PascalCase / camelCase); en PostgreSQL las
+// tablas y columnas quedan en snake_case, igual que en el diagrama ER.
+//
+// Restricciones que Prisma no expresa (CHECK e índice parcial) se agregan a mano en el
+// SQL de la primera migración:
+//   - producto.stock >= 0
+//   - producto.precio IS NULL OR producto.precio > 0
+//   - horario.dia_semana BETWEEN 1 AND 7
+//   - horario.hora_apertura < horario.hora_cierre
+//   - a lo más una pregunta con es_inicial = true (índice único parcial)
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql" // la URL de conexión vive en prisma7.config.ts
+}
+
+// ─────────────────────────────── Catálogo ───────────────────────────────
+
+// Etiquetas con acentos ("Bálsamo", "Crema para Peinar") se resuelven en el código.
+enum TipoProducto {
+  Shampoo
+  Mascarilla
+  Balsamo
+  Locion
+  CremaParaPeinar
+  Aceite
+}
+
+model Categoria {
+  id     Int     @id @default(autoincrement())
+  nombre String  @unique
+  lineas Linea[]
+
+  @@map("categoria")
+}
+
+model Linea {
+  id           Int        @id @default(autoincrement())
+  categoriaId  Int        @map("categoria_id")
+  nombre       String     @unique
+  nombreRitual String     @map("nombre_ritual")
+  descripcion  String
+  categoria    Categoria  @relation(fields: [categoriaId], references: [id], onDelete: Restrict)
+  productos    Producto[]
+
+  @@index([categoriaId])
+  @@map("linea")
+}
+
+// Baja = activo false; un producto nunca se borra. El orden de id sirve como
+// "orden del catálogo" para los empates del chatbot.
+model Producto {
+  id                        Int                 @id @default(autoincrement())
+  lineaId                   Int                 @map("linea_id")
+  nombre                    String
+  tipoProducto              TipoProducto        @map("tipo_producto")
+  ingredientesProtagonistas String              @map("ingredientes_protagonistas")
+  beneficioPrincipal        String              @map("beneficio_principal")
+  contenidoNeto             String?             @map("contenido_neto") // p. ej. "250 ml"
+  precio                    Decimal?            @db.Decimal(10, 2) // pesos
+  imagenUrl                 String?             @map("imagen_url") // Cloudinary; null = logo
+  stock                     Int                 @default(0)
+  activo                    Boolean             @default(true)
+  linea                     Linea               @relation(fields: [lineaId], references: [id], onDelete: Restrict)
+  necesidades               ProductoNecesidad[]
+
+  @@unique([lineaId, nombre]) // nombre único dentro de su línea
+  @@map("producto")
+}
+
+// ─────────────────────────────── Chatbot ────────────────────────────────
+
+model Necesidad {
+  id          Int                 @id @default(autoincrement())
+  nombre      String              @unique
+  descripcion String
+  productos   ProductoNecesidad[]
+  opciones    OpcionNecesidad[]
+
+  @@map("necesidad")
+}
+
+model ProductoNecesidad {
+  productoId  Int       @map("producto_id")
+  necesidadId Int       @map("necesidad_id")
+  producto    Producto  @relation(fields: [productoId], references: [id], onDelete: Cascade)
+  // Restrict: una necesidad ligada a productos no se puede eliminar.
+  necesidad   Necesidad @relation(fields: [necesidadId], references: [id], onDelete: Restrict)
+
+  @@id([productoId, necesidadId])
+  @@index([necesidadId])
+  @@map("producto_necesidad")
+}
+
+model Pregunta {
+  id        Int      @id @default(autoincrement())
+  texto     String
+  esInicial Boolean  @default(false) @map("es_inicial")
+  opciones  Opcion[] @relation("OpcionesDePregunta")
+  llegadas  Opcion[] @relation("PreguntaSiguiente") // opciones que apuntan a esta pregunta
+
+  @@map("pregunta")
+}
+
+model Opcion {
+  id                  Int               @id @default(autoincrement())
+  preguntaId          Int               @map("pregunta_id")
+  texto               String
+  preguntaSiguienteId Int?              @map("pregunta_siguiente_id") // null = fin del árbol
+  pregunta            Pregunta          @relation("OpcionesDePregunta", fields: [preguntaId], references: [id], onDelete: Cascade)
+  // Restrict: no se borra una pregunta a la que apunta una opción (regla 6 de la Fase 5).
+  preguntaSiguiente   Pregunta?         @relation("PreguntaSiguiente", fields: [preguntaSiguienteId], references: [id], onDelete: Restrict)
+  necesidades         OpcionNecesidad[]
+
+  @@index([preguntaId])
+  @@index([preguntaSiguienteId])
+  @@map("opcion")
+}
+
+model OpcionNecesidad {
+  opcionId    Int       @map("opcion_id")
+  necesidadId Int       @map("necesidad_id")
+  opcion      Opcion    @relation(fields: [opcionId], references: [id], onDelete: Cascade)
+  necesidad   Necesidad @relation(fields: [necesidadId], references: [id], onDelete: Restrict)
+
+  @@id([opcionId, necesidadId])
+  @@index([necesidadId])
+  @@map("opcion_necesidad")
+}
+
+// ────────────────────────────── Sucursales ──────────────────────────────
+
+enum TipoSucursal {
+  Propia
+  Tercero
+}
+
+model Sucursal {
+  id        Int          @id @default(autoincrement())
+  nombre    String       @unique
+  tipo      TipoSucursal
+  direccion String
+  latitud   Float
+  longitud  Float
+  telefono  String? // 10 dígitos, guardado como texto
+  whatsapp  String? // 10 dígitos; el enlace wa.me agrega el prefijo 52
+  fotoUrl   String?      @map("foto_url") // Cloudinary
+  horarios  Horario[]
+
+  @@map("sucursal")
+}
+
+// Un rango por día; un día sin renglón = "Cerrado".
+model Horario {
+  id           Int      @id @default(autoincrement())
+  sucursalId   Int      @map("sucursal_id")
+  diaSemana    Int      @map("dia_semana") // 1 = lunes … 7 = domingo
+  horaApertura String   @map("hora_apertura") // "HH:mm"
+  horaCierre   String   @map("hora_cierre") // "HH:mm"
+  sucursal     Sucursal @relation(fields: [sucursalId], references: [id], onDelete: Cascade)
+
+  @@unique([sucursalId, diaSemana])
+  @@map("horario")
+}
+
+// ────────────────── Better Auth (cubre ADMINISTRADOR del ER) ──────────────────
+// Tablas con los nombres que espera Better Auth; no se renombran.
+
+model User {
+  id            String    @id
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
