@@ -1,6 +1,7 @@
 # Configuración de despliegue en Netlify.
 # El proyecto Next.js vive en bugambilia-setup/; el resto del repo es documentación de la estadía.
-# Netlify detecta Next.js y usa su adaptador automáticamente.
+# El adaptador de Next.js se declara explícito (abajo): con el proyecto en una subcarpeta,
+# Netlify detecta Next.js pero no lo activa solo y publica .next como archivos sueltos (404).
 
 [build]
   base    = "bugambilia-setup"
@@ -9,6 +10,9 @@
 
 [build.environment]
   NODE_VERSION = "24"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 # Las migraciones NO se corren en el build: se aplican a mano con
 # `npx prisma migrate deploy` antes de subir cambios al esquema.
