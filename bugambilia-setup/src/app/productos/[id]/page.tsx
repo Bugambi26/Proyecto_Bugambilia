@@ -1,125 +1,124 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ImagenProducto } from "@/components/ImagenProducto";
-import { TarjetaProducto } from "@/components/TarjetaProducto";
-import { TIPOS_PRODUCTO, coloresDeLinea, formatearPrecio } from "@/lib/catalogo";
-import { CONTACTO } from "@/lib/contacto";
+import { aparienciaDeLinea, estiloLinea } from "@/lib/catalogo";
+import { ENLACE_ASISTENTE } from "@/lib/contacto";
 import { obtenerProducto } from "@/lib/datos-catalogo";
 
 type Params = PageProps<"/productos/[id]">["params"];
 
-async function productoDeParams(params: Params) {
+async function datosDeParams(params: Params) {
   const { id } = await params;
   const n = Number(id);
   return Number.isInteger(n) && n > 0 ? obtenerProducto(n) : null;
 }
 
 export async function generateMetadata({ params }: PageProps<"/productos/[id]">): Promise<Metadata> {
-  const p = await productoDeParams(params);
-  if (!p) return { title: "Producto no encontrado" };
-  return { title: `${p.nombre} · ${p.linea.nombreRitual}`, description: p.beneficioPrincipal };
+  const d = await datosDeParams(params);
+  if (!d) return { title: "Producto no disponible" };
+  return { title: `${d.producto.nombre} — ${d.producto.linea.nombreRitual}`, description: d.producto.beneficio };
 }
 
 export default function FichaProducto({ params }: PageProps<"/productos/[id]">) {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 md:py-14">
-      <Suspense fallback={<p className="text-center text-cafe">Cargando producto…</p>}>
-        <Ficha params={params} />
-      </Suspense>
-    </div>
+    <Suspense fallback={<div className="container section text">Cargando producto…</div>}>
+      <Ficha params={params} />
+    </Suspense>
   );
 }
 
 async function Ficha({ params }: { params: Params }) {
-  const p = await productoDeParams(params);
-  if (!p) notFound(); // inexistente o inactivo
+  const d = await datosDeParams(params);
+  if (!d) notFound(); // inexistente o dado de baja
 
-  const colores = coloresDeLinea(p.linea.nombreRitual);
-  const tipo = TIPOS_PRODUCTO[p.tipoProducto];
-  const precio = formatearPrecio(p.precio);
-  const agotado = p.stock === 0;
+  const { producto: p, otros } = d;
+  const l = p.linea;
+  const apariencia = aparienciaDeLinea(l.nombre);
 
   return (
-    <>
-      <nav aria-label="Ruta" className="text-sm text-cafe">
-        <Link href="/productos" className="hover:text-bugambilia">
-          Productos
-        </Link>
-        <span className="mx-2">/</span>
-        <Link href={`/productos?linea=${p.linea.id}`} className="hover:text-bugambilia">
-          {p.linea.nombreRitual}
-        </Link>
+    <div style={estiloLinea(l.nombre)}>
+      <nav className="container breadcrumb" aria-label="Ruta">
+        <Link href="/productos">Productos</Link> / <Link href={`/productos?linea=${l.id}`}>{l.nombre}</Link> /{" "}
+        <span>{p.nombre}</span>
       </nav>
 
-      <article className="mt-6 grid gap-8 md:grid-cols-2 md:gap-12">
+      <section className="container detail">
         <ImagenProducto
           imagenUrl={p.imagenUrl}
-          nombre={p.nombre}
-          colorFondo={colores.claro}
-          sizes="(min-width: 768px) 50vw, 100vw"
+          alt={`${p.nombre} — ${l.nombre}${p.contenidoNeto ? `, ${p.contenidoNeto}` : ""}`}
+          className="detail__img"
+          sizes="(min-width: 960px) 560px, 100vw"
           prioridad
         />
-
-        <div>
-          <p className="text-xs tracking-[0.2em] uppercase" style={{ color: colores.oscuro }}>
-            {p.linea.nombre} · {p.linea.nombreRitual}
-          </p>
-          <h1 className="mt-2 font-serif text-4xl leading-tight text-cafe-oscuro">{p.nombre}</h1>
-          <p className="mt-3 text-sm tracking-[0.12em] text-cafe uppercase">
-            {tipo.etiqueta} · {tipo.paso}
-          </p>
-
-          <p className="mt-6 text-lg leading-relaxed text-tinta">{p.beneficioPrincipal}</p>
-
-          <dl className="mt-8 divide-y divide-arena border-y border-arena text-sm">
-            <Dato termino="Ingredientes protagonistas">{p.ingredientesProtagonistas}</Dato>
-            {p.contenidoNeto && <Dato termino="Contenido neto">{p.contenidoNeto}</Dato>}
-            {precio && <Dato termino="Precio">{precio}</Dato>}
-            <Dato termino="Disponibilidad">
-              {agotado ? (
-                <span className="font-medium text-bugambilia">Agotado</span>
-              ) : (
-                <span style={{ color: colores.oscuro }}>Disponible</span>
-              )}
-            </Dato>
+        <div className="detail__info">
+          <span className="meta" style={{ fontSize: 13, color: "var(--l-ink, var(--muted))" }}>
+            {l.numerada.toUpperCase()} — {l.nombreRitual.toUpperCase()}
+          </span>
+          <h1 className="detail__title">{p.nombre}</h1>
+          <div className="row gap-16">
+            {p.precio && <span className="detail__price">{p.precio}</span>}
+            <span className={`badge${p.disponible ? "" : " badge--out"}`}>{p.disponible ? "Disponible" : "Agotado"}</span>
+          </div>
+          <p className="text">{l.descripcion}</p>
+          <dl className="specs">
+            {p.ingredientes && (
+              <div>
+                <dt>Ingrediente protagonista</dt>
+                <dd className="ingredient">
+                  {apariencia.ingImg && (
+                    <Image className="ph" src={apariencia.ingImg} alt="" width={72} height={72} />
+                  )}
+                  <span>{p.ingredientes}</span>
+                </dd>
+              </div>
+            )}
+            {p.contenidoNeto && (
+              <div>
+                <dt>Contenido neto</dt>
+                <dd>{p.contenidoNeto}</dd>
+              </div>
+            )}
+            <div className="specs__full">
+              <dt>Beneficio principal</dt>
+              <dd>{p.beneficio}</dd>
+            </div>
           </dl>
-
-          <a
-            href={CONTACTO.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-block rounded-full bg-bugambilia px-8 py-3 text-sm tracking-[0.14em] text-crema uppercase transition-opacity hover:opacity-90"
-          >
-            Pregúntanos por WhatsApp
-          </a>
+          <div className="row gap-12">
+            <Link href="/sucursales" className="btn btn--primary">
+              Dónde comprarlo
+            </Link>
+            <a href={ENLACE_ASISTENTE} className="btn" target="_blank" rel="noopener noreferrer">
+              ¿Es para mí? Pregunta al asistente
+            </a>
+          </div>
+          <p className="note">Sin carrito ni pagos: la compra se hace en la estética o en el punto de venta.</p>
         </div>
-      </article>
+      </section>
 
-      {p.otros.length > 0 && (
-        <section aria-labelledby="completa-ritual" className="mt-16">
-          <h2 id="completa-ritual" className="font-serif text-2xl text-cafe-oscuro">
-            Completa tu {p.linea.nombreRitual}
-          </h2>
-          <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
-            {p.otros.map((o) => (
-              <li key={o.id}>
-                <TarjetaProducto producto={o} colores={colores} />
-              </li>
-            ))}
-          </ul>
+      {otros.length > 0 && (
+        <section className="section section--alt" style={{ paddingTop: 56, paddingBottom: 56 }}>
+          <div className="container stack gap-24">
+            <div className="stack gap-10">
+              <span className="lbl">Productos de la misma línea</span>
+              <h2 className="title-sm">Completa tu {l.nombreRitual}</h2>
+            </div>
+            <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
+              {otros.map((o) => (
+                <Link key={o.id} href={`/productos/${o.id}`} className="card related-card">
+                  <ImagenProducto imagenUrl={o.imagenUrl} sizes="96px" />
+                  <div className="stack" style={{ gap: 4 }}>
+                    <span style={{ fontSize: 17, fontWeight: 700 }}>{o.nombre}</span>
+                    <span className="small">{o.precio ? `${o.precio} · Ver detalle` : "Ver detalle"}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </section>
       )}
-    </>
-  );
-}
-
-function Dato({ termino, children }: { termino: string; children: React.ReactNode }) {
-  return (
-    <div className="flex justify-between gap-6 py-3">
-      <dt className="text-cafe">{termino}</dt>
-      <dd className="text-right text-tinta">{children}</dd>
     </div>
   );
 }

@@ -64,15 +64,17 @@ Restricciones de la Fase 5 (no cambian el ER):
 
 ## Catálogo (datos del seed)
 
+**Fuente actual (21 nov 2026): los mockups aprobados con la dueña** (`../bugambilia-wireframes-html/js/data.js`), tomados de las etiquetas reales. Sustituyen al catálogo de 6 líneas / 20 productos de la Fase 4.
+
 - 1 categoría con productos: **Capilares**. "Faciales" son servicios, no productos.
-- 6 líneas y 20 productos: ver `docs/catalogo-productos-y-servicios-bugambilia.md`.
-- Beneficio principal de cada producto (validado por la clienta) y etiquetado: ver `docs/fase-4-motor-chatbot.md`.
-- Sucursales: **Estética Bugambilia** (propia) y **Kokoro** (tercero). Dirección, coordenadas, teléfono y horario aún no están en `docs/`: usa valores de ejemplo marcados con `// TODO: dato real de la clienta`.
-- Precios, contenido neto e imágenes: pendientes. Sin imagen se muestra el logo.
+- **7 líneas y 21 productos** (3 por línea): Rubios Perfectos (Blonde Ritual), Cobres Brillantes (Copper Ritual), Hidratación (Hydra Ritual), Reestructurante (Repair Ritual), Crecimiento (Growth Ritual), Cotton Candy (**Sweet Ritual**), **Kit Antioxidante**. Nombres, beneficios, ingredientes por línea y descripciones: ver `prisma/seed.ts`.
+- Contenido neto: 250 ml en todos. Fotos de producto en `public/img/productos/` (el seed guarda la ruta en `imagen_url`; las que suba el panel van a Cloudinary).
+- Pendientes: precios, ingrediente protagonista del Kit Antioxidante (vacío = no se muestra), servicios capilares, fotos del equipo/espacio y antes/después de faciales.
+- Sucursales: **Estética Bugambilia** (propia) y **Kokoro** (tercero, con foto). Dirección, coordenadas, teléfono y horario aún no están: valores de ejemplo marcados con `// TODO: dato real de la clienta`.
 
 ## Chatbot (Fase 4)
 
-**Necesidades (6):** cabello-rubio, cabello-cobrizo, hidratacion, reparacion, crecimiento, cuidado-integral. Cada producto lleva la necesidad de su línea; los 5 de Cotton Candy llevan además `hidratacion` (25 relaciones).
+**Necesidades (6):** cabello-rubio, cabello-cobrizo, hidratacion, reparacion, crecimiento, cuidado-integral. Cada producto lleva **una** necesidad, la de su línea (21 relaciones): Blonde → cabello-rubio, Copper → cabello-cobrizo, Hydra → hidratacion, Repair → reparacion, Growth → crecimiento, **Cotton Candy → hidratacion**, **Kit Antioxidante → cuidado-integral**. Las dos últimas son la propuesta según el mockup (`n3` / `n6`): **pendiente de confirmar con la clienta**.
 
 **Árbol (2 preguntas):**
 - P1 (inicial) "¿De qué tono es tu cabello?": Rubio → cabello-rubio; Cobrizo → cabello-cobrizo; Otro tono → (ninguna). Todas llevan a P2.
@@ -86,7 +88,7 @@ Restricciones de la Fase 5 (no cambian el ER):
 5. Máximo **2 rituales**.
 6. Dentro del ritual, orden de rutina por `tipo_producto`: limpieza (Shampoo) → tratamiento (Mascarilla, Balsamo, Locion) → finalización (CremaParaPeinar, Aceite); empates por orden del catálogo.
 
-Casos esperados: Rubio+Reparación → Blonde + Repair; Rubio+Hidratación → Blonde + Hydra; Otro+Hidratación → Hydra + Cotton Candy; Cobrizo+Otra → Copper; Otro+Otra → cita de diagnóstico.
+Casos esperados (catálogo de 21 productos): Rubio+Reparación → Blonde + Repair; Rubio+Hidratación → Blonde + Hydra (Hydra y Cotton Candy empatan en especificidad; gana el orden del catálogo); Otro+Hidratación → Hydra + Cotton Candy; Otro+Rutina completa → Kit Antioxidante; Cobrizo+Otra → Copper; Otro+Otra → cita de diagnóstico.
 
 **Redacción:** `generateObject` con esquema `{ introduccion, rituales: [{ id_linea, mensaje }] }`. Gemini solo escribe esos textos; las tarjetas de producto (nombre, beneficio, enlace) y la firma "Tu cabello. Tu ritual. Tu Bugambilia." las arma el código. Si los `id_linea` no coinciden (mismos y en el mismo orden), si Gemini falla, rebasa su límite o tarda más de 8 s → plantilla de respaldo. Prompt de sistema completo en `docs/fase-4-motor-chatbot.md`. Temperatura inicial 0.4, ~400 tokens. Solo se envían datos públicos del catálogo. Growth Ritual: nunca prometer resultados ni plazos de crecimiento.
 
@@ -117,4 +119,10 @@ Si el panel ABC no termina en S13, se termina antes de los extras. Una pieza est
 
 ## Identidad y tono del sitio
 
-Identidad visual ya definida por la clienta (logo, colores, tipografía). Mensaje: lujo accesible, experiencia profesional, feminidad sofisticada; evitar lo clínico o genérico. Firma: "Tu cabello. Tu ritual. Tu Bugambilia." El chatbot habla de tú.
+**El diseño está decidido con la dueña: seguir exactamente los mockups** de `../bugambilia-wireframes-html/` (sitio público y panel). El CSS del sitio público está portado tal cual en `src/app/bugambilia.css` con los mismos nombres de clase; no se usa Tailwind en el sitio público. Tipografías: Cormorant Garamond (títulos) + Jost (texto), locales en `src/app/fuentes/`. Colores, foto e ingrediente por línea: `src/lib/catalogo.ts`. El panel debe seguir `admin/*.html` y `css/admin.css` del mockup.
+
+Datos que faltan: no se muestran placeholders como "[Precio]"; si un dato no existe, se oculta. Los botones del asistente ("Encuentra tu ritual", burbuja) llevan temporalmente al DM de Instagram hasta que exista el chatbot (S14): `ENLACE_ASISTENTE` en `src/lib/contacto.ts`.
+
+Mensaje: lujo accesible, experiencia profesional, feminidad sofisticada; evitar lo clínico o genérico. Firma: "Tu cabello. Tu ritual. Tu Bugambilia." El chatbot habla de tú.
+
+Next 16 tiene `cacheComponents` activo: toda consulta a la base va en un componente async con `await connection()` dentro de `<Suspense>` (ver `src/lib/datos-catalogo.ts`).

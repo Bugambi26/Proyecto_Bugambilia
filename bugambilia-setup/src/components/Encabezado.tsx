@@ -1,32 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../public/logo-bugambilia.png";
+import { Suspense } from "react";
+import { EnlacesMenu } from "@/components/EnlacesMenu";
 
-// Servicios y Sucursales se agregan al menú cuando existan sus páginas.
-const ENLACES = [
-  { href: "/", texto: "Inicio" },
-  { href: "/productos", texto: "Productos" },
-] as const;
-
+// Encabezado del mockup (igual en todas las páginas públicas). Los enlaces leen la ruta
+// actual para marcar la página activa; con Cache Components eso va dentro de <Suspense>
+// (mientras, se muestran los mismos enlaces sin marcar).
 export function Encabezado() {
   return (
-    <header className="border-b border-arena bg-crema/95">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link href="/" aria-label="Bugambilia Hair Boutique, inicio">
-          <Image src={logo} alt="Bugambilia Hair Boutique" priority className="h-11 w-auto sm:h-14" />
+    <header className="site-header">
+      <nav className="container nav" aria-label="Principal">
+        <Link href="/" className="nav__logo">
+          <Image className="logo" src="/img/logo.webp" alt="Bugambilia Hair Boutique — inicio" width={128} height={60} priority />
         </Link>
-        <nav aria-label="Principal">
-          <ul className="flex gap-5 text-sm tracking-[0.12em] uppercase sm:gap-8">
-            {ENLACES.map((e) => (
-              <li key={e.href}>
-                <Link href={e.href} className="text-cafe-oscuro transition-colors hover:text-bugambilia">
-                  {e.texto}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+        <Suspense fallback={<EnlacesMenu ruta={null} />}>
+          <EnlacesMenu />
+        </Suspense>
+      </nav>
     </header>
   );
 }

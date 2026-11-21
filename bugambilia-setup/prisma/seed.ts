@@ -1,5 +1,5 @@
 // Seed de Bugambilia Hair Boutique.
-// Fuentes: docs/catalogo-productos-y-servicios-bugambilia.md y docs/fase-4-motor-chatbot.md.
+// Fuentes: catálogo de los mockups aprobados (bugambilia-wireframes-html) y docs/fase-4-motor-chatbot.md.
 //
 // Se puede correr varias veces sin duplicar nada: SOLO CREA LO QUE FALTA y nunca
 // sobrescribe datos existentes (stock, precios o imágenes que la dueña ya capturó).
@@ -37,73 +37,56 @@ const NECESIDADES = {
 type ClaveNecesidad = keyof typeof NECESIDADES;
 
 // ─────────────────────────────── Catálogo ───────────────────────────────
+// Fuente: mockups aprobados con la dueña (bugambilia-wireframes-html/js/data.js), tomados
+// de las etiquetas reales: 7 líneas y 21 productos. Reemplaza a la versión de 6 líneas y
+// 20 productos de la Fase 4.
 // El orden de este arreglo es el "orden del catálogo" (desempate del chatbot).
 
 type ProductoSeed = {
   nombre: string;
   tipo: TipoProducto;
-  ingredientes?: string; // si falta, se usan los de la línea
   beneficio: string;
+  imagen: string; // archivo en public/img/productos/
 };
 
 type LineaSeed = {
   nombre: string;
   ritual: string;
   descripcion: string;
-  ingredientes: string;
+  ingredientes: string; // definidos por línea en las etiquetas
+  // TODO: confirmar con la clienta el etiquetado de Cotton Candy y Kit Antioxidante (propuesto
+  // según el mockup: Cotton Candy → hidratación; Kit Antioxidante → cuidado integral).
   necesidades: ClaveNecesidad[];
   productos: ProductoSeed[];
 };
+
+const CONTENIDO_NETO = "250 ml"; // igual en las 21 etiquetas
 
 const LINEAS: LineaSeed[] = [
   {
     nombre: "Rubios Perfectos",
     ritual: "Blonde Ritual",
     descripcion:
-      "Línea especializada en el mantenimiento y cuidado de cabellos rubios, para conservar una apariencia luminosa, brillante y tonalmente equilibrada.",
+      "Línea especializada en el mantenimiento y cuidado de cabellos rubios, ayudando a conservar una apariencia luminosa, brillante y tonalmente equilibrada.",
     ingredientes: "Aceite de pepita de uva",
     necesidades: ["rubio"],
     productos: [
-      {
-        nombre: "Shampoo Matizante",
-        tipo: TipoProducto.Shampoo,
-        beneficio: "Limpia el cabello rubio y ayuda a mantener un tono equilibrado.",
-      },
-      {
-        nombre: "Mascarilla Matizante",
-        tipo: TipoProducto.Mascarilla,
-        beneficio: "Tratamiento para cabello rubio que ayuda a conservar un tono equilibrado y luminoso.",
-      },
-      {
-        nombre: "Crema para Peinar Antioxidante",
-        tipo: TipoProducto.CremaParaPeinar,
-        beneficio: "Finaliza el peinado del cabello rubio con un acabado luminoso y brillante.",
-      },
+      { nombre: "Shampoo Matizante", tipo: TipoProducto.Shampoo, beneficio: "Neutraliza, limpia y protege el tono.", imagen: "shampoo-matizante" },
+      { nombre: "Mascarilla Matizante", tipo: TipoProducto.Mascarilla, beneficio: "Matiza, repara y da brillo.", imagen: "mascarilla-matizante" },
+      { nombre: "Crema para Peinar Antioxidante", tipo: TipoProducto.CremaParaPeinar, beneficio: "Protege el color y facilita el peinado.", imagen: "crema-antioxidante-rubios" },
     ],
   },
   {
     nombre: "Cobres Brillantes",
     ritual: "Copper Ritual",
     descripcion:
-      "Cuidado y mantenimiento de tonos cobrizos, para conservar intensidad, brillo y una apariencia saludable.",
+      "Línea diseñada para el cuidado y mantenimiento de tonos cobrizos, buscando conservar intensidad, brillo y una apariencia saludable.",
     ingredientes: "Cacao",
     necesidades: ["cobrizo"],
     productos: [
-      {
-        nombre: "Shampoo Cobre",
-        tipo: TipoProducto.Shampoo,
-        beneficio: "Limpia el cabello cobrizo y ayuda a conservar la intensidad de su tono.",
-      },
-      {
-        nombre: "Bálsamo Hidratante",
-        tipo: TipoProducto.Balsamo,
-        beneficio: "Tratamiento hidratante para mantener el brillo y la apariencia saludable del cabello cobrizo.",
-      },
-      {
-        nombre: "Crema para Peinar",
-        tipo: TipoProducto.CremaParaPeinar,
-        beneficio: "Finaliza el peinado del cabello cobrizo con un acabado brillante y de aspecto saludable.",
-      },
+      { nombre: "Shampoo Cobre", tipo: TipoProducto.Shampoo, beneficio: "Limpia, intensifica y realza el tono.", imagen: "shampoo-cobre" },
+      { nombre: "Bálsamo Hidratante", tipo: TipoProducto.Balsamo, beneficio: "Nutre, suaviza y da brillo.", imagen: "balsamo-cobres" },
+      { nombre: "Crema para Peinar", tipo: TipoProducto.CremaParaPeinar, beneficio: "Define, controla y protege el color.", imagen: "crema-cobres" },
     ],
   },
   {
@@ -114,110 +97,60 @@ const LINEAS: LineaSeed[] = [
     ingredientes: "Aloe vera + sangre de grado",
     necesidades: ["hidratacion"],
     productos: [
-      {
-        nombre: "Shampoo Hidratante",
-        tipo: TipoProducto.Shampoo,
-        beneficio: "Limpia el cabello mientras ayuda a recuperar su suavidad.",
-      },
-      {
-        nombre: "Bálsamo Hidratante",
-        tipo: TipoProducto.Balsamo,
-        beneficio: "Tratamiento que aporta nutrición y suavidad al cabello.",
-      },
-      {
-        nombre: "Crema para Peinar",
-        tipo: TipoProducto.CremaParaPeinar,
-        beneficio: "Finaliza el peinado con un cabello suave y luminoso.",
-      },
+      { nombre: "Shampoo Hidratante", tipo: TipoProducto.Shampoo, beneficio: "Limpieza suave y nutritiva.", imagen: "shampoo-hidratante" },
+      { nombre: "Bálsamo Hidratante", tipo: TipoProducto.Balsamo, beneficio: "Suavidad, nutrición y brillo.", imagen: "balsamo-hidratacion" },
+      { nombre: "Crema para Peinar", tipo: TipoProducto.CremaParaPeinar, beneficio: "Hidratación, control y suavidad.", imagen: "crema-hidratacion" },
     ],
   },
   {
     nombre: "Reestructurante",
     ritual: "Repair Ritual",
     descripcion: "Ritual especializado para cabello sensibilizado, procesado o que necesita un cuidado intensivo.",
-    ingredientes: "", // Repair define el ingrediente por producto
+    ingredientes: "Ácido hialurónico, células madre, colágeno",
     necesidades: ["reparacion"],
     productos: [
-      {
-        nombre: "Shampoo con Ácido Hialurónico",
-        tipo: TipoProducto.Shampoo,
-        ingredientes: "Ácido hialurónico",
-        beneficio: "Limpieza pensada para cabello sensibilizado o procesado.",
-      },
-      {
-        nombre: "Bálsamo con Células Madre",
-        tipo: TipoProducto.Balsamo,
-        ingredientes: "Células madre",
-        beneficio: "Tratamiento de cuidado intensivo para cabello sensibilizado o procesado.",
-      },
-      {
-        nombre: "Crema para Peinar con Colágeno + Tres Aceites",
-        tipo: TipoProducto.CremaParaPeinar,
-        ingredientes: "Colágeno + mezcla de tres aceites",
-        beneficio: "Finaliza el peinado del cabello procesado como parte de su ritual de cuidado intensivo.",
-      },
+      { nombre: "Shampoo Ácido Hialurónico", tipo: TipoProducto.Shampoo, beneficio: "Limpia y fortalece la fibra capilar.", imagen: "shampoo-hialuronico" },
+      { nombre: "Bálsamo Células Madre", tipo: TipoProducto.Balsamo, beneficio: "Repara, nutre y revitaliza.", imagen: "balsamo-celulas-madre" },
+      { nombre: "Crema para Peinar Colágeno", tipo: TipoProducto.CremaParaPeinar, beneficio: "Protección, control y movimiento.", imagen: "crema-colageno" },
     ],
   },
   {
     nombre: "Crecimiento",
     ritual: "Growth Ritual",
     descripcion:
-      "Línea enfocada en el cuidado del cuero cabelludo y en rutinas orientadas al crecimiento y fortalecimiento del cabello.",
-    ingredientes: "Minoxidil + bergamota + otros activos",
+      "Una combinación de activos naturales que estimulan el crecimiento, fortalecen la raíz y mantienen un cabello más fuerte, sano y abundante.",
+    ingredientes: "Romero, jengibre y biotina",
     necesidades: ["crecimiento"],
     productos: [
-      {
-        nombre: "Shampoo",
-        tipo: TipoProducto.Shampoo,
-        beneficio:
-          "Limpia el cuero cabelludo como primer paso de una rutina orientada al crecimiento y fortalecimiento del cabello.",
-      },
-      {
-        nombre: "Loción",
-        tipo: TipoProducto.Locion,
-        beneficio: "Tratamiento para el cuero cabelludo, orientado al crecimiento y fortalecimiento del cabello.",
-      },
-      {
-        nombre: "Aceite",
-        tipo: TipoProducto.Aceite,
-        beneficio:
-          "Tratamiento para el cuero cabelludo que complementa la rutina de crecimiento y fortalecimiento del cabello.",
-      },
+      { nombre: "Shampoo Estimulante", tipo: TipoProducto.Shampoo, beneficio: "Limpia, activa y fortalece la raíz.", imagen: "shampoo-estimulante" },
+      { nombre: "Bálsamo Fortalecedor", tipo: TipoProducto.Balsamo, beneficio: "Nutre, desenreda y da cuerpo.", imagen: "balsamo-fortalecedor" },
+      { nombre: "Loción Activadora", tipo: TipoProducto.Locion, beneficio: "Estimula el crecimiento y reduce la caída.", imagen: "locion-activadora" },
     ],
   },
   {
     nombre: "Cotton Candy",
-    ritual: "The Complete Hair Ritual",
+    ritual: "Sweet Ritual",
     descripcion:
-      "La línea más amplia de Bugambilia. Ritual integral que combina antioxidantes, hidratación, colágeno y elastina para una experiencia completa de cuidado, desde la limpieza hasta el tratamiento y la finalización del cabello.",
-    ingredientes: "Antioxidantes + hidratación + colágeno + elastina",
-    necesidades: ["integral", "hidratacion"],
+      "Una fórmula inspirada en la suavidad del algodón y la calidez de la vainilla, que envuelve tu cabello en un aroma irresistible, dejándolo suave, brillante y lleno de vida.",
+    ingredientes: "Extracto de vainilla y algodón",
+    necesidades: ["hidratacion"],
     productos: [
-      {
-        nombre: "Shampoo",
-        tipo: TipoProducto.Shampoo,
-        beneficio: "Primer paso del ritual integral: limpieza del cabello.",
-      },
-      {
-        nombre: "Mascarilla",
-        tipo: TipoProducto.Mascarilla,
-        beneficio: "Tratamiento del ritual integral con antioxidantes, hidratación, colágeno y elastina.",
-      },
-      {
-        nombre: "Bálsamo",
-        tipo: TipoProducto.Balsamo,
-        beneficio: "Tratamiento del ritual integral para un cabello cuidado y nutrido.",
-      },
-      {
-        nombre: "Crema para Peinar",
-        tipo: TipoProducto.CremaParaPeinar,
-        beneficio: "Finalización del ritual integral para un acabado cuidado.",
-      },
-      {
-        nombre: "Aceite",
-        tipo: TipoProducto.Aceite,
-        beneficio: "Último paso del ritual integral: finalización del cabello.",
-      },
+      { nombre: "Shampoo Suavizante", tipo: TipoProducto.Shampoo, beneficio: "Limpia delicadamente y deja un cabello suave y sedoso.", imagen: "shampoo-suavizante" },
+      { nombre: "Bálsamo Acondicionador", tipo: TipoProducto.Balsamo, beneficio: "Desenreda, hidrata y da brillo.", imagen: "balsamo-acondicionador" },
+      { nombre: "Crema para Peinar Control y Suavidad", tipo: TipoProducto.CremaParaPeinar, beneficio: "Facilita el peinado, controla el frizz y deja un acabado sedoso.", imagen: "crema-control-suavidad" },
+    ],
+  },
+  {
+    nombre: "Kit Antioxidante",
+    ritual: "Kit Antioxidante",
+    descripcion:
+      "Una rutina completa para devolverle vida a tu cabello: elimina la acumulación de minerales, prepara el cabello para recibir mejor los nutrientes y potencia los resultados de tu rutina de cuidado.",
+    ingredientes: "", // TODO: ingrediente protagonista (pendiente con la clienta); vacío = no se muestra
+    necesidades: ["integral"],
+    productos: [
+      { nombre: "Shampoo Antioxidante", tipo: TipoProducto.Shampoo, beneficio: "Limpieza profunda y protección.", imagen: "shampoo-antioxidante" },
+      { nombre: "Bálsamo Antioxidante", tipo: TipoProducto.Balsamo, beneficio: "Suavidad, nutrición y brillo.", imagen: "balsamo-antioxidante" },
+      { nombre: "Crema para Peinar Antioxidante", tipo: TipoProducto.CremaParaPeinar, beneficio: "Protección, control y movimiento.", imagen: "crema-antioxidante" },
     ],
   },
 ];
@@ -272,6 +205,7 @@ const SUCURSALES = [
     longitud: -102.2869, // TODO: dato real de la clienta
     telefono: null, // TODO: dato real de la clienta
     whatsapp: null, // TODO: dato real de la clienta
+    fotoUrl: "/img/sucursales/kokoro.webp", // foto del mockup
   },
 ];
 
@@ -308,8 +242,10 @@ async function sembrarCatalogo(necesidadIds: Record<ClaveNecesidad, number>) {
           lineaId: linea.id,
           nombre: p.nombre,
           tipoProducto: p.tipo,
-          ingredientesProtagonistas: p.ingredientes ?? l.ingredientes,
+          ingredientesProtagonistas: l.ingredientes,
           beneficioPrincipal: p.beneficio,
+          contenidoNeto: CONTENIDO_NETO,
+          imagenUrl: `/img/productos/${p.imagen}.webp`, // fotos del mockup; las nuevas van a Cloudinary
           stock: 0, // la dueña captura el inventario real desde el panel
         },
       });

@@ -1,27 +1,33 @@
 import Image from "next/image";
-import logo from "../../public/logo-bugambilia.png";
+import Link from "next/link";
 import { CONTACTO, FIRMA } from "@/lib/contacto";
 
+// Pie de página del mockup (igual en todas las páginas públicas).
 export function PiePagina() {
   return (
-    <footer className="mt-20 bg-cafe-oscuro text-crema">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-12 text-center sm:px-6">
-        {/* El logo es café oscuro: se vuelve claro sobre el fondo del pie. */}
-        <Image src={logo} alt="Bugambilia Hair Boutique" className="h-14 w-auto opacity-90 brightness-0 invert" />
-        <p className="font-serif text-xl italic">{FIRMA}</p>
-        <ul className="flex gap-6 text-sm tracking-[0.12em] uppercase">
-          <li>
-            <a href={CONTACTO.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-oro">
-              Instagram
-            </a>
-          </li>
-          <li>
-            <a href={CONTACTO.whatsapp} target="_blank" rel="noopener noreferrer" className="hover:text-oro">
-              WhatsApp
-            </a>
-          </li>
-        </ul>
-        <p className="text-xs text-arena/80">Bugambilia Hair Boutique · Aguascalientes</p>
+    <footer className="site-footer">
+      <div className="container site-footer__inner">
+        <div className="stack gap-12">
+          <Image className="logo" src="/img/logo-blanco.webp" alt="Bugambilia Hair Boutique" width={115} height={54} />
+          <span>{FIRMA}</span>
+        </div>
+        <nav className="stack gap-8" aria-label="Pie de página">
+          <Link href="/productos">Productos</Link>
+          <Link href="/sucursales">Sucursales</Link>
+          <a href={CONTACTO.instagram} target="_blank" rel="noopener noreferrer">
+            Instagram
+          </a>
+        </nav>
+        <div className="stack gap-8">
+          {/* TODO: teléfono real de la clienta (mientras, solo WhatsApp). */}
+          <a href={CONTACTO.whatsapp} target="_blank" rel="noopener noreferrer">
+            WhatsApp
+          </a>
+          {/* La ruta del panel la define Miguelinchis en la S13. */}
+          <Link href="/admin" className="muted-link">
+            Acceso administrador
+          </Link>
+        </div>
       </div>
     </footer>
   );

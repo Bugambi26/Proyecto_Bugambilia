@@ -1,99 +1,224 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { coloresDeLinea } from "@/lib/catalogo";
-import { CONTACTO, FIRMA } from "@/lib/contacto";
-import { obtenerLineas } from "@/lib/datos-catalogo";
+import { PestanasServicios } from "@/components/PestanasServicios";
+import { aparienciaDeLinea, estiloLinea } from "@/lib/catalogo";
+import { CONTACTO, ENLACE_ASISTENTE, FIRMA } from "@/lib/contacto";
+import { obtenerLineasConProductos, obtenerSucursales } from "@/lib/datos-catalogo";
+import { diaDeHoy, formatoHorario } from "@/lib/horarios";
+
+const VERBOS = ["Limpia", "Hidrata", "Nutre", "Protege", "Desenreda", "Suaviza", "Realza"];
 
 export default function Inicio() {
   return (
     <>
-      {/* Portada */}
-      <section className="mx-auto max-w-6xl px-4 pt-16 pb-20 text-center sm:px-6 sm:pt-24">
-        <p className="text-xs tracking-[0.3em] text-cafe uppercase">Hair Boutique · Aguascalientes</p>
-        <h1 className="mx-auto mt-6 max-w-3xl font-serif text-4xl leading-tight text-balance text-cafe-oscuro sm:text-6xl">
-          {FIRMA}
-        </h1>
-        <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-cafe">
-          Rituales de cuidado capilar profesional, creados desde la experiencia de salón.
-        </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link
-            href="/productos"
-            className="rounded-full bg-bugambilia px-8 py-3 text-sm tracking-[0.14em] text-crema uppercase transition-opacity hover:opacity-90"
-          >
-            Descubre los rituales
-          </Link>
-          <a
-            href={CONTACTO.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-cafe-oscuro px-8 py-3 text-sm tracking-[0.14em] text-cafe-oscuro uppercase transition-colors hover:bg-cafe-oscuro hover:text-crema"
-          >
-            Escríbenos
-          </a>
+      {/* ===== Hero ===== */}
+      <section className="hero">
+        <div className="container split">
+          <div className="stack gap-20">
+            <span className="lbl">Professional Hair Care</span>
+            <h1 className="title-xl">Bugambilia Hair Boutique</h1>
+            <p className="lead">{FIRMA}</p>
+            {/* TODO: frase breve de bienvenida (texto de la clienta). */}
+            <div className="row gap-12">
+              <Link href="/productos" className="btn btn--primary">
+                Ver productos
+              </Link>
+              <a href={ENLACE_ASISTENTE} className="btn" target="_blank" rel="noopener noreferrer">
+                Encuentra tu ritual
+              </a>
+            </div>
+          </div>
+          <Image
+            className="ph hero__img"
+            src="/img/hero.webp"
+            alt="Las siete líneas de cuidado capilar Bugambilia sobre piedra, rodeadas de bugambilias"
+            width={1448}
+            height={1086}
+            sizes="(min-width: 960px) 560px, 100vw"
+            priority
+          />
         </div>
       </section>
 
-      {/* Quiénes somos */}
-      <section className="bg-arena/60">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 md:grid-cols-[1fr_2fr] md:py-20">
-          <h2 className="font-serif text-3xl text-cafe-oscuro">Quiénes somos</h2>
-          {/* TODO: texto real de la clienta (texto provisional con datos del catálogo). */}
-          <div className="space-y-4 text-lg leading-relaxed text-cafe">
-            <p>
+      {/* ===== Cinta decorativa (verbos de los pósters de la marca) ===== */}
+      <div className="ribbon" aria-hidden="true">
+        <div className="ribbon__track">
+          {[...VERBOS, ...VERBOS].map((v, i) => (
+            <span key={i}>{v}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* ===== Sobre Bugambilia (contenido fijo) ===== */}
+      <section className="section section--alt" aria-labelledby="t-sobre">
+        <div className="container split">
+          <div className="about__imgs">
+            {/* TODO: fotos del equipo y del espacio (pendientes con la clienta). */}
+            <div className="ph" role="img" aria-label="Foto del equipo">
+              Foto del equipo
+            </div>
+            <div className="ph" role="img" aria-label="Foto del espacio">
+              Foto del espacio
+            </div>
+          </div>
+          <div className="stack gap-16">
+            <span className="lbl">Nuestra esencia</span>
+            <h2 id="t-sobre" className="title-md">
+              Sobre Bugambilia
+            </h2>
+            {/* TODO: historia y misión (texto de la clienta). Texto provisional con datos del catálogo. */}
+            <p className="text">
               Bugambilia Hair Boutique es una estética en Aguascalientes dedicada al cuidado del cabello y de la
               piel, con la experiencia de salón como punto de partida.
             </p>
-            <p>
-              De esa experiencia nace la Línea Bugambilia · Professional Hair Care: una colección de rituales
-              especializados que atienden distintas necesidades del cabello, desde la limpieza hasta el
-              tratamiento y la finalización.
+            <p className="text">
+              De esa experiencia nace la Línea Bugambilia · Professional Hair Care: rituales especializados que
+              atienden distintas necesidades del cabello.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Rituales */}
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
-        <div className="text-center">
-          <p className="text-xs tracking-[0.3em] text-cafe uppercase">Línea Bugambilia</p>
-          <h2 className="mt-3 font-serif text-3xl text-cafe-oscuro sm:text-4xl">Un ritual para cada cabello</h2>
+      {/* ===== Servicios (promocional, contenido fijo) ===== */}
+      <section id="servicios" className="section" aria-labelledby="t-servicios">
+        <div className="container stack gap-28">
+          <div className="stack gap-10">
+            <span className="lbl">Servicios</span>
+            <h2 id="t-servicios" className="title-md">
+              Nuestros servicios
+            </h2>
+            <p className="text" style={{ lineHeight: "normal" }}>
+              Cada piel tiene necesidades diferentes. Piel limpia. Piel cuidada. Piel luminosa.
+            </p>
+          </div>
+          <PestanasServicios />
+          <div className="row gap-16">
+            <p style={{ fontSize: 16 }}>¿Quieres un tratamiento personalizado?</p>
+            <a href={CONTACTO.instagramMensaje} className="btn" target="_blank" rel="noopener noreferrer">
+              Agenda tu diagnóstico en Instagram
+            </a>
+          </div>
         </div>
-        <Suspense fallback={<p className="mt-10 text-center text-cafe">Cargando rituales…</p>}>
-          <Rituales />
-        </Suspense>
+      </section>
+
+      {/* ===== Línea Bugambilia ===== */}
+      <section className="section section--alt" aria-labelledby="t-lineas">
+        <div className="container stack gap-28">
+          <Suspense fallback={<EncabezadoLineas total={null} />}>
+            <Lineas />
+          </Suspense>
+        </div>
+      </section>
+
+      {/* ===== Llamado al chatbot ===== */}
+      <section className="section">
+        <div className="container">
+          <div className="callout">
+            <div className="stack gap-8" style={{ flex: "1 1 420px" }}>
+              <span className="lbl">Asistente Bugambilia</span>
+              <h2 className="title-sm">¿No sabes qué producto elegir?</h2>
+              <p style={{ fontSize: 16, color: "var(--ink-2)" }}>
+                Responde unas preguntas y te recomendamos el ritual ideal para tu cabello.
+              </p>
+            </div>
+            <a href={ENLACE_ASISTENTE} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              Hablar con el asistente
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Sucursales (vista previa) ===== */}
+      <section className="section section--alt" aria-labelledby="t-suc">
+        <div className="container stack gap-24">
+          <div className="row between gap-16" style={{ alignItems: "flex-end" }}>
+            <div className="stack gap-10">
+              <span className="lbl">Visítanos</span>
+              <h2 id="t-suc" className="title-md">
+                Dónde encontrarnos
+              </h2>
+            </div>
+            <Link href="/sucursales" className="btn">
+              Ver mapa
+            </Link>
+          </div>
+          <Suspense fallback={null}>
+            <SucursalesPrevia />
+          </Suspense>
+        </div>
       </section>
     </>
   );
 }
 
-async function Rituales() {
-  const lineas = await obtenerLineas();
+function EncabezadoLineas({ total }: { total: number | null }) {
   return (
-    <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {lineas.map((l) => {
-        const colores = coloresDeLinea(l.nombreRitual);
-        return (
-          <li key={l.id}>
-            <Link
-              href={`/productos?linea=${l.id}`}
-              className="group flex h-full flex-col rounded-sm p-6 ring-1 ring-cafe/10 transition-transform ring-inset hover:-translate-y-0.5"
-              style={{ backgroundColor: colores.claro }}
-            >
-              <span className="text-xs tracking-[0.2em] uppercase" style={{ color: colores.oscuro }}>
-                {l.nombre}
+    <div className="row between gap-16" style={{ alignItems: "flex-end" }}>
+      <div className="stack gap-10">
+        <span className="lbl">Línea Bugambilia · Professional Hair Care</span>
+        <h2 id="t-lineas" className="title-md">
+          Encuentra tu ritual
+        </h2>
+      </div>
+      <Link href="/productos" className="btn">
+        {total === null ? "Ver productos" : `Ver los ${total} productos`}
+      </Link>
+    </div>
+  );
+}
+
+async function Lineas() {
+  const lineas = await obtenerLineasConProductos();
+  const total = lineas.reduce((n, l) => n + l.productos.length, 0);
+  return (
+    <>
+      <EncabezadoLineas total={total} />
+      <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}>
+        {lineas.map((l) => (
+          <Link key={l.id} href={`/productos?linea=${l.id}`} className="card line-card" style={estiloLinea(l.nombre)}>
+            <Image
+              className="ph line-card__img"
+              src={aparienciaDeLinea(l.nombre).img}
+              alt=""
+              width={1200}
+              height={900}
+              sizes="(min-width: 900px) 400px, 100vw"
+            />
+            <div className="line-card__body">
+              <span className="meta">{l.numerada}</span>
+              <span className="line-card__name">{l.nombreRitual}</span>
+              <span className="small">
+                {l.productos[0]?.ingredientes ? `${l.productos[0].ingredientes} · ` : ""}
+                {l.productos.length} productos
               </span>
-              <span className="mt-2 font-serif text-2xl" style={{ color: colores.oscuro }}>
-                {l.nombreRitual}
-              </span>
-              <span className="mt-3 flex-1 text-sm leading-relaxed text-cafe">{l.descripcion}</span>
-              <span className="mt-5 text-xs tracking-[0.14em] text-cafe-oscuro uppercase group-hover:text-bugambilia">
-                Ver productos →
-              </span>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </>
+  );
+}
+
+async function SucursalesPrevia() {
+  const sucursales = await obtenerSucursales();
+  const hoy = diaDeHoy();
+  return (
+    <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))" }}>
+      {sucursales.map((s) => (
+        <Link
+          key={s.id}
+          href={`/sucursales?sucursal=${s.id}`}
+          className="card"
+          style={{ padding: 20, display: "flex", flexDirection: "column", gap: 6, textDecoration: "none" }}
+        >
+          <span className="meta">{s.tipo === "Propia" ? "Establecimiento propio" : "Punto de venta"}</span>
+          <span style={{ fontSize: 18, fontWeight: 700 }}>{s.nombre}</span>
+          <span className="small">
+            {s.direccion} · Hoy: {formatoHorario(s.horarios, hoy)}
+          </span>
+        </Link>
+      ))}
+    </div>
   );
 }

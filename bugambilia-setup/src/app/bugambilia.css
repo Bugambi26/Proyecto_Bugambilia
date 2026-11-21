@@ -1,0 +1,583 @@
+/* =========================================================
+   Diseño del sitio público de Bugambilia.
+   Portado TAL CUAL de los mockups aprobados con la dueña
+   (bugambilia-wireframes-html/css/styles.css + theme.css).
+   Mismos nombres de clase; no cambiar valores sin acordarlo.
+   Cambios del port: fuentes vía next/font/local, rutas /img/,
+   sin estilos del panel (admin.css, S13 Miguelinchis) y solo
+   la burbuja del chatbot (el widget llega en la S14).
+   ========================================================= */
+
+/* ===== Estructura (styles.css del mockup) ===== */
+/* =========================================================
+   Bugambilia — wireframes en HTML/CSS
+   Hoja de estilos compartida (sitio público + panel admin)
+   ---------------------------------------------------------
+   1. Tokens de diseño (variables CSS)
+   2. Base / reset
+   3. Utilidades de layout
+   4. Componentes (botón, placeholder, etiqueta, tarjeta…)
+   5. Encabezado y pie de página
+   6. Secciones de cada página
+   7. Widget del chatbot
+   ========================================================= */
+
+/* ---------- 1. Tokens de diseño ---------- */
+:root {
+  /* Escala de grises del wireframe */
+  --ink: #1F1F1F;          /* texto principal, botones primarios */
+  --ink-2: #444441;        /* texto secundario */
+  --muted: #555552;        /* texto de apoyo */
+  --ph-ink: #4F4F4C;       /* texto dentro de placeholders */
+  --line: #CFCFCB;         /* bordes suaves */
+  --line-2: #8E8E8A;       /* bordes de inputs y placeholders */
+  --ph: #E4E4E1;           /* relleno de placeholder */
+  --ph-2: #D2D2CE;         /* relleno "después" del comparador */
+  --product-bg: #E8D6BC;   /* fondo beige de las fotos de producto */
+  --bg: #FFFFFF;
+  --bg-alt: #F4F4F2;       /* secciones alternas */
+  --bubble: #F0F0EE;       /* burbujas del chatbot */
+  --accent: #2F5E9E;       /* etiquetas de anotación del wireframe */
+  --dark-2: #3A3A38;
+  --on-dark-muted: #BDBDB8;
+
+  /* Tipografía */
+  --font: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Radios y medidas */
+  --r-sm: 4px;
+  --r: 6px;
+  --r-lg: 8px;
+  --r-xl: 12px;
+  --container: 1180px;
+  --touch: 44px;           /* alto mínimo de un control táctil */
+}
+
+/* ---------- 2. Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font); color: var(--ink); background: var(--bg); }
+h1, h2, h3, p, dl, dd, figure { margin: 0; }
+a { color: var(--ink); }
+a:hover { color: #000; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+.skip-link { position: absolute; left: 8px; top: -60px; background: var(--ink); color: #fff; padding: 10px 14px; border-radius: var(--r-sm); z-index: 100; }
+.skip-link:focus { top: 8px; color: #fff; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* ---------- 3. Utilidades de layout ---------- */
+.container { max-width: calc(var(--container) + 48px); margin: 0 auto; padding: 0 24px; } /* 1180 de contenido + 24 px de margen por lado */
+.section { padding: 64px 0; }
+.section--alt { background: var(--bg-alt); }
+.stack { display: flex; flex-direction: column; }
+.row { display: flex; flex-wrap: wrap; align-items: center; }
+.between { justify-content: space-between; }
+.gap-6 { gap: 6px; } .gap-8 { gap: 8px; } .gap-10 { gap: 10px; } .gap-12 { gap: 12px; }
+.gap-16 { gap: 16px; } .gap-20 { gap: 20px; } .gap-24 { gap: 24px; } .gap-28 { gap: 28px; } .gap-48 { gap: 48px; }
+.grid { display: grid; gap: 20px; }
+.split { display: flex; flex-wrap: wrap; gap: 48px; align-items: center; }
+.split > * { flex: 1 1 420px; min-width: 0; }
+
+/* ---------- 4. Componentes ---------- */
+/* Placeholder de imagen (caja gris con borde punteado) */
+.ph {
+  background: var(--ph);
+  border: 1px dashed var(--line-2);
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--ph-ink); padding: 8px; text-decoration: none;
+}
+.ph--round { border-radius: 50%; }
+
+/* Imágenes reales: usan la clase .ph para heredar las medidas del
+   placeholder que reemplazan, pero sin borde punteado ni texto. */
+img.ph { display: block; width: 100%; padding: 0; border: none; object-fit: cover; border-radius: var(--r-sm); background: var(--ph); }
+img.ph--product { object-fit: contain; background: var(--product-bg); }
+img.ph--logo { object-fit: contain; padding: 16%; background: var(--bg-alt); }
+img.ph--round { border-radius: 50%; }
+
+/* Logo */
+.logo { display: block; width: auto; max-width: 100%; }
+
+/* Etiqueta de anotación (texto azul monoespaciado) */
+.lbl { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.meta { font-family: var(--mono); font-size: 12px; color: var(--muted); text-transform: uppercase; }
+
+/* Tipografía de títulos */
+.title-xl { font-size: 52px; line-height: 1.08; font-weight: 700; }
+.title-lg { font-size: 42px; font-weight: 700; }
+.title-md { font-size: 34px; font-weight: 700; }
+.title-sm { font-size: 28px; font-weight: 700; }
+.lead { font-size: 20px; color: var(--ink-2); }
+.text { font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+.small { font-size: 14px; color: var(--muted); }
+.note { font-size: 13px; color: var(--muted); }
+
+/* Botones */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: var(--touch); padding: 0 20px;
+  border: 1.5px solid var(--ink); border-radius: var(--r-sm);
+  background: #fff; color: var(--ink);
+  font-weight: 600; font-size: 15px; text-decoration: none; cursor: pointer; white-space: nowrap;
+}
+.btn:hover { background: var(--bg-alt); color: var(--ink); }
+.btn--primary { background: var(--ink); color: #fff; }
+.btn--primary:hover { background: #000; color: #fff; }
+.btn--sm { min-height: 40px; padding: 0 14px; font-size: 14px; }
+.btn--xs { min-height: 36px; padding: 0 12px; font-size: 14px; }
+.btn--block { width: 100%; }
+.btn--left { justify-content: flex-start; }
+.btn-link { min-height: var(--touch); border: none; background: none; text-decoration: underline; cursor: pointer; font-size: 14px; padding: 0 8px; }
+
+/* Insignia (Disponible / Agotado / Activo) */
+.badge { display: inline-flex; align-items: center; font-size: 12.5px; border: 1px solid var(--line-2); border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+.badge--out { border: 1.5px dashed var(--ink); }
+
+/* Tarjeta genérica */
+.card { border: 1px solid var(--line); border-radius: var(--r); background: #fff; }
+
+/* Formularios */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field > label, .field > .field__label { font-size: 13px; font-weight: 600; }
+.input {
+  min-height: var(--touch); width: 100%;
+  border: 1.5px solid var(--line-2); border-radius: var(--r-sm);
+  padding: 0 12px; font-size: 15px; background: #fff;
+}
+textarea.input { padding: 10px 12px; min-height: 84px; resize: vertical; }
+.input::placeholder { color: #757571; }
+.input[aria-invalid="true"] { border-color: var(--ink); border-style: dashed; }
+.hint { font-size: 12.5px; color: var(--muted); }
+.error { font-size: 12.5px; color: var(--ink); border: 1px dashed var(--line-2); padding: 4px 8px; }
+
+/* ---------- 5. Encabezado y pie ---------- */
+.site-header { border-bottom: 1px solid var(--line); background: #fff; }
+.nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding-top: 14px; padding-bottom: 14px; }
+.nav__logo { display: flex; align-items: center; }
+.nav__logo .logo { height: 60px; }
+.nav__links { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+.nav__link { text-decoration: none; font-weight: 500; font-size: 15px; padding: 10px 4px; }
+.nav__link[aria-current="page"] { border-bottom: 2px solid var(--ink); }
+
+.site-footer { background: var(--ink); color: var(--bg-alt); }
+.site-footer a { color: var(--bg-alt); }
+.site-footer__inner { padding-top: 48px; padding-bottom: 48px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; font-size: 14px; }
+.site-footer .ph { width: 150px; height: 48px; background: var(--dark-2); color: var(--ph); border-color: var(--line-2); }
+.site-footer .logo { height: 54px; }
+.site-footer .muted-link { color: var(--on-dark-muted); }
+
+/* ---------- 6. Secciones ---------- */
+/* Inicio — hero */
+.hero { padding: 64px 0; }
+.hero__img { height: 420px; }
+img.hero__img { border-radius: var(--r-lg); }
+
+/* Inicio — sobre nosotros */
+.about__imgs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.about__imgs .ph { height: 260px; }
+
+/* Pestañas (Faciales / Capilares) */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tabs .btn { min-height: 40px; }
+.tabs .btn[aria-selected="true"] { background: var(--ink); color: #fff; }
+
+/* Tarjeta de servicio + comparador antes/después */
+.service { overflow: hidden; display: flex; flex-direction: column; }
+.service__body { padding: 18px; display: flex; flex-direction: column; gap: 8px; }
+.service__name { font-size: 19px; }
+.service__focus { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.service__ideal { font-size: 14px; line-height: 1.5; color: var(--muted); }
+
+.compare { --pos: 50%; position: relative; height: 200px; overflow: hidden; user-select: none; }
+.compare__layer { position: absolute; inset: 0; border: none; }
+img.compare__layer { width: 100%; height: 100%; border-radius: 0; }
+.compare--photo { height: 300px; }
+.compare .compare__tag--photo { position: absolute; top: auto; bottom: 12px; transform: none; translate: none; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.92); font-size: 12px; font-weight: 600; line-height: 1.3; pointer-events: none; }
+.compare .compare__tag--photo.compare__tag--before { left: 12px; }
+.compare .compare__tag--photo.compare__tag--after { left: auto; right: 12px; }
+.compare__layer--after { background: var(--ph-2); clip-path: inset(0 0 0 var(--pos)); }
+.compare__tag { position: absolute; top: 50%; transform: translateY(-50%); }
+.compare__tag--before { left: 25%; translate: -50% 0; }
+.compare__tag--after { left: 75%; translate: -50% 0; }
+.compare__line { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 1px; background: var(--ph-ink); }
+.compare__handle {
+  position: absolute; left: var(--pos); top: 50%; transform: translate(-50%, -50%);
+  width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--ink); background: #fff;
+  display: flex; align-items: center; justify-content: center; font-weight: 700; pointer-events: none;
+}
+/* El input range real queda invisible encima: lo maneja el teclado y el ratón */
+.compare__range { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+.compare__range:focus-visible + .compare__handle { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.pending { border: 1px dashed var(--line-2); border-radius: var(--r); padding: 16px 20px; font-size: 14px; color: var(--ink-2); }
+
+/* Tarjeta de línea (Inicio) */
+.line-card { text-decoration: none; display: flex; flex-direction: column; overflow: hidden; }
+.line-card:hover { border-color: var(--ink); }
+.line-card__img { height: 200px; border-radius: 0; transition: transform .3s; }
+.line-card:hover .line-card__img { transform: scale(1.03); }
+.line-card__body { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 4px; background: #fff; position: relative; }
+
+/* Banner de línea (catálogo filtrado) */
+.line-banner { display: flex; flex-wrap: wrap; overflow: hidden; }
+.line-banner__img { flex: 1 1 320px; height: 240px; border-radius: 0; }
+.line-banner__body { flex: 999 1 340px; padding: 24px; display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+
+/* Llamados (chatbot) */
+.callout { border: 1.5px solid var(--ink); border-radius: var(--r-lg); padding: 36px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+.callout--sm { border-width: 1.5px; padding: 20px 24px; gap: 16px; }
+
+/* Catálogo */
+.catalog { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+.filters { flex: 1 1 240px; max-width: 100%; display: flex; flex-direction: column; gap: 20px; padding: 20px; }
+.filters__group { display: flex; flex-direction: column; gap: 8px; }
+.filters__title { font-weight: 600; font-size: 14px; }
+.filter-btn { min-height: 40px; text-align: left; padding: 0 12px; border-radius: var(--r-sm); font-size: 14px; cursor: pointer; border: 1.5px solid var(--line); background: #fff; }
+.filter-btn[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: #fff; font-weight: 600; }
+.check { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); min-height: 32px; }
+.catalog__results { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+.product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.product-card { overflow: hidden; display: flex; flex-direction: column; }
+.product-card__img { height: 180px; border: none; border-bottom: 1px dashed var(--line-2); }
+img.product-card__img { height: 230px; border-radius: 0; }
+.product-card__body { padding: 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.product-card__line { font-family: var(--mono); font-size: 11.5px; color: var(--muted); text-transform: uppercase; }
+.product-card__name { font-size: 17px; line-height: 1.3; }
+.product-card__foot { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 8px; }
+.empty { padding: 40px; text-align: center; color: var(--muted); border: 1px dashed var(--line-2); border-radius: var(--r); }
+
+/* Detalle de producto */
+.breadcrumb { padding-top: 20px; font-size: 14px; color: var(--muted); }
+.detail { padding-top: 28px; padding-bottom: 56px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
+.detail__img { flex: 1 1 400px; height: 480px; min-width: 0; }
+img.detail__img { border-radius: var(--r-lg); height: auto; aspect-ratio: 1 / 1; max-width: 560px; object-fit: cover; }
+.ingredient { display: flex; gap: 14px; align-items: center; }
+.ingredient .ph { width: 72px; height: 72px; flex: none; }
+.detail__info { flex: 1 1 440px; display: flex; flex-direction: column; gap: 18px; }
+.detail__title { font-size: 40px; line-height: 1.1; }
+.detail__price { font-size: 26px; font-weight: 700; }
+.specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.specs > div { padding: 14px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; }
+.specs > .specs__full { grid-column: 1 / -1; }
+.specs dt { font-size: 13px; color: var(--muted); }
+.specs dd { font-weight: 600; }
+.related-card { text-decoration: none; padding: 16px; display: flex; gap: 16px; align-items: center; }
+.related-card .ph { width: 96px; height: 96px; flex: none; }
+
+/* Sucursales */
+.branches { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
+.map { flex: 999 1 520px; min-width: 0; height: 640px; position: relative; font-size: 13px; }
+.map__pin { position: absolute; transform: translate(-50%, -100%); display: flex; align-items: center; gap: 10px; background: none; border: none; cursor: pointer; padding: 0; }
+.map__pin-dot { width: 34px; height: 34px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--ink); flex: none; }
+.map__pin--third .map__pin-dot { background: #fff; border: 3px solid var(--ink); }
+.map__pin-label { background: #fff; border: 1px solid var(--ink); padding: 4px 8px; font-family: var(--font); font-size: 13px; text-transform: none; color: var(--ink); letter-spacing: 0; white-space: nowrap; }
+.branch-list { flex: 1 1 360px; display: flex; flex-direction: column; gap: 16px; }
+.branch { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.branch[data-open="true"] { border: 2px solid var(--ink); }
+.branch__toggle { all: unset; cursor: pointer; display: flex; gap: 14px; align-items: center; min-height: 44px; }
+.branch__toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.branch__toggle .ph { width: 72px; height: 72px; flex: none; }
+.branch__name { font-size: 19px; font-weight: 700; }
+.branch__body { display: flex; flex-direction: column; gap: 14px; border-top: 1px solid var(--line); padding-top: 14px; }
+.hours { border-collapse: collapse; font-size: 14px; width: 100%; }
+.hours caption { text-align: left; font-weight: 600; padding-bottom: 6px; }
+.hours th { text-align: left; font-weight: 400; padding: 4px 0; color: var(--ink-2); }
+.hours td { text-align: right; padding: 4px 0; }
+.hours tr[aria-current="date"] th, .hours tr[aria-current="date"] td { font-weight: 700; color: var(--ink); }
+
+/* ---------- 7. Widget del chatbot ---------- */
+.chat-bubble {
+  position: fixed; right: 24px; bottom: 24px; z-index: 40;
+  width: 60px; height: 60px; border-radius: 50%; border: none; background: var(--ink);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 640px) {
+  .title-xl { font-size: 40px; }
+  .title-lg { font-size: 34px; }
+  .title-md { font-size: 28px; }
+  .hero__img { height: 260px; }
+  .map { height: 380px; }
+  .detail__img { height: 320px; }
+  img.detail__img { height: auto; }
+  .callout { padding: 24px; }
+  .chat-bubble { right: 16px; bottom: 16px; }
+}
+
+
+/* ===== Piel / tema Bugambilia (theme.css del mockup) ===== */
+/* =========================================================
+   theme.css — Tema Bugambilia (capa de mockup)
+   ---------------------------------------------------------
+   styles.css y admin.css tienen la ESTRUCTURA del wireframe
+   (layout, tamaños, componentes). Este archivo se carga al
+   final y solo cambia la PIEL: colores, tipografía, texturas
+   y detalles decorativos. Si se quita este archivo, el sitio
+   vuelve a verse como wireframe en grises.
+
+   Paleta tomada del logo y de los pósters de la clienta.
+   Cuando lleguen los códigos oficiales, basta con cambiar
+   los valores de la sección 1.
+   ========================================================= */
+
+/* ---------- 1. Paleta de marca ---------- */
+:root {
+  /* Marca */
+  --crema: #F7EFE6;        /* fondo principal (fondo del logo) */
+  --arena: #EAD7C3;        /* secciones alternas, placeholders */
+  --arena-2: #F2E6D8;
+  --chocolate: #5C3F2E;    /* botones, acentos fuertes (botón de los pósters) */
+  --chocolate-2: #3E2A1F;  /* pie de página, menú del panel */
+  --bugambilia: #B0245A;   /* acento: flores de bugambilia */
+  --dorado: #B98A4B;       /* detalles, líneas finas (tapa y ramita de las botellas) */
+  --dorado-2: #94693A;     /* dorado legible sobre crema (texto pequeño) */
+  --tinta: #241A15;        /* texto */
+
+  /* Fuentes */
+  --serif: var(--font-cormorant), 'Times New Roman', serif;
+  --sans: var(--font-jost), system-ui, sans-serif;
+
+  /* Se reasignan los tokens del wireframe a la paleta: así todo
+     lo que ya usaba var(--ink), var(--line)… cambia solo. */
+  --ink: var(--tinta);
+  --ink-2: #5A4638;
+  --muted: #7A6455;
+  --ph-ink: #8A6D55;
+  --line: #E6D6C4;
+  --line-2: #C9B197;
+  --ph: var(--arena-2);
+  --ph-2: var(--arena);
+  --bg: var(--crema);
+  --bg-alt: var(--arena-2);
+  --bubble: var(--arena-2);
+  --accent: var(--bugambilia);
+  --dark-2: #4A3426;
+  --on-dark-muted: #CDB8A3;
+  --font: var(--sans);
+  --mono: var(--sans);
+
+  --r-sm: 10px;
+  --r: 14px;
+  --r-lg: 18px;
+  --r-xl: 22px;
+  --sombra: 0 18px 40px -24px rgba(92, 63, 46, .45);
+  --sombra-sm: 0 8px 20px -14px rgba(92, 63, 46, .5);
+
+  /* Textura de papel (ruido SVG muy suave) */
+  --grano: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36  0 0 0 0 .25  0 0 0 0 .18  0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- 2. Base ---------- */
+body { background: var(--crema) var(--grano); color: var(--tinta); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--chocolate); }
+a:hover { color: var(--bugambilia); }
+::selection { background: var(--bugambilia); color: #fff; }
+:focus-visible { outline-color: var(--bugambilia); }
+
+h1, h2, h3, .title-xl, .title-lg, .title-md, .title-sm, .detail__title, .admin-title, .auth__title {
+  font-family: var(--serif); font-weight: 600; letter-spacing: .005em; color: var(--tinta);
+}
+.title-xl { font-size: 68px; line-height: 1; }
+.title-lg { font-size: 54px; }
+.title-md { font-size: 46px; line-height: 1.05; }
+.title-sm { font-size: 36px; line-height: 1.1; }
+.lead { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 27px; color: var(--chocolate); }
+.text { color: var(--ink-2); }
+
+/* Etiquetas: dejan de ser anotaciones azules del wireframe y pasan a ser
+   "eyebrows" en mayúsculas espaciadas, como "SWEET RITUAL" en las etiquetas */
+.lbl { font-family: var(--sans); font-weight: 500; font-size: 12px; letter-spacing: .24em; color: var(--dorado-2); }
+.meta, .product-card__line { font-family: var(--sans); font-weight: 500; letter-spacing: .16em; color: var(--muted); }
+.site-header ~ main .lbl { display: inline-flex; align-items: center; gap: 10px; }
+.site-header ~ main .lbl::before { content: ''; width: 24px; height: 18px; flex: none; background: url(/img/flor.webp) center / contain no-repeat; }
+
+/* Placeholders pendientes: siguen viéndose "por llenar", pero ya en la paleta */
+.ph {
+  background: var(--arena-2) repeating-linear-gradient(135deg, transparent 0 14px, rgba(185,138,75,.08) 14px 15px);
+  border: 1.5px dashed var(--line-2); border-radius: var(--r);
+  font-family: var(--sans); letter-spacing: .14em; color: var(--ph-ink);
+}
+img.ph { background: var(--arena-2); }
+
+/* ---------- 3. Componentes ---------- */
+.btn {
+  border-radius: 999px; border-color: var(--chocolate); color: var(--chocolate); background: transparent;
+  font-family: var(--sans); font-weight: 500; letter-spacing: .04em; padding: 0 24px;
+  transition: background .2s, color .2s, border-color .2s, transform .2s;
+}
+.btn:hover { background: var(--arena); color: var(--chocolate); }
+.btn--primary { background: var(--chocolate); border-color: var(--chocolate); color: var(--crema); }
+.btn--primary:hover { background: var(--chocolate-2); border-color: var(--chocolate-2); color: #fff; transform: translateY(-1px); }
+.btn--sm { padding: 0 18px; }
+
+.card { background: #FFFCF8; border-color: var(--line); border-radius: var(--r); box-shadow: var(--sombra-sm); }
+
+.badge { border-color: transparent; background: #E3EBDD; color: #3F5C3D; font-weight: 500; }
+.badge--out { background: #F6DDE4; color: var(--bugambilia); border: 1px dashed var(--bugambilia); }
+
+.input { border-color: var(--line-2); border-radius: var(--r-sm); background: #FFFCF8; }
+.input:focus { outline: none; border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(185,138,75,.22); }
+
+.pending { border-color: var(--line-2); background: rgba(255,252,248,.6); border-radius: var(--r); color: var(--muted); }
+
+/* ---------- 4. Encabezado y pie ---------- */
+.site-header {
+  position: relative; z-index: 30;
+  background: rgba(247, 239, 230, .88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(185, 138, 75, .35);
+}
+/* En escritorio el encabezado se queda fijo arriba; en celular no, para no tapar la pantalla */
+@media (min-width: 900px) { .site-header { position: sticky; top: 0; } }
+.nav__link { font-weight: 500; color: var(--chocolate); letter-spacing: .03em; }
+.nav__link:hover { color: var(--bugambilia); }
+.nav__link[aria-current="page"] { border-bottom: 2px solid var(--dorado); }
+
+.site-footer {
+  position: relative; overflow: hidden;
+  background: var(--chocolate-2) url(/img/flor-crema.webp) right -40px bottom -60px / 340px auto no-repeat;
+  color: var(--crema); border-top: 3px solid var(--dorado);
+}
+.site-footer::before { content: ''; position: absolute; inset: 0; background: rgba(62,42,31,.9); pointer-events: none; }
+.site-footer__inner { position: relative; }
+.site-footer a { color: var(--crema); }
+.site-footer a:hover { color: #F3C9D7; }
+
+/* ---------- 5. Inicio ---------- */
+.hero {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(60% 80% at 85% 20%, rgba(234,215,195,.9), transparent 70%),
+    radial-gradient(40% 50% at 0% 100%, rgba(176,36,90,.08), transparent 70%);
+}
+.hero::before {
+  content: ''; position: absolute; width: 420px; height: 300px; left: -90px; top: 40px; opacity: .12;
+  background: url(/img/flor.webp) center / contain no-repeat; transform: rotate(-12deg); pointer-events: none;
+}
+.hero .container { position: relative; }
+.hero .title-xl { font-size: 76px; }
+img.hero__img { border-radius: 26px; box-shadow: 22px 22px 0 0 var(--arena), var(--sombra); }
+
+/* Cinta con los verbos de los pósters */
+.ribbon { background: var(--chocolate); color: var(--crema); overflow: hidden; border-block: 1px solid var(--dorado); }
+.ribbon__track { display: flex; gap: 0; width: max-content; animation: ribbon 38s linear infinite; }
+.ribbon__track span { font-family: var(--serif); font-style: italic; font-size: 24px; padding: 14px 28px; white-space: nowrap; display: flex; align-items: center; gap: 56px; }
+.ribbon__track span::after { content: '✦'; font-style: normal; font-size: 13px; color: var(--dorado); }
+@keyframes ribbon { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .ribbon__track { animation: none; } }
+
+.section--alt { background: var(--arena-2) var(--grano); }
+.about__imgs .ph:first-child { border-radius: 160px 160px var(--r) var(--r); }
+
+.tabs .btn { border-radius: 999px; }
+.tabs .btn[aria-selected="true"] { background: var(--chocolate); color: var(--crema); }
+
+.service { border-radius: var(--r-lg); }
+.service__name { font-family: var(--serif); font-size: 26px; }
+.service__focus { color: var(--bugambilia); font-weight: 500; letter-spacing: .02em; }
+.compare__line { background: var(--crema); width: 2px; }
+.compare__handle { border-color: var(--chocolate); background: var(--crema); color: var(--chocolate); box-shadow: var(--sombra-sm); }
+
+/* Tarjeta de línea: el cuerpo toma el color de la banda de su etiqueta */
+.line-card { border-radius: var(--r-lg); border: none; box-shadow: var(--sombra); transition: transform .25s, box-shadow .25s; }
+.line-card:hover { transform: translateY(-4px); box-shadow: 0 26px 50px -26px rgba(92,63,46,.6); }
+.line-card__body { background: var(--l-bg, #FFFCF8); border-top: 3px solid var(--dorado); flex: 1; }
+/* 7 líneas en 3 columnas: la última ocupa toda la fila, en horizontal */
+@media (min-width: 900px) {
+  .line-card:last-child:nth-child(3n+1) { grid-column: 1 / -1; flex-direction: row; }
+  .line-card:last-child:nth-child(3n+1) .line-card__img { width: 50%; height: 280px; flex: none; }
+  .line-card:last-child:nth-child(3n+1) .line-card__body { border-top: none; border-left: 3px solid var(--dorado); justify-content: center; padding: 32px 40px; }
+  .line-card:last-child:nth-child(3n+1) .line-card__name { font-size: 40px; }
+}
+.line-card .meta { color: var(--l-ink, var(--muted)); opacity: .85; }
+.line-card__name { font-family: var(--serif); font-size: 30px; font-weight: 600; line-height: 1.05; color: var(--l-ink, var(--tinta)); }
+.line-card .small { color: var(--ink-2); }
+
+/* Llamado al chatbot: chocolate + foto de bugambilias */
+.site-header ~ main .callout:not(.callout--sm) {
+  border: none; border-radius: var(--r-xl); color: var(--crema); box-shadow: var(--sombra);
+  background: linear-gradient(90deg, var(--chocolate-2) 40%, rgba(62,42,31,.35)), url(/img/ingredientes/antiox.webp) right center / cover no-repeat;
+}
+.site-header ~ main .callout:not(.callout--sm) .lbl { color: #E7C590; }
+.site-header ~ main .callout:not(.callout--sm) .lbl::before { background-image: url(/img/flor-crema.webp); }
+.site-header ~ main .callout:not(.callout--sm) h2 { color: var(--crema); font-size: 44px; }
+.site-header ~ main .callout:not(.callout--sm) p { color: rgba(247,239,230,.85) !important; }
+.site-header ~ main .callout:not(.callout--sm) .btn--primary { background: var(--crema); color: var(--chocolate); border-color: var(--crema); }
+.site-header ~ main .callout:not(.callout--sm) .btn--primary:hover { background: #fff; }
+.callout--sm { border: none; background: var(--arena); border-radius: var(--r-lg); }
+
+/* ---------- 6. Catálogo y detalle ---------- */
+.filters { background: #FFFCF8; }
+.filter-btn { border-radius: 999px; border-color: var(--line); background: transparent; display: flex; align-items: center; gap: 10px; }
+.filter-btn::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--l-bg, var(--arena)); box-shadow: inset 0 0 0 1px var(--l-ink, var(--line-2)); flex: none; }
+.filter-btn:hover { border-color: var(--dorado); }
+.filter-btn[aria-pressed="true"] { background: var(--chocolate); border-color: var(--chocolate); color: var(--crema); }
+.check input { accent-color: var(--chocolate); }
+
+.product-card { border-radius: var(--r-lg); transition: transform .25s, box-shadow .25s; }
+.product-card:hover { transform: translateY(-4px); box-shadow: var(--sombra); }
+img.product-card__img { border-bottom: 3px solid var(--l-bg, var(--arena)); }
+.product-card__line { align-self: flex-start; background: var(--l-bg, var(--arena)); color: var(--l-ink, var(--chocolate)); padding: 3px 10px; border-radius: 999px; font-size: 10.5px; }
+.product-card__name { font-family: var(--serif); font-size: 23px; font-weight: 600; line-height: 1.1; }
+
+.line-banner { border: none; border-radius: var(--r-lg); background: var(--l-bg, var(--arena)); box-shadow: var(--sombra); }
+.line-banner .meta { color: var(--l-ink); }
+.line-banner h2 { color: var(--l-ink); font-size: 42px; }
+
+.breadcrumb a { color: var(--muted); }
+img.detail__img { box-shadow: 18px 18px 0 0 var(--l-bg, var(--arena)), var(--sombra); }
+.detail__title { font-size: 56px; line-height: 1; }
+[data-d-linea] { color: var(--l-ink, var(--muted)); }
+.detail__price { font-family: var(--serif); font-size: 32px; }
+.specs { border-top-color: var(--line); }
+.specs > div { border-bottom-color: var(--line); }
+.specs dt { letter-spacing: .12em; text-transform: uppercase; font-size: 11.5px; }
+.specs dd { font-family: var(--serif); font-size: 21px; font-weight: 600; }
+.ingredient img.ph { border-radius: 50%; }
+.related-card { border-radius: var(--r-lg); }
+
+/* ---------- 7. Sucursales ---------- */
+.map {
+  border-radius: var(--r-lg); border: 1px solid var(--line-2);
+  background:
+    linear-gradient(rgba(255,255,255,.35) 2px, transparent 2px) 0 0 / 64px 64px,
+    linear-gradient(90deg, rgba(255,255,255,.35) 2px, transparent 2px) 0 0 / 64px 64px,
+    linear-gradient(28deg, transparent 46%, rgba(255,255,255,.7) 46% 49%, transparent 49%),
+    linear-gradient(-62deg, transparent 58%, rgba(255,255,255,.6) 58% 60%, transparent 60%),
+    radial-gradient(40% 40% at 70% 30%, rgba(223,232,218,.9), transparent 70%),
+    var(--arena-2);
+}
+.map__pin-dot { background: var(--bugambilia); }
+.map__pin--third .map__pin-dot { background: var(--crema); border-color: var(--chocolate); }
+.map__pin-label { border: none; border-radius: 999px; padding: 5px 12px; box-shadow: var(--sombra-sm); background: #FFFCF8; font-weight: 500; }
+.branch { border-radius: var(--r-lg); }
+.branch[data-open="true"] { border: 1.5px solid var(--dorado); }
+.branch__name { font-family: var(--serif); font-size: 26px; }
+.branch__toggle img.ph { border-radius: 12px; }
+
+/* ---------- 8. Chatbot (burbuja; el widget llega en la S14) ---------- */
+.chat-bubble { background: var(--bugambilia); box-shadow: 0 10px 24px -8px rgba(176,36,90,.7); }
+
+/* ---------- 10. Responsivo ---------- */
+@media (max-width: 640px) {
+  .title-xl, .hero .title-xl { font-size: 50px; }
+  .title-lg { font-size: 42px; }
+  .title-md { font-size: 36px; }
+  .detail__title { font-size: 42px; }
+  .site-header ~ main .callout:not(.callout--sm) h2 { font-size: 34px; }
+  .site-header ~ main .callout:not(.callout--sm) { background: linear-gradient(180deg, rgba(62,42,31,.92), var(--chocolate-2)), url(/img/ingredientes/antiox.webp) center / cover; }
+  img.hero__img { box-shadow: 12px 12px 0 0 var(--arena); }
+  .ribbon__track span { font-size: 20px; padding: 12px 20px; }
+}
+
+/* Fotos de producto en tarjetas: recorte 5:4 sin franjas laterales (la botella queda completa) */
+img.product-card__img.ph--product { height: auto; aspect-ratio: 5 / 4; object-fit: cover; object-position: 50% 10%; }
+img.product-card__img.ph--logo { object-fit: contain; }
+
+/* Cormorant usa números "de texto" por defecto (21 se ve como 2I): se fuerzan los alineados */
+body, .stat strong, .detail__price, .specs dd { font-variant-numeric: lining-nums; }

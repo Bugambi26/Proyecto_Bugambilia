@@ -1,32 +1,29 @@
 import Link from "next/link";
 import { ImagenProducto } from "@/components/ImagenProducto";
-import { TIPOS_PRODUCTO, type ColoresLinea } from "@/lib/catalogo";
-import type { ProductoCatalogo } from "@/lib/datos-catalogo";
+import { estiloLinea } from "@/lib/catalogo";
+import type { ProductoVista } from "@/lib/datos-catalogo";
 
-export function TarjetaProducto({ producto, colores }: { producto: ProductoCatalogo; colores: ColoresLinea }) {
-  const agotado = producto.stock === 0;
+// Tarjeta del catálogo (mockup). Precio y contenido neto solo si existen.
+export function TarjetaProducto({ producto: p }: { producto: ProductoVista }) {
   return (
-    <Link href={`/productos/${producto.id}`} className="group block">
-      <div className="relative">
-        <ImagenProducto
-          imagenUrl={producto.imagenUrl}
-          nombre={producto.nombre}
-          colorFondo={colores.claro}
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-        />
-        {agotado && (
-          <span className="absolute top-2 left-2 rounded-full bg-tinta/85 px-3 py-1 text-xs tracking-wider text-crema uppercase">
-            Agotado
-          </span>
-        )}
+    <article className="card product-card" style={estiloLinea(p.linea.nombre)}>
+      <ImagenProducto
+        imagenUrl={p.imagenUrl}
+        className="product-card__img"
+        sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 90vw"
+      />
+      <div className="product-card__body">
+        <span className="product-card__line">{p.linea.nombre}</span>
+        <h2 className="product-card__name">{p.nombre}</h2>
+        {p.contenidoNeto && <span className="small">{p.contenidoNeto}</span>}
+        <div className="product-card__foot">
+          <span style={{ fontWeight: 700 }}>{p.precio}</span>
+          <span className={`badge${p.disponible ? "" : " badge--out"}`}>{p.disponible ? "Disponible" : "Agotado"}</span>
+        </div>
+        <Link href={`/productos/${p.id}`} className="btn btn--sm" style={{ marginTop: 8 }}>
+          Ver detalle<span className="sr-only"> de {p.nombre}</span>
+        </Link>
       </div>
-      <p className="mt-3 text-xs tracking-[0.14em] uppercase" style={{ color: colores.oscuro }}>
-        {TIPOS_PRODUCTO[producto.tipoProducto].paso}
-      </p>
-      <h3 className="mt-1 font-serif text-lg leading-snug text-cafe-oscuro group-hover:text-bugambilia">
-        {producto.nombre}
-      </h3>
-      <p className="mt-1 text-sm leading-relaxed text-cafe">{producto.beneficioPrincipal}</p>
-    </Link>
+    </article>
   );
 }

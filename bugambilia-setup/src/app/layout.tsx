@@ -1,29 +1,30 @@
 import type { Metadata } from "next";
-import { Jost, Playfair_Display } from "next/font/google";
+import { BurbujaChat } from "@/components/BurbujaChat";
 import { Encabezado } from "@/components/Encabezado";
 import { PiePagina } from "@/components/PiePagina";
+import { cormorant, jost } from "./fuentes";
 import "./globals.css";
-
-// Tipografías provisionales (ver globals.css).
-const playfair = Playfair_Display({ variable: "--font-playfair", subsets: ["latin"] });
-const jost = Jost({ variable: "--font-jost", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Bugambilia Hair Boutique · Aguascalientes",
-    template: "%s · Bugambilia Hair Boutique",
+    default: "Inicio — Bugambilia Hair Boutique",
+    template: "%s — Bugambilia Hair Boutique",
   },
   description:
-    "Estética en Aguascalientes. Rituales de cuidado capilar profesional de la Línea Bugambilia y tratamientos faciales.",
+    "Bugambilia Hair Boutique: tratamientos faciales, servicios capilares y la Línea Bugambilia de cuidado capilar profesional.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${playfair.variable} ${jost.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col font-sans">
+    <html lang="es" className={`${cormorant.variable} ${jost.variable}`}>
+      <body>
+        <a className="skip-link" href="#contenido">
+          Saltar al contenido
+        </a>
         <Encabezado />
-        <main className="flex-1">{children}</main>
+        <main id="contenido">{children}</main>
         <PiePagina />
+        <BurbujaChat />
       </body>
     </html>
   );

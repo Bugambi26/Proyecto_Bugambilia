@@ -1,17 +1,16 @@
 import Link from "next/link";
 
+// Igual al estado "Producto no disponible" del mockup.
 export default function NoEncontrado() {
   return (
-    <div className="mx-auto max-w-xl px-4 py-24 text-center sm:px-6">
-      <p className="text-xs tracking-[0.3em] text-cafe uppercase">Página no encontrada</p>
-      <h1 className="mt-4 font-serif text-4xl text-cafe-oscuro">No encontramos lo que buscas</h1>
-      <p className="mt-4 leading-relaxed text-cafe">Es posible que el enlace haya cambiado o que el producto ya no esté disponible.</p>
-      <Link
-        href="/productos"
-        className="mt-8 inline-block rounded-full bg-bugambilia px-8 py-3 text-sm tracking-[0.14em] text-crema uppercase transition-opacity hover:opacity-90"
-      >
-        Ver los rituales
-      </Link>
+    <div className="container section">
+      <div className="empty stack gap-16" style={{ alignItems: "center" }}>
+        <h1 className="title-sm">Producto no disponible</h1>
+        <p>Este producto no existe o ya no está en el catálogo.</p>
+        <Link href="/productos" className="btn btn--primary">
+          Volver al catálogo
+        </Link>
+      </div>
     </div>
   );
 }
