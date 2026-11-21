@@ -43,3 +43,6 @@ next-env.d.ts
 
 # prisma (cliente generado por "prisma generate")
 /src/generated/prisma
+
+# netlify (archivos locales de la CLI)
+.netlify
