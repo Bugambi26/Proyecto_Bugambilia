@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Producto — Panel Bugambilia</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body data-page="producto">
+  <div class="admin">
+    <nav class="sidebar" aria-label="Panel">
+      <div class="sidebar__brand"><img class="logo" src="../img/logo-blanco.webp" alt="Bugambilia Hair Boutique" width="128" height="60"><span>Panel de administración</span></div>
+      <a href="inventario.html" class="side-link" aria-current="page">Inventario</a>
+      <a href="sucursales.html" class="side-link">Sucursales</a>
+      <a href="arbol.html" class="side-link">Árbol del chatbot</a>
+      <div class="sidebar__spacer"></div>
+      <a href="../index.html" class="side-link side-link--muted">Ver sitio público</a>
+      <button type="button" class="side-link side-link--muted" data-logout>Cerrar sesión</button>
+    </nav>
+
+    <main class="admin-main">
+      <div class="stack gap-8">
+        <a href="inventario.html" style="font-size: 14px">← Volver al inventario</a>
+        <span class="lbl">Mismo formulario para Alta (vacío) y Cambio (con datos)</span>
+        <h1 class="admin-title" data-titulo>Dar de alta producto</h1>
+      </div>
+
+      <div class="form-layout">
+        <form class="panel" data-form-producto novalidate>
+          <fieldset class="fieldset">
+            <legend>Datos generales</legend>
+            <div class="field full">
+              <label for="nombre">Nombre *</label>
+              <input id="nombre" name="nombre" class="input" required>
+            </div>
+            <div class="field">
+              <label for="linea">Línea *</label>
+              <select id="linea" name="linea" class="input" required></select>
+            </div>
+            <div class="field">
+              <label for="tipo">Tipo de producto *</label>
+              <select id="tipo" name="tipo" class="input" required></select>
+            </div>
+            <div class="field full">
+              <label for="ingredientes">Ingredientes protagonistas</label>
+              <input id="ingredientes" name="ingredientes" class="input">
+            </div>
+            <div class="field full">
+              <label for="beneficio">Beneficio principal</label>
+              <textarea id="beneficio" name="beneficio" class="input" rows="3"></textarea>
+              <span class="hint">Se muestra en el detalle del producto.</span>
+            </div>
+            <div class="field">
+              <label for="contenido">Contenido neto</label>
+              <input id="contenido" name="contenido" class="input" placeholder="Ej. 250 ml">
+            </div>
+            <div class="field">
+              <label for="precio">Precio (MXN)</label>
+              <input id="precio" name="precio" class="input" inputmode="decimal" placeholder="0.00" aria-describedby="precio-error">
+              <span class="error" id="precio-error" hidden>El precio debe ser mayor a 0.</span>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset">
+            <legend>Inventario</legend>
+            <div class="field">
+              <label for="stock">Stock (piezas, global) *</label>
+              <input id="stock" name="stock" class="input" type="number" min="0" step="1" value="0" required>
+            </div>
+            <div class="field">
+              <span class="field__label" id="t-estado">Estado</span>
+              <button type="button" class="switch" role="switch" aria-checked="true" aria-labelledby="t-estado" data-activo>Activo</button>
+              <span class="hint">Inactivo = dado de baja: no aparece en el sitio ni en el chatbot.</span>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset" style="display: flex; flex-direction: column">
+            <legend>Imagen</legend>
+            <div class="row gap-16">
+              <img class="ph ph--product" style="width: 120px; height: 120px" src="../img/logo.webp" alt="Imagen actual del producto" data-img-preview>
+              <div class="stack gap-8">
+                <label for="img" class="btn" style="align-self: flex-start">Subir otra imagen</label>
+                <input id="img" type="file" accept="image/*" class="sr-only">
+                <button type="button" class="btn-link" style="align-self: flex-start; padding: 0" data-img-quitar>Quitar imagen (usar el logo)</button>
+                <span class="hint">Foto cuadrada con fondo beige liso. Sin foto se muestra el logo.</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset" style="display: flex; flex-direction: column">
+            <legend>Necesidades que cubre (chatbot)</legend>
+            <span class="hint">Las etiquetas se definen en la Fase 4. Un producto puede tener varias.</span>
+            <div class="chips" data-necesidades></div>
+          </fieldset>
+
+          <p class="alert" role="alert" data-form-error hidden>Revisa los campos marcados.</p>
+          <div class="form-actions">
+            <a href="inventario.html" class="btn">Cancelar</a>
+            <button type="submit" class="btn btn--primary">Guardar cambios</button>
+          </div>
+        </form>
+
+        <aside aria-label="Vista previa" class="stack gap-10" style="max-width: 300px">
+          <span class="lbl" style="color: var(--muted)">Vista previa en el catálogo</span>
+          <article class="card product-card">
+            <img class="ph ph--product product-card__img" style="height: 200px" src="../img/logo.webp" alt="" data-pv-img>
+            <div class="product-card__body">
+              <span class="product-card__line" data-pv-linea></span>
+              <strong class="product-card__name" data-pv-nombre></strong>
+              <span class="small" data-pv-contenido></span>
+              <div class="product-card__foot"><strong data-pv-precio></strong><span class="badge" data-pv-estado></span></div>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

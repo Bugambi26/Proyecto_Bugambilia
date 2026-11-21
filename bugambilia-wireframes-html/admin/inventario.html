@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Inventario — Panel Bugambilia</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body data-page="inventario">
+  <div class="admin">
+    <!-- ===== Menú lateral (igual en todo el panel) ===== -->
+    <nav class="sidebar" aria-label="Panel">
+      <div class="sidebar__brand"><img class="logo" src="../img/logo-blanco.webp" alt="Bugambilia Hair Boutique" width="128" height="60"><span>Panel de administración</span></div>
+      <a href="inventario.html" class="side-link" aria-current="page">Inventario</a>
+      <a href="sucursales.html" class="side-link">Sucursales</a>
+      <a href="arbol.html" class="side-link">Árbol del chatbot</a>
+      <div class="sidebar__spacer"></div>
+      <a href="../index.html" class="side-link side-link--muted">Ver sitio público</a>
+      <button type="button" class="side-link side-link--muted" data-logout>Cerrar sesión</button>
+    </nav>
+
+    <main class="admin-main">
+      <div class="admin-head">
+        <div class="stack gap-8">
+          <span class="lbl">Inventario · Alta / Baja / Cambio + stock global</span>
+          <h1 class="admin-title">Productos</h1>
+        </div>
+        <a href="producto.html" class="btn btn--primary">+ Dar de alta producto</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span>Activos</span><strong data-stat="activos">0</strong></div>
+        <div class="stat"><span>Agotados (stock 0)</span><strong data-stat="agotados">0</strong></div>
+        <div class="stat"><span>Dados de baja (inactivos)</span><strong data-stat="inactivos">0</strong></div>
+      </div>
+
+      <div class="toolbar">
+        <div class="field" style="flex: 1 1 240px">
+          <label for="q">Buscar</label>
+          <input id="q" type="search" class="input" placeholder="Nombre del producto" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="fl">Línea</label>
+          <select id="fl" class="input"><option value="todas">Todas</option></select>
+        </div>
+        <div class="field">
+          <label for="fe">Estado</label>
+          <select id="fe" class="input">
+            <option value="activos">Activos</option>
+            <option value="inactivos">Inactivos</option>
+            <option value="todos">Todos</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table">
+          <caption class="sr-only">Productos del inventario</caption>
+          <thead>
+            <tr><th scope="col">Producto</th><th scope="col">Línea</th><th scope="col">Precio</th><th scope="col">Stock</th><th scope="col">Estado</th><th scope="col">Acciones</th></tr>
+          </thead>
+          <tbody data-filas></tbody>
+        </table>
+      </div>
+
+      <div class="pager">
+        <span data-pager-info aria-live="polite"></span>
+        <div class="pager__pages" data-pager></div>
+      </div>
+      <p class="note">«Dar de baja» desactiva el producto (lo oculta del sitio) sin borrarlo; se puede reactivar desde el filtro «Inactivos».</p>
+    </main>
+  </div>
+
+  <!-- Confirmación de baja: <dialog> nativo del navegador -->
+  <dialog class="dialog" data-dialog-baja aria-labelledby="t-baja">
+    <form method="dialog">
+      <h2 id="t-baja">¿Dar de baja «<span data-baja-nombre></span>»?</h2>
+      <p>Dejará de mostrarse en el catálogo y en las recomendaciones del chatbot. No se borra: podrás reactivarlo después.</p>
+      <div class="dialog__actions">
+        <button value="cancelar" class="btn">Cancelar</button>
+        <button value="confirmar" class="btn btn--primary">Dar de baja</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

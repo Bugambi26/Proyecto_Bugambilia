@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sucursales — Bugambilia Hair Boutique</title>
+  <meta name="description" content="Visita Estética Bugambilia o encuentra la Línea Bugambilia en nuestro punto de venta.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Principal">
+      <a href="index.html" class="nav__logo"><img class="logo" src="img/logo.webp" alt="Bugambilia Hair Boutique — inicio" width="128" height="60"></a>
+      <div class="nav__links">
+        <a href="index.html" class="nav__link">Inicio</a>
+        <a href="index.html#servicios" class="nav__link">Servicios</a>
+        <a href="catalogo.html" class="nav__link">Productos</a>
+        <a href="sucursales.html" class="nav__link" aria-current="page">Sucursales</a>
+        <button type="button" class="btn btn--primary" data-open-chat>Encuentra tu ritual</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="container stack gap-10" style="padding-top: 48px; padding-bottom: 24px">
+      <span class="lbl">Sucursales</span>
+      <h1 class="title-lg">Dónde encontrarnos</h1>
+      <p style="font-size: 16px; color: var(--ink-2)">Visítanos en la estética o encuentra la Línea Bugambilia en nuestro punto de venta.</p>
+    </section>
+
+    <section class="container branches" style="padding-bottom: 64px">
+      <!-- Mapa: placeholder con marcadores. Al conectar un mapa real
+           (Leaflet / Google Maps) se usan latitud y longitud. -->
+      <div class="ph map" data-mapa>
+        <span>Mapa interactivo (marcadores por latitud / longitud)</span>
+      </div>
+      <div class="branch-list">
+        <div class="stack gap-16" data-sucursales></div>
+        <p class="note">La disponibilidad de cada producto es general (stock global), no por sucursal.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="stack gap-12">
+        <img class="logo" src="img/logo-blanco.webp" alt="Bugambilia Hair Boutique" width="115" height="54">
+        <span>Tu cabello. Tu ritual. Tu Bugambilia.</span>
+      </div>
+      <nav class="stack gap-8" aria-label="Pie de página">
+        <a href="catalogo.html">Productos</a>
+        <a href="sucursales.html">Sucursales</a>
+        <a href="https://instagram.com/" data-instagram target="_blank" rel="noopener">Instagram</a>
+      </nav>
+      <div class="stack gap-8">
+        <span>[Teléfono] · [WhatsApp]</span>
+        <a href="admin/login.html" class="muted-link">Acceso administrador</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

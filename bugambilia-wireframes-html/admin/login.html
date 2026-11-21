@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Iniciar sesión — Panel Bugambilia</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body data-page="login">
+  <main class="auth">
+    <div class="auth__box">
+      <img class="logo auth__logo" src="../img/logo.webp" alt="Bugambilia Hair Boutique" width="170" height="80">
+
+      <!-- Paso 0: iniciar sesión -->
+      <form class="auth__form" data-vista="login" novalidate>
+        <span class="lbl">Panel de administración · 1 cuenta</span>
+        <h1 class="auth__title">Iniciar sesión</h1>
+        <div class="field">
+          <label for="correo">Correo</label>
+          <input id="correo" name="correo" type="email" class="input" placeholder="dueña@correo.com" autocomplete="username" required>
+        </div>
+        <div class="field">
+          <label for="pass">Contraseña</label>
+          <input id="pass" name="pass" type="password" class="input" autocomplete="current-password" required>
+        </div>
+        <p class="alert" role="alert" data-error hidden>Correo o contraseña incorrectos.</p>
+        <button type="submit" class="btn btn--primary">Entrar</button>
+        <button type="button" class="btn-link" data-ir="recuperar">¿Olvidaste tu contraseña?</button>
+      </form>
+
+      <!-- Paso 1: pedir enlace de recuperación -->
+      <form class="auth__form" data-vista="recuperar" hidden novalidate>
+        <span class="lbl">Recuperar contraseña · paso 1 de 2</span>
+        <h1 class="auth__title">Recupera tu acceso</h1>
+        <p style="font-size: 15px; color: var(--ink-2)">Te enviaremos un enlace al correo registrado para crear una nueva contraseña. El enlace vence en [tiempo].</p>
+        <div class="field">
+          <label for="correo2">Correo</label>
+          <input id="correo2" type="email" class="input" autocomplete="email" required>
+        </div>
+        <p class="alert" role="status" data-enviado hidden>Si el correo está registrado, recibirás el enlace en unos minutos. (Demo: continúa al paso 2.)</p>
+        <button type="submit" class="btn btn--primary">Enviar enlace</button>
+        <button type="button" class="btn-link" data-ir="login">Volver a iniciar sesión</button>
+      </form>
+
+      <!-- Paso 2: nueva contraseña (se llega desde el enlace del correo) -->
+      <form class="auth__form" data-vista="nueva" hidden novalidate>
+        <span class="lbl">Recuperar contraseña · paso 2 de 2 (desde el enlace del correo)</span>
+        <h1 class="auth__title">Nueva contraseña</h1>
+        <div class="field">
+          <label for="n1">Nueva contraseña</label>
+          <input id="n1" type="password" class="input" autocomplete="new-password" minlength="8" required>
+          <span class="hint">Mínimo 8 caracteres.</span>
+        </div>
+        <div class="field">
+          <label for="n2">Confirmar contraseña</label>
+          <input id="n2" type="password" class="input" autocomplete="new-password" required>
+        </div>
+        <p class="alert" role="alert" data-error-nueva hidden></p>
+        <button type="submit" class="btn btn--primary">Guardar y volver a iniciar sesión</button>
+      </form>
+
+      <a href="../index.html" style="text-align: center; font-size: 14px; padding: 10px">← Volver al sitio</a>
+    </div>
+  </main>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

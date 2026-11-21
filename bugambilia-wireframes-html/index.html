@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inicio — Bugambilia Hair Boutique</title>
+  <meta name="description" content="Bugambilia Hair Boutique: tratamientos faciales, servicios capilares y la Línea Bugambilia de cuidado capilar profesional.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <!-- ===== Encabezado (igual en todas las páginas públicas) ===== -->
+  <header class="site-header">
+    <nav class="container nav" aria-label="Principal">
+      <a href="index.html" class="nav__logo"><img class="logo" src="img/logo.webp" alt="Bugambilia Hair Boutique — inicio" width="128" height="60"></a>
+      <div class="nav__links">
+        <a href="index.html" class="nav__link" aria-current="page">Inicio</a>
+        <a href="index.html#servicios" class="nav__link">Servicios</a>
+        <a href="catalogo.html" class="nav__link">Productos</a>
+        <a href="sucursales.html" class="nav__link">Sucursales</a>
+        <button type="button" class="btn btn--primary" data-open-chat>Encuentra tu ritual</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <div class="container split">
+        <div class="stack gap-20">
+          <span class="lbl">Professional Hair Care</span>
+          <h1 class="title-xl">Bugambilia Hair Boutique</h1>
+          <p class="lead">Tu cabello. Tu ritual. Tu Bugambilia.</p>
+          <p class="text">[Frase breve de bienvenida — texto de la clienta]</p>
+          <div class="row gap-12">
+            <a href="catalogo.html" class="btn btn--primary">Ver productos</a>
+            <button type="button" class="btn" data-open-chat>Encuentra tu ritual</button>
+          </div>
+        </div>
+        <img class="ph hero__img" src="img/hero.webp" alt="Las siete líneas de cuidado capilar Bugambilia sobre piedra, rodeadas de bugambilias" width="1448" height="1086" fetchpriority="high">
+      </div>
+    </section>
+
+    <!-- ===== Cinta decorativa (verbos de los pósters de la marca) ===== -->
+    <div class="ribbon" aria-hidden="true">
+      <div class="ribbon__track">
+        <span>Limpia</span><span>Hidrata</span><span>Nutre</span><span>Protege</span><span>Desenreda</span><span>Suaviza</span><span>Realza</span>
+        <span>Limpia</span><span>Hidrata</span><span>Nutre</span><span>Protege</span><span>Desenreda</span><span>Suaviza</span><span>Realza</span>
+      </div>
+    </div>
+
+    <!-- ===== Sobre Bugambilia (contenido fijo) ===== -->
+    <section class="section section--alt" aria-labelledby="t-sobre">
+      <div class="container split">
+        <div class="about__imgs">
+          <div class="ph" role="img" aria-label="Foto del equipo">Foto del equipo</div>
+          <div class="ph" role="img" aria-label="Foto del espacio">Foto del espacio</div>
+        </div>
+        <div class="stack gap-16">
+          <span class="lbl">Nuestra esencia</span>
+          <h2 id="t-sobre" class="title-md">Sobre Bugambilia</h2>
+          <p class="text">[Historia de la estética — texto de la clienta]</p>
+          <p class="text">[Misión / qué nos distingue — texto de la clienta]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Servicios (promocional, contenido fijo) ===== -->
+    <section id="servicios" class="section" aria-labelledby="t-servicios">
+      <div class="container stack gap-28">
+        <div class="stack gap-10">
+          <span class="lbl">Servicios</span>
+          <h2 id="t-servicios" class="title-md">Nuestros servicios</h2>
+          <p class="text" style="line-height: normal">Cada piel tiene necesidades diferentes. Piel limpia. Piel cuidada. Piel luminosa.</p>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Tipo de servicio">
+          <button type="button" class="btn" role="tab" id="tab-faciales" aria-selected="true" aria-controls="panel-faciales">Faciales</button>
+          <button type="button" class="btn" role="tab" id="tab-capilares" aria-selected="false" aria-controls="panel-capilares" tabindex="-1">Capilares</button>
+        </div>
+
+        <!-- Panel Faciales: 4 tarjetas con comparador antes/después -->
+        <div id="panel-faciales" role="tabpanel" aria-labelledby="tab-faciales" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+          <article class="card service">
+            <div class="compare" data-compare>
+              <div class="ph compare__layer"><span class="compare__tag compare__tag--before">Antes</span></div>
+              <div class="ph compare__layer compare__layer--after"><span class="compare__tag compare__tag--after">Después</span></div>
+              <span class="compare__line" aria-hidden="true"></span>
+              <input class="compare__range" type="range" min="0" max="100" value="50" aria-label="Comparar antes y después: Limpieza Facial Profunda">
+              <span class="compare__handle" aria-hidden="true">‹›</span>
+            </div>
+            <div class="service__body">
+              <h3 class="service__name">Limpieza Facial Profunda</h3>
+              <p class="service__focus">Limpieza y renovación de la piel</p>
+              <p class="service__ideal">Ideal para: pieles con impurezas, poros congestionados, exceso de grasa o apariencia opaca.</p>
+            </div>
+          </article>
+          <article class="card service">
+            <div class="compare" data-compare>
+              <div class="ph compare__layer"><span class="compare__tag compare__tag--before">Antes</span></div>
+              <div class="ph compare__layer compare__layer--after"><span class="compare__tag compare__tag--after">Después</span></div>
+              <span class="compare__line" aria-hidden="true"></span>
+              <input class="compare__range" type="range" min="0" max="100" value="50" aria-label="Comparar antes y después: Hollywood Peel">
+              <span class="compare__handle" aria-hidden="true">‹›</span>
+            </div>
+            <div class="service__body">
+              <h3 class="service__name">Hollywood Peel</h3>
+              <p class="service__focus">Luminosidad y renovación</p>
+              <p class="service__ideal">Ideal para: quienes buscan un efecto glow y una piel más uniforme y radiante.</p>
+            </div>
+          </article>
+          <article class="card service">
+            <div class="compare" data-compare>
+              <div class="ph compare__layer"><span class="compare__tag compare__tag--before">Antes</span></div>
+              <div class="ph compare__layer compare__layer--after"><span class="compare__tag compare__tag--after">Después</span></div>
+              <span class="compare__line" aria-hidden="true"></span>
+              <input class="compare__range" type="range" min="0" max="100" value="50" aria-label="Comparar antes y después: BB Glow">
+              <span class="compare__handle" aria-hidden="true">‹›</span>
+            </div>
+            <div class="service__body">
+              <h3 class="service__name">BB Glow</h3>
+              <p class="service__focus">Luminosidad y apariencia uniforme</p>
+              <p class="service__ideal">Ideal para: pieles que buscan mayor luminosidad, uniformidad y un aspecto más fresco.</p>
+            </div>
+          </article>
+          <article class="card service">
+            <div class="compare" data-compare>
+              <div class="ph compare__layer"><span class="compare__tag compare__tag--before">Antes</span></div>
+              <div class="ph compare__layer compare__layer--after"><span class="compare__tag compare__tag--after">Después</span></div>
+              <span class="compare__line" aria-hidden="true"></span>
+              <input class="compare__range" type="range" min="0" max="100" value="50" aria-label="Comparar antes y después: Hidrafacial">
+              <span class="compare__handle" aria-hidden="true">‹›</span>
+            </div>
+            <div class="service__body">
+              <h3 class="service__name">Hidrafacial</h3>
+              <p class="service__focus">Limpieza + exfoliación + extracción + hidratación</p>
+              <p class="service__ideal">Ideal para: todo tipo de pieles que buscan una renovación completa.</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- Panel Capilares: información pendiente con la clienta -->
+        <div id="panel-capilares" role="tabpanel" aria-labelledby="tab-capilares" hidden>
+          <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
+            <article class="card service">
+              <div class="compare compare--photo" data-compare>
+                <img class="ph compare__layer" src="img/antes.webp" alt="Antes: cabello rizado sin tratamiento" width="900" height="643" loading="lazy">
+                <img class="ph compare__layer compare__layer--after" src="img/despues.webp" alt="Después: cabello rubio con ondas definidas" width="900" height="643" loading="lazy">
+                <span class="compare__tag compare__tag--photo compare__tag--before">Antes</span>
+                <span class="compare__tag compare__tag--photo compare__tag--after">Después</span>
+                <span class="compare__line" aria-hidden="true"></span>
+                <input class="compare__range" type="range" min="0" max="100" value="50" aria-label="Comparar antes y después del servicio capilar">
+                <span class="compare__handle" aria-hidden="true">‹›</span>
+              </div>
+              <div class="service__body">
+                <h3 class="service__name">[Servicio capilar]</h3>
+                <p class="service__focus">[Enfoque del servicio]</p>
+                <p class="service__ideal">Ideal para: [descripción pendiente con la clienta].</p>
+              </div>
+            </article>
+            <p class="pending" style="align-self: start">Corte, tinte y tratamientos para el cabello — [información pendiente con la clienta]. Cada servicio usa la misma tarjeta con antes y después.</p>
+          </div>
+        </div>
+
+        <div class="row gap-16">
+          <p style="font-size: 16px">¿Quieres un tratamiento personalizado?</p>
+          <a href="https://instagram.com/" class="btn" data-instagram target="_blank" rel="noopener">Agenda tu diagnóstico en Instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Línea Bugambilia ===== -->
+    <section class="section section--alt" aria-labelledby="t-lineas">
+      <div class="container stack gap-28">
+        <div class="row between gap-16" style="align-items: flex-end">
+          <div class="stack gap-10">
+            <span class="lbl">Línea Bugambilia · Professional Hair Care</span>
+            <h2 id="t-lineas" class="title-md">Encuentra tu ritual</h2>
+          </div>
+          <a href="catalogo.html" class="btn">Ver los 21 productos</a>
+        </div>
+        <!-- Se llena desde js/main.js con BG.LINEAS -->
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));" data-lineas></div>
+      </div>
+    </section>
+
+    <!-- ===== Llamado al chatbot ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="callout">
+          <div class="stack gap-8" style="flex: 1 1 420px">
+            <span class="lbl">Asistente Bugambilia</span>
+            <h2 class="title-sm">¿No sabes qué producto elegir?</h2>
+            <p style="font-size: 16px; color: var(--ink-2)">Responde unas preguntas y te recomendamos el ritual ideal para tu cabello.</p>
+          </div>
+          <button type="button" class="btn btn--primary" data-open-chat>Hablar con el asistente</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Sucursales (vista previa) ===== -->
+    <section class="section section--alt" aria-labelledby="t-suc">
+      <div class="container stack gap-24">
+        <div class="row between gap-16" style="align-items: flex-end">
+          <div class="stack gap-10">
+            <span class="lbl">Visítanos</span>
+            <h2 id="t-suc" class="title-md">Dónde encontrarnos</h2>
+          </div>
+          <a href="sucursales.html" class="btn">Ver mapa</a>
+        </div>
+        <!-- Se llena desde js/main.js con las sucursales guardadas -->
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));" data-sucursales-preview></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Pie de página (igual en todas las páginas públicas) ===== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="stack gap-12">
+        <img class="logo" src="img/logo-blanco.webp" alt="Bugambilia Hair Boutique" width="115" height="54">
+        <span>Tu cabello. Tu ritual. Tu Bugambilia.</span>
+      </div>
+      <nav class="stack gap-8" aria-label="Pie de página">
+        <a href="catalogo.html">Productos</a>
+        <a href="sucursales.html">Sucursales</a>
+        <a href="https://instagram.com/" data-instagram target="_blank" rel="noopener">Instagram</a>
+      </nav>
+      <div class="stack gap-8">
+        <span>[Teléfono] · [WhatsApp]</span>
+        <a href="admin/login.html" class="muted-link">Acceso administrador</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

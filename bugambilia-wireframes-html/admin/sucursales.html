@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Sucursales — Panel Bugambilia</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body data-page="sucursales">
+  <div class="admin">
+    <nav class="sidebar" aria-label="Panel">
+      <div class="sidebar__brand"><img class="logo" src="../img/logo-blanco.webp" alt="Bugambilia Hair Boutique" width="128" height="60"><span>Panel de administración</span></div>
+      <a href="inventario.html" class="side-link">Inventario</a>
+      <a href="sucursales.html" class="side-link" aria-current="page">Sucursales</a>
+      <a href="arbol.html" class="side-link">Árbol del chatbot</a>
+      <div class="sidebar__spacer"></div>
+      <a href="../index.html" class="side-link side-link--muted">Ver sitio público</a>
+      <button type="button" class="side-link side-link--muted" data-logout>Cerrar sesión</button>
+    </nav>
+
+    <main class="admin-main">
+      <div class="admin-head">
+        <div class="stack gap-8">
+          <span class="lbl">Sucursales · agregar / editar / eliminar</span>
+          <h1 class="admin-title">Sucursales</h1>
+        </div>
+        <button type="button" class="btn btn--primary" data-nueva>+ Agregar sucursal</button>
+      </div>
+
+      <div class="form-layout">
+        <div class="form-side item-list" data-lista style="order: -1"></div>
+
+        <form class="panel form-main" data-form-sucursal novalidate>
+          <h2 style="font-size: 20px" data-form-titulo>Editar sucursal</h2>
+          <div class="fieldset" style="border: none; padding: 0">
+            <div class="field full">
+              <label for="s-nombre">Nombre *</label>
+              <input id="s-nombre" name="nombre" class="input" required>
+            </div>
+            <fieldset class="full" style="border: none; margin: 0; padding: 0">
+              <legend style="font-size: 13px; font-weight: 600; margin-bottom: 4px; padding: 0">Tipo *</legend>
+              <div class="radio-row">
+                <label><input type="radio" name="tipo" value="propia" checked> Establecimiento propio</label>
+                <label><input type="radio" name="tipo" value="tercero"> Punto de venta (tercero)</label>
+              </div>
+            </fieldset>
+            <div class="field full">
+              <label for="s-dir">Dirección *</label>
+              <input id="s-dir" name="direccion" class="input" placeholder="Calle, número, colonia, ciudad" required>
+            </div>
+            <div class="field full">
+              <span class="field__label" id="t-mapa">Ubicación en el mapa *</span>
+              <div class="ph map-picker" role="button" tabindex="0" aria-labelledby="t-mapa" data-map-picker>
+                <span>Mapa · clic para colocar el marcador (guarda latitud y longitud)</span>
+                <span class="map-picker__pin" data-map-pin></span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="s-tel">Teléfono</label>
+              <input id="s-tel" name="telefono" class="input" type="tel" autocomplete="off">
+            </div>
+            <div class="field">
+              <label for="s-wa">WhatsApp</label>
+              <input id="s-wa" name="whatsapp" class="input" type="tel" autocomplete="off">
+            </div>
+            <div class="field full">
+              <span class="field__label">Foto</span>
+              <div class="row gap-16">
+                <div class="ph" style="width: 96px; height: 72px" data-foto-vacia>Foto</div>
+                <img class="ph" style="width: 96px; height: 72px" src="" alt="Foto actual de la sucursal" data-foto-preview hidden>
+                <label for="s-foto" class="btn btn--sm">Cambiar foto</label>
+                <input id="s-foto" type="file" accept="image/*" class="sr-only">
+              </div>
+            </div>
+          </div>
+
+          <fieldset class="fieldset--sep" style="border: none; border-top: 1px solid var(--line); margin: 0; padding: 20px 0 0">
+            <legend style="font-weight: 700; font-size: 17px; padding: 0; margin-bottom: 10px">Horario por día</legend>
+            <div class="hours-grid" data-horario></div>
+          </fieldset>
+
+          <p class="alert" role="alert" data-form-error hidden>Completa nombre y dirección.</p>
+          <div class="form-actions">
+            <button type="button" class="btn" data-cancelar>Cancelar</button>
+            <button type="submit" class="btn btn--primary">Guardar sucursal</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="dialog" data-dialog-eliminar aria-labelledby="t-eliminar">
+    <form method="dialog">
+      <h2 id="t-eliminar">¿Eliminar «<span data-eliminar-nombre></span>»?</h2>
+      <p>Se quitará del mapa y de la lista de sucursales del sitio, junto con su horario. Esta acción no se puede deshacer.</p>
+      <div class="dialog__actions">
+        <button value="cancelar" class="btn">Cancelar</button>
+        <button value="confirmar" class="btn btn--primary">Eliminar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

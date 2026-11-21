@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Productos — Bugambilia Hair Boutique</title>
+  <meta name="description" content="Catálogo de la Línea Bugambilia: siete rituales de cuidado capilar profesional.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Principal">
+      <a href="index.html" class="nav__logo"><img class="logo" src="img/logo.webp" alt="Bugambilia Hair Boutique — inicio" width="128" height="60"></a>
+      <div class="nav__links">
+        <a href="index.html" class="nav__link">Inicio</a>
+        <a href="index.html#servicios" class="nav__link">Servicios</a>
+        <a href="catalogo.html" class="nav__link" aria-current="page">Productos</a>
+        <a href="sucursales.html" class="nav__link">Sucursales</a>
+        <button type="button" class="btn btn--primary" data-open-chat>Encuentra tu ritual</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="container stack gap-10" style="padding-top: 48px; padding-bottom: 24px">
+      <span class="lbl">Línea Bugambilia · Professional Hair Care</span>
+      <h1 class="title-lg">Productos</h1>
+      <p style="font-size: 16px; color: var(--ink-2)">Siete rituales de cuidado capilar profesional. Elige tu línea según lo que tu cabello necesita.</p>
+    </section>
+
+    <section class="container catalog" style="padding-bottom: 64px">
+      <!-- ===== Filtros ===== -->
+      <aside class="card filters" aria-label="Filtros">
+        <div class="field">
+          <label for="buscar" class="filters__title">Buscar</label>
+          <input id="buscar" type="search" class="input" placeholder="Shampoo, mascarilla…" autocomplete="off">
+        </div>
+        <div class="filters__group" role="group" aria-labelledby="t-linea">
+          <span id="t-linea" class="filters__title">Línea</span>
+          <!-- Botones generados en js/main.js -->
+          <div class="stack gap-8" data-filtro-lineas></div>
+        </div>
+        <fieldset class="filters__group" style="border: none; margin: 0; padding: 0">
+          <legend class="filters__title" style="padding: 0; margin-bottom: 8px">Tipo de producto</legend>
+          <div data-filtro-tipos></div>
+        </fieldset>
+      </aside>
+
+      <!-- ===== Resultados ===== -->
+      <div class="catalog__results">
+        <div class="row between gap-12">
+          <p style="font-size: 15px; color: var(--ink-2)" aria-live="polite">Mostrando <strong data-total>21</strong> productos · <span data-filtro-actual>Todas las líneas</span></p>
+          <span class="lbl" style="color: var(--muted)">Precio público: [pendiente]</span>
+        </div>
+        <!-- Banner de la línea seleccionada (se llena en js/main.js) -->
+        <section class="card line-banner" data-banner-linea hidden></section>
+        <div class="grid product-grid" data-productos></div>
+        <div class="callout callout--sm" style="margin-top: 12px">
+          <span style="font-size: 16px">¿No sabes cuál elegir? El asistente te recomienda según tu cabello.</span>
+          <button type="button" class="btn btn--primary" data-open-chat>Hablar con el asistente</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="stack gap-12">
+        <img class="logo" src="img/logo-blanco.webp" alt="Bugambilia Hair Boutique" width="115" height="54">
+        <span>Tu cabello. Tu ritual. Tu Bugambilia.</span>
+      </div>
+      <nav class="stack gap-8" aria-label="Pie de página">
+        <a href="catalogo.html">Productos</a>
+        <a href="sucursales.html">Sucursales</a>
+        <a href="https://instagram.com/" data-instagram target="_blank" rel="noopener">Instagram</a>
+      </nav>
+      <div class="stack gap-8">
+        <span>[Teléfono] · [WhatsApp]</span>
+        <a href="admin/login.html" class="muted-link">Acceso administrador</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

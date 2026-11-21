@@ -1,0 +1,309 @@
+/* =========================================================
+   theme.css — Tema Bugambilia (capa de mockup)
+   ---------------------------------------------------------
+   styles.css y admin.css tienen la ESTRUCTURA del wireframe
+   (layout, tamaños, componentes). Este archivo se carga al
+   final y solo cambia la PIEL: colores, tipografía, texturas
+   y detalles decorativos. Si se quita este archivo, el sitio
+   vuelve a verse como wireframe en grises.
+
+   Paleta tomada del logo y de los pósters de la clienta.
+   Cuando lleguen los códigos oficiales, basta con cambiar
+   los valores de la sección 1.
+   ========================================================= */
+
+/* ---------- 0. Tipografías (archivos locales, licencia OFL) ---------- */
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 500; font-display: swap; src: url(../fonts/cormorant-garamond-latin-500-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 500; font-display: swap; src: url(../fonts/cormorant-garamond-latin-500-italic.woff2) format('woff2'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 600; font-display: swap; src: url(../fonts/cormorant-garamond-latin-600-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Jost'; font-style: normal; font-weight: 400; font-display: swap; src: url(../fonts/jost-latin-400-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Jost'; font-style: normal; font-weight: 500; font-display: swap; src: url(../fonts/jost-latin-500-normal.woff2) format('woff2'); }
+@font-face { font-family: 'Jost'; font-style: normal; font-weight: 600; font-display: swap; src: url(../fonts/jost-latin-600-normal.woff2) format('woff2'); }
+
+/* ---------- 1. Paleta de marca ---------- */
+:root {
+  /* Marca */
+  --crema: #F7EFE6;        /* fondo principal (fondo del logo) */
+  --arena: #EAD7C3;        /* secciones alternas, placeholders */
+  --arena-2: #F2E6D8;
+  --chocolate: #5C3F2E;    /* botones, acentos fuertes (botón de los pósters) */
+  --chocolate-2: #3E2A1F;  /* pie de página, menú del panel */
+  --bugambilia: #B0245A;   /* acento: flores de bugambilia */
+  --dorado: #B98A4B;       /* detalles, líneas finas (tapa y ramita de las botellas) */
+  --dorado-2: #94693A;     /* dorado legible sobre crema (texto pequeño) */
+  --tinta: #241A15;        /* texto */
+
+  /* Fuentes */
+  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --sans: 'Jost', system-ui, sans-serif;
+
+  /* Se reasignan los tokens del wireframe a la paleta: así todo
+     lo que ya usaba var(--ink), var(--line)… cambia solo. */
+  --ink: var(--tinta);
+  --ink-2: #5A4638;
+  --muted: #7A6455;
+  --ph-ink: #8A6D55;
+  --line: #E6D6C4;
+  --line-2: #C9B197;
+  --ph: var(--arena-2);
+  --ph-2: var(--arena);
+  --bg: var(--crema);
+  --bg-alt: var(--arena-2);
+  --bubble: var(--arena-2);
+  --accent: var(--bugambilia);
+  --dark-2: #4A3426;
+  --on-dark-muted: #CDB8A3;
+  --font: var(--sans);
+  --mono: var(--sans);
+
+  --r-sm: 10px;
+  --r: 14px;
+  --r-lg: 18px;
+  --r-xl: 22px;
+  --sombra: 0 18px 40px -24px rgba(92, 63, 46, .45);
+  --sombra-sm: 0 8px 20px -14px rgba(92, 63, 46, .5);
+
+  /* Textura de papel (ruido SVG muy suave) */
+  --grano: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36  0 0 0 0 .25  0 0 0 0 .18  0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- 2. Base ---------- */
+body { background: var(--crema) var(--grano); color: var(--tinta); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--chocolate); }
+a:hover { color: var(--bugambilia); }
+::selection { background: var(--bugambilia); color: #fff; }
+:focus-visible { outline-color: var(--bugambilia); }
+
+h1, h2, h3, .title-xl, .title-lg, .title-md, .title-sm, .detail__title, .admin-title, .auth__title {
+  font-family: var(--serif); font-weight: 600; letter-spacing: .005em; color: var(--tinta);
+}
+.title-xl { font-size: 68px; line-height: 1; }
+.title-lg { font-size: 54px; }
+.title-md { font-size: 46px; line-height: 1.05; }
+.title-sm { font-size: 36px; line-height: 1.1; }
+.lead { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 27px; color: var(--chocolate); }
+.text { color: var(--ink-2); }
+
+/* Etiquetas: dejan de ser anotaciones azules del wireframe y pasan a ser
+   "eyebrows" en mayúsculas espaciadas, como "SWEET RITUAL" en las etiquetas */
+.lbl { font-family: var(--sans); font-weight: 500; font-size: 12px; letter-spacing: .24em; color: var(--dorado-2); }
+.meta, .product-card__line { font-family: var(--sans); font-weight: 500; letter-spacing: .16em; color: var(--muted); }
+.site-header ~ main .lbl { display: inline-flex; align-items: center; gap: 10px; }
+.site-header ~ main .lbl::before { content: ''; width: 24px; height: 18px; flex: none; background: url(../img/flor.webp) center / contain no-repeat; }
+
+/* Placeholders pendientes: siguen viéndose "por llenar", pero ya en la paleta */
+.ph {
+  background: var(--arena-2) repeating-linear-gradient(135deg, transparent 0 14px, rgba(185,138,75,.08) 14px 15px);
+  border: 1.5px dashed var(--line-2); border-radius: var(--r);
+  font-family: var(--sans); letter-spacing: .14em; color: var(--ph-ink);
+}
+img.ph { background: var(--arena-2); }
+
+/* ---------- 3. Componentes ---------- */
+.btn {
+  border-radius: 999px; border-color: var(--chocolate); color: var(--chocolate); background: transparent;
+  font-family: var(--sans); font-weight: 500; letter-spacing: .04em; padding: 0 24px;
+  transition: background .2s, color .2s, border-color .2s, transform .2s;
+}
+.btn:hover { background: var(--arena); color: var(--chocolate); }
+.btn--primary { background: var(--chocolate); border-color: var(--chocolate); color: var(--crema); }
+.btn--primary:hover { background: var(--chocolate-2); border-color: var(--chocolate-2); color: #fff; transform: translateY(-1px); }
+.btn--sm { padding: 0 18px; }
+
+.card { background: #FFFCF8; border-color: var(--line); border-radius: var(--r); box-shadow: var(--sombra-sm); }
+
+.badge { border-color: transparent; background: #E3EBDD; color: #3F5C3D; font-weight: 500; }
+.badge--out { background: #F6DDE4; color: var(--bugambilia); border: 1px dashed var(--bugambilia); }
+
+.input { border-color: var(--line-2); border-radius: var(--r-sm); background: #FFFCF8; }
+.input:focus { outline: none; border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(185,138,75,.22); }
+
+.pending { border-color: var(--line-2); background: rgba(255,252,248,.6); border-radius: var(--r); color: var(--muted); }
+
+/* ---------- 4. Encabezado y pie ---------- */
+.site-header {
+  position: relative; z-index: 30;
+  background: rgba(247, 239, 230, .88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(185, 138, 75, .35);
+}
+/* En escritorio el encabezado se queda fijo arriba; en celular no, para no tapar la pantalla */
+@media (min-width: 900px) { .site-header { position: sticky; top: 0; } }
+.nav__link { font-weight: 500; color: var(--chocolate); letter-spacing: .03em; }
+.nav__link:hover { color: var(--bugambilia); }
+.nav__link[aria-current="page"] { border-bottom: 2px solid var(--dorado); }
+
+.site-footer {
+  position: relative; overflow: hidden;
+  background: var(--chocolate-2) url(../img/flor-crema.webp) right -40px bottom -60px / 340px auto no-repeat;
+  color: var(--crema); border-top: 3px solid var(--dorado);
+}
+.site-footer::before { content: ''; position: absolute; inset: 0; background: rgba(62,42,31,.9); pointer-events: none; }
+.site-footer__inner { position: relative; }
+.site-footer a { color: var(--crema); }
+.site-footer a:hover { color: #F3C9D7; }
+
+/* ---------- 5. Inicio ---------- */
+.hero {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(60% 80% at 85% 20%, rgba(234,215,195,.9), transparent 70%),
+    radial-gradient(40% 50% at 0% 100%, rgba(176,36,90,.08), transparent 70%);
+}
+.hero::before {
+  content: ''; position: absolute; width: 420px; height: 300px; left: -90px; top: 40px; opacity: .12;
+  background: url(../img/flor.webp) center / contain no-repeat; transform: rotate(-12deg); pointer-events: none;
+}
+.hero .container { position: relative; }
+.hero .title-xl { font-size: 76px; }
+img.hero__img { border-radius: 26px; box-shadow: 22px 22px 0 0 var(--arena), var(--sombra); }
+
+/* Cinta con los verbos de los pósters */
+.ribbon { background: var(--chocolate); color: var(--crema); overflow: hidden; border-block: 1px solid var(--dorado); }
+.ribbon__track { display: flex; gap: 0; width: max-content; animation: ribbon 38s linear infinite; }
+.ribbon__track span { font-family: var(--serif); font-style: italic; font-size: 24px; padding: 14px 28px; white-space: nowrap; display: flex; align-items: center; gap: 56px; }
+.ribbon__track span::after { content: '✦'; font-style: normal; font-size: 13px; color: var(--dorado); }
+@keyframes ribbon { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .ribbon__track { animation: none; } }
+
+.section--alt { background: var(--arena-2) var(--grano); }
+.about__imgs .ph:first-child { border-radius: 160px 160px var(--r) var(--r); }
+
+.tabs .btn { border-radius: 999px; }
+.tabs .btn[aria-selected="true"] { background: var(--chocolate); color: var(--crema); }
+
+.service { border-radius: var(--r-lg); }
+.service__name { font-family: var(--serif); font-size: 26px; }
+.service__focus { color: var(--bugambilia); font-weight: 500; letter-spacing: .02em; }
+.compare__line { background: var(--crema); width: 2px; }
+.compare__handle { border-color: var(--chocolate); background: var(--crema); color: var(--chocolate); box-shadow: var(--sombra-sm); }
+
+/* Tarjeta de línea: el cuerpo toma el color de la banda de su etiqueta */
+.line-card { border-radius: var(--r-lg); border: none; box-shadow: var(--sombra); transition: transform .25s, box-shadow .25s; }
+.line-card:hover { transform: translateY(-4px); box-shadow: 0 26px 50px -26px rgba(92,63,46,.6); }
+.line-card__body { background: var(--l-bg, #FFFCF8); border-top: 3px solid var(--dorado); flex: 1; }
+/* 7 líneas en 3 columnas: la última ocupa toda la fila, en horizontal */
+@media (min-width: 900px) {
+  .line-card:last-child:nth-child(3n+1) { grid-column: 1 / -1; flex-direction: row; }
+  .line-card:last-child:nth-child(3n+1) .line-card__img { width: 50%; height: 280px; flex: none; }
+  .line-card:last-child:nth-child(3n+1) .line-card__body { border-top: none; border-left: 3px solid var(--dorado); justify-content: center; padding: 32px 40px; }
+  .line-card:last-child:nth-child(3n+1) .line-card__name { font-size: 40px; }
+}
+.line-card .meta { color: var(--l-ink, var(--muted)); opacity: .85; }
+.line-card__name { font-family: var(--serif); font-size: 30px; font-weight: 600; line-height: 1.05; color: var(--l-ink, var(--tinta)); }
+.line-card .small { color: var(--ink-2); }
+
+/* Llamado al chatbot: chocolate + foto de bugambilias */
+.site-header ~ main .callout:not(.callout--sm) {
+  border: none; border-radius: var(--r-xl); color: var(--crema); box-shadow: var(--sombra);
+  background: linear-gradient(90deg, var(--chocolate-2) 40%, rgba(62,42,31,.35)), url(../img/ingredientes/antiox.webp) right center / cover no-repeat;
+}
+.site-header ~ main .callout:not(.callout--sm) .lbl { color: #E7C590; }
+.site-header ~ main .callout:not(.callout--sm) .lbl::before { background-image: url(../img/flor-crema.webp); }
+.site-header ~ main .callout:not(.callout--sm) h2 { color: var(--crema); font-size: 44px; }
+.site-header ~ main .callout:not(.callout--sm) p { color: rgba(247,239,230,.85) !important; }
+.site-header ~ main .callout:not(.callout--sm) .btn--primary { background: var(--crema); color: var(--chocolate); border-color: var(--crema); }
+.site-header ~ main .callout:not(.callout--sm) .btn--primary:hover { background: #fff; }
+.callout--sm { border: none; background: var(--arena); border-radius: var(--r-lg); }
+
+/* ---------- 6. Catálogo y detalle ---------- */
+.filters { background: #FFFCF8; }
+.filter-btn { border-radius: 999px; border-color: var(--line); background: transparent; display: flex; align-items: center; gap: 10px; }
+.filter-btn::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--l-bg, var(--arena)); box-shadow: inset 0 0 0 1px var(--l-ink, var(--line-2)); flex: none; }
+.filter-btn:hover { border-color: var(--dorado); }
+.filter-btn[aria-pressed="true"] { background: var(--chocolate); border-color: var(--chocolate); color: var(--crema); }
+.check input { accent-color: var(--chocolate); }
+
+.product-card { border-radius: var(--r-lg); transition: transform .25s, box-shadow .25s; }
+.product-card:hover { transform: translateY(-4px); box-shadow: var(--sombra); }
+img.product-card__img { border-bottom: 3px solid var(--l-bg, var(--arena)); }
+.product-card__line { align-self: flex-start; background: var(--l-bg, var(--arena)); color: var(--l-ink, var(--chocolate)); padding: 3px 10px; border-radius: 999px; font-size: 10.5px; }
+.product-card__name { font-family: var(--serif); font-size: 23px; font-weight: 600; line-height: 1.1; }
+
+.line-banner { border: none; border-radius: var(--r-lg); background: var(--l-bg, var(--arena)); box-shadow: var(--sombra); }
+.line-banner .meta { color: var(--l-ink); }
+.line-banner h2 { color: var(--l-ink); font-size: 42px; }
+
+.breadcrumb a { color: var(--muted); }
+img.detail__img { box-shadow: 18px 18px 0 0 var(--l-bg, var(--arena)), var(--sombra); }
+.detail__title { font-size: 56px; line-height: 1; }
+[data-d-linea] { color: var(--l-ink, var(--muted)); }
+.detail__price { font-family: var(--serif); font-size: 32px; }
+.specs { border-top-color: var(--line); }
+.specs > div { border-bottom-color: var(--line); }
+.specs dt { letter-spacing: .12em; text-transform: uppercase; font-size: 11.5px; }
+.specs dd { font-family: var(--serif); font-size: 21px; font-weight: 600; }
+.ingredient img.ph { border-radius: 50%; }
+.related-card { border-radius: var(--r-lg); }
+
+/* ---------- 7. Sucursales ---------- */
+.map {
+  border-radius: var(--r-lg); border: 1px solid var(--line-2);
+  background:
+    linear-gradient(rgba(255,255,255,.35) 2px, transparent 2px) 0 0 / 64px 64px,
+    linear-gradient(90deg, rgba(255,255,255,.35) 2px, transparent 2px) 0 0 / 64px 64px,
+    linear-gradient(28deg, transparent 46%, rgba(255,255,255,.7) 46% 49%, transparent 49%),
+    linear-gradient(-62deg, transparent 58%, rgba(255,255,255,.6) 58% 60%, transparent 60%),
+    radial-gradient(40% 40% at 70% 30%, rgba(223,232,218,.9), transparent 70%),
+    var(--arena-2);
+}
+.map__pin-dot { background: var(--bugambilia); }
+.map__pin--third .map__pin-dot { background: var(--crema); border-color: var(--chocolate); }
+.map__pin-label { border: none; border-radius: 999px; padding: 5px 12px; box-shadow: var(--sombra-sm); background: #FFFCF8; font-weight: 500; }
+.branch { border-radius: var(--r-lg); }
+.branch[data-open="true"] { border: 1.5px solid var(--dorado); }
+.branch__name { font-family: var(--serif); font-size: 26px; }
+.branch__toggle img.ph { border-radius: 12px; }
+
+/* ---------- 8. Chatbot ---------- */
+.chat-bubble { background: var(--bugambilia); box-shadow: 0 10px 24px -8px rgba(176,36,90,.7); }
+.chat { border: 1px solid var(--line-2); border-radius: var(--r-xl); background: #FFFCF8; }
+.chat__head { background: var(--arena-2); }
+.chat__head strong { font-family: var(--serif); font-size: 19px !important; }
+.chat__progress > span { background: var(--dorado); }
+.msg-me { background: var(--chocolate); }
+.reco { border-radius: var(--r); background: #fff; }
+.reco:hover { border-color: var(--dorado); }
+
+/* ---------- 9. Panel de administración ---------- */
+.admin { background: var(--crema) var(--grano); }
+.sidebar { background: var(--chocolate-2); }
+.side-link { color: var(--crema); border-radius: 999px; }
+.side-link:hover { background: rgba(247,239,230,.1); }
+.side-link[aria-current="page"] { background: var(--crema); color: var(--chocolate); }
+.panel, .stat, .table-wrap, .item, .auth__form { background: #FFFCF8; border-color: var(--line); border-radius: var(--r); }
+.stat strong { font-family: var(--serif); font-size: 38px; }
+.table th { border-bottom-color: var(--chocolate); letter-spacing: .06em; }
+.table .thumb { border-radius: 10px; }
+.stepper button { border-color: var(--line-2); border-radius: 999px; background: #fff; color: var(--chocolate); }
+.pager__pages .btn[aria-current="page"] { background: var(--chocolate); color: var(--crema); }
+.switch { border-radius: 999px; border-color: var(--chocolate); }
+.switch[aria-checked="true"] { background: var(--chocolate); color: var(--crema); }
+.chip { border-color: var(--line-2); }
+.chip[aria-pressed="true"], .chip--on { background: var(--chocolate); border-color: var(--chocolate); }
+.q-btn[aria-current="true"] { background: var(--chocolate); border-color: var(--chocolate); }
+.item[aria-current="true"] { border: 1.5px solid var(--dorado); }
+.dialog { border-radius: var(--r-xl); background: #FFFCF8; }
+.toast { background: var(--chocolate); border-radius: 999px; }
+.auth { background: var(--crema) var(--grano); }
+.auth::before { content: ''; position: fixed; width: 520px; height: 380px; right: -120px; bottom: -80px; opacity: .1; background: url(../img/flor.webp) center / contain no-repeat; pointer-events: none; }
+.flow { background: var(--arena-2); border-color: var(--line-2); border-radius: var(--r-sm); }
+.map-picker { border-radius: var(--r); }
+
+/* ---------- 10. Responsivo ---------- */
+@media (max-width: 640px) {
+  .title-xl, .hero .title-xl { font-size: 50px; }
+  .title-lg { font-size: 42px; }
+  .title-md { font-size: 36px; }
+  .detail__title { font-size: 42px; }
+  .site-header ~ main .callout:not(.callout--sm) h2 { font-size: 34px; }
+  .site-header ~ main .callout:not(.callout--sm) { background: linear-gradient(180deg, rgba(62,42,31,.92), var(--chocolate-2)), url(../img/ingredientes/antiox.webp) center / cover; }
+  img.hero__img { box-shadow: 12px 12px 0 0 var(--arena); }
+  .ribbon__track span { font-size: 20px; padding: 12px 20px; }
+}
+
+/* Fotos de producto en tarjetas: recorte 5:4 sin franjas laterales (la botella queda completa) */
+img.product-card__img.ph--product { height: auto; aspect-ratio: 5 / 4; object-fit: cover; object-position: 50% 10%; }
+img.product-card__img.ph--logo { object-fit: contain; }
+
+/* Cormorant usa números "de texto" por defecto (21 se ve como 2I): se fuerzan los alineados */
+body, .stat strong, .detail__price, .specs dd { font-variant-numeric: lining-nums; }

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Producto — Bugambilia Hair Boutique</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Principal">
+      <a href="index.html" class="nav__logo"><img class="logo" src="img/logo.webp" alt="Bugambilia Hair Boutique — inicio" width="128" height="60"></a>
+      <div class="nav__links">
+        <a href="index.html" class="nav__link">Inicio</a>
+        <a href="index.html#servicios" class="nav__link">Servicios</a>
+        <a href="catalogo.html" class="nav__link" aria-current="page">Productos</a>
+        <a href="sucursales.html" class="nav__link">Sucursales</a>
+        <button type="button" class="btn btn--primary" data-open-chat>Encuentra tu ritual</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- El contenido se arma en js/main.js según ?id= de la URL -->
+  <main id="contenido" data-detalle>
+    <nav class="container breadcrumb" aria-label="Ruta">
+      <a href="catalogo.html">Productos</a> / <a href="#" data-bc-linea>…</a> / <span data-bc-nombre>…</span>
+    </nav>
+
+    <section class="container detail">
+      <img class="ph ph--product detail__img" src="img/logo.webp" alt="" width="700" height="700" data-d-img>
+      <div class="detail__info">
+        <span class="meta" style="font-size: 13px" data-d-linea></span>
+        <h1 class="detail__title" data-d-nombre></h1>
+        <div class="row gap-16">
+          <span class="detail__price" data-d-precio></span>
+          <span class="badge" data-d-estado></span>
+        </div>
+        <p class="text" data-d-descripcion></p>
+        <dl class="specs">
+          <div><dt>Ingrediente protagonista</dt><dd class="ingredient"><img class="ph" src="" alt="" width="72" height="72" data-d-ing-img hidden><span data-d-ingredientes></span></dd></div>
+          <div><dt>Contenido neto</dt><dd data-d-contenido></dd></div>
+          <div class="specs__full"><dt>Beneficio principal</dt><dd data-d-beneficio></dd></div>
+        </dl>
+        <div class="row gap-12">
+          <a href="sucursales.html" class="btn btn--primary">Dónde comprarlo</a>
+          <button type="button" class="btn" data-open-chat>¿Es para mí? Pregunta al asistente</button>
+        </div>
+        <p class="note">Sin carrito ni pagos: la compra se hace en la estética o en el punto de venta.</p>
+      </div>
+    </section>
+
+    <section class="section section--alt" style="padding-top: 56px; padding-bottom: 56px">
+      <div class="container stack gap-24">
+        <div class="stack gap-10">
+          <span class="lbl">Productos de la misma línea</span>
+          <h2 class="title-sm" data-d-completa></h2>
+        </div>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));" data-relacionados></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Si el id no existe o el producto está dado de baja -->
+  <main class="container section" data-no-encontrado hidden>
+    <div class="empty stack gap-16" style="align-items: center">
+      <h1 class="title-sm">Producto no disponible</h1>
+      <p>Este producto no existe o ya no está en el catálogo.</p>
+      <a href="catalogo.html" class="btn btn--primary">Volver al catálogo</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="stack gap-12">
+        <img class="logo" src="img/logo-blanco.webp" alt="Bugambilia Hair Boutique" width="115" height="54">
+        <span>Tu cabello. Tu ritual. Tu Bugambilia.</span>
+      </div>
+      <nav class="stack gap-8" aria-label="Pie de página">
+        <a href="catalogo.html">Productos</a>
+        <a href="sucursales.html">Sucursales</a>
+        <a href="https://instagram.com/" data-instagram target="_blank" rel="noopener">Instagram</a>
+      </nav>
+      <div class="stack gap-8">
+        <span>[Teléfono] · [WhatsApp]</span>
+        <a href="admin/login.html" class="muted-link">Acceso administrador</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Árbol del chatbot — Panel Bugambilia</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body data-page="arbol">
+  <div class="admin">
+    <nav class="sidebar" aria-label="Panel">
+      <div class="sidebar__brand"><img class="logo" src="../img/logo-blanco.webp" alt="Bugambilia Hair Boutique" width="128" height="60"><span>Panel de administración</span></div>
+      <a href="inventario.html" class="side-link">Inventario</a>
+      <a href="sucursales.html" class="side-link">Sucursales</a>
+      <a href="arbol.html" class="side-link" aria-current="page">Árbol del chatbot</a>
+      <div class="sidebar__spacer"></div>
+      <a href="../index.html" class="side-link side-link--muted">Ver sitio público</a>
+      <button type="button" class="side-link side-link--muted" data-logout>Cerrar sesión</button>
+    </nav>
+
+    <main class="admin-main">
+      <div class="admin-head">
+        <div class="stack gap-8">
+          <span class="lbl">Chatbot · preguntas, opciones y necesidades</span>
+          <h1 class="admin-title">Árbol del chatbot</h1>
+        </div>
+        <div class="row gap-10">
+          <a href="../index.html" class="btn" data-probar>Probar el chatbot</a>
+          <button type="button" class="btn btn--primary" data-nueva-pregunta>+ Nueva pregunta</button>
+        </div>
+      </div>
+
+      <div class="form-layout">
+        <div class="panel form-side stack gap-8" style="padding: 16px; order: -1">
+          <span style="font-weight: 700; font-size: 15px">Preguntas</span>
+          <span class="hint">Las preguntas y necesidades reales se definen en la Fase 4.</span>
+          <div class="stack gap-8" data-preguntas></div>
+        </div>
+
+        <form class="panel form-main" data-form-pregunta novalidate>
+          <div class="row between gap-12">
+            <h2 style="font-size: 20px" data-titulo>Editar pregunta</h2>
+            <button type="button" class="btn btn--xs" data-eliminar-pregunta>Eliminar pregunta</button>
+          </div>
+          <div class="field">
+            <label for="q-texto">Texto de la pregunta *</label>
+            <input id="q-texto" class="input" required>
+          </div>
+          <label class="check-inline"><input type="checkbox" id="q-inicial"> Es la pregunta inicial (solo puede haber una)</label>
+
+          <div class="stack gap-12" style="border-top: 1px solid var(--line); padding-top: 18px">
+            <span style="font-weight: 700; font-size: 17px">Opciones de respuesta</span>
+            <div class="stack gap-12" data-opciones></div>
+            <button type="button" class="btn" style="align-self: flex-start" data-agregar-opcion>+ Agregar opción</button>
+          </div>
+
+          <div class="flow" aria-live="polite" data-flujo></div>
+
+          <p class="alert" role="alert" data-form-error hidden></p>
+          <div class="form-actions">
+            <button type="button" class="btn" data-cancelar>Cancelar</button>
+            <button type="submit" class="btn btn--primary">Guardar pregunta</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>
