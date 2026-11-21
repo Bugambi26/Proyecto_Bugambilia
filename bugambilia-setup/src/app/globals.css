@@ -1,26 +1,32 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+  Identidad visual de Bugambilia Hair Boutique.
+  Colores: paleta entregada por la clienta.
+  Tipografías: PROVISIONALES (Playfair Display + Jost, elegidas por parecerse al logo).
+  TODO: confirmar con la clienta las fuentes oficiales.
+  Los colores por línea (rituales) viven en src/lib/catalogo.ts.
+*/
+@theme {
+  --color-crema: #f2e6d8; /* fondo del sitio */
+  --color-arena: #ead7c3; /* superficies y bordes */
+  --color-cafe: #5c3f2e; /* texto secundario */
+  --color-cafe-oscuro: #3e2a1f; /* títulos */
+  --color-tinta: #241a15; /* texto principal */
+  --color-bugambilia: #b0245a; /* acento: botones y enlaces */
+  --color-oro: #b98a4b; /* detalles decorativos (no para texto chico) */
+  --color-oro-oscuro: #94693a;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-jost), system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-crema);
+  color: var(--color-tinta);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-bugambilia);
+  outline-offset: 3px;
 }
