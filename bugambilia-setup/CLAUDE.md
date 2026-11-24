@@ -95,6 +95,8 @@ Casos esperados (catálogo de 21 productos): Rubio+Reparación → Blonde + Repa
 
 Las necesidades de la conversación viven solo en la sesión del navegador; no se guarda nada.
 
+**API** (`src/app/api/chatbot/route.ts`, lógica en `src/lib/chatbot/`): `GET` devuelve el árbol (`{ estado: "roto" }` si falla alguna regla de `arbol.ts`: una sola inicial, 2–6 opciones, destinos existentes, sin ciclos); `POST { necesidades: number[] }` (ids, en el orden en que se activaron) devuelve la recomendación o `{ tipo: "diagnostico" }`. Formatos en `tipos.ts`. Los textos salen de `redaccion.ts` (plantilla; Gemini en el paso 4).
+
 ## Panel admin (Fase 5)
 
 - **Baja = desactivar** (`activo = false`), reactivable. Nunca se borra un producto. Listado con filtro Activos/Inactivos.
