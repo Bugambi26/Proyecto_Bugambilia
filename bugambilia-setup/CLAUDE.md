@@ -120,7 +120,7 @@ Las necesidades de la conversación viven solo en la sesión del navegador; no s
 
 ### Estado (23 nov 2026)
 
-- **Hecho:** base S12 completa; sitio público con el diseño del mockup (inicio con servicios, catálogo con filtros, ficha, sucursales con mapa Leaflet). Desplegado en https://proyecto-bugambilia.netlify.app (aún privado).
+- **Hecho:** base S12 completa; sitio público con el diseño del mockup (inicio con servicios, catálogo con filtros, ficha, sucursales con mapa Leaflet). Desplegado en Netlify (aún privado; la URL está en `BETTER_AUTH_URL` del panel de Netlify). No escribas la URL del sitio en archivos del repo: Netlify la tiene marcada como secreta y su escáner frena el build si la encuentra.
 - **Falta — Natalinchis:** el chatbot está completo; falta conectar la llave de Gemini de la clienta y ajustar el tono con respuestas reales (S14, según `docs/fase-4-motor-chatbot.md` y `js/chatbot.js` del mockup).
 - **Estructura (24 nov 2026):** las páginas públicas viven en el grupo `src/app/(sitio)/` (su layout pone encabezado, pie y asistente); el layout raíz solo carga fuentes y estilos. El panel vive en `src/app/admin/` con su propio CSS (`admin/admin.css`). `(sitio)/[...resto]` hace que las URLs inexistentes muestren el 404 del sitio.
 - **Hecho — Miguelinchis:** login en `/admin/login` (Better Auth, ruta `api/auth/[...all]`), `/admin` protegido por `src/proxy.ts` (cookie) y `requerirSesion()` de `src/lib/auth-sesion.ts` (validación real; úsala también en cada Server Action del panel). Cada página del panel lleva `export const instant = false`.
