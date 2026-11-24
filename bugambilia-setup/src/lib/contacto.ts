@@ -7,9 +7,4 @@ export const CONTACTO = {
   whatsapp: "https://w.app/bugambilia",
 } as const;
 
-// TEMPORAL hasta la S14: los botones del asistente ("Encuentra tu ritual", "Hablar con el
-// asistente", la burbuja) llevan al mensaje directo de Instagram. Cuando exista el widget
-// del chatbot, estos botones lo abrirán en su lugar.
-export const ENLACE_ASISTENTE = CONTACTO.instagramMensaje;
-
 export const FIRMA = "Tu cabello. Tu ritual. Tu Bugambilia.";

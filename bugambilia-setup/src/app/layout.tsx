@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BurbujaChat } from "@/components/BurbujaChat";
+import { Asistente } from "@/components/Asistente";
 import { Encabezado } from "@/components/Encabezado";
 import { PiePagina } from "@/components/PiePagina";
 import { cormorant, jost } from "./fuentes";
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Encabezado />
         <main id="contenido">{children}</main>
         <PiePagina />
-        <BurbujaChat />
+        <Asistente />
       </body>
     </html>
   );

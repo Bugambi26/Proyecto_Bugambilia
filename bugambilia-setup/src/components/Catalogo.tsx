@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { TarjetaProducto } from "@/components/TarjetaProducto";
 import { ORDEN_FILTRO_TIPOS, TIPOS_PRODUCTO, aparienciaDeLinea, estiloLinea } from "@/lib/catalogo";
-import { ENLACE_ASISTENTE } from "@/lib/contacto";
 import type { LineaConProductos } from "@/lib/datos-catalogo";
 import type { TipoProducto } from "@/generated/prisma/enums";
 
@@ -136,9 +135,9 @@ export function Catalogo({ lineas, lineaInicial }: Props) {
 
         <div className="callout callout--sm" style={{ marginTop: 12 }}>
           <span style={{ fontSize: 16 }}>¿No sabes cuál elegir? El asistente te recomienda según tu cabello.</span>
-          <a href={ENLACE_ASISTENTE} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+          <button type="button" className="btn btn--primary" data-open-chat>
             Hablar con el asistente
-          </a>
+          </button>
         </div>
       </div>
     </>

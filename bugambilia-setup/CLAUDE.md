@@ -121,7 +121,7 @@ Las necesidades de la conversación viven solo en la sesión del navegador; no s
 ### Estado (23 nov 2026)
 
 - **Hecho:** base S12 completa; sitio público con el diseño del mockup (inicio con servicios, catálogo con filtros, ficha, sucursales con mapa Leaflet). Desplegado en https://proyecto-bugambilia.netlify.app (aún privado).
-- **Falta — Natalinchis:** el chatbot (S14, según `docs/fase-4-motor-chatbot.md` y `js/chatbot.js` del mockup).
+- **Falta — Natalinchis:** del chatbot solo falta la redacción con Gemini (paso 4; regla, API y widget ya hechos) (S14, según `docs/fase-4-motor-chatbot.md` y `js/chatbot.js` del mockup).
 - **Falta — Miguelinchis:** completar Better Auth (`src/lib/auth.ts` ya tiene email+contraseña sin registro; el admin ya existe en la base, sembrado desde `ADMIN_EMAIL`/`ADMIN_PASSWORD`), login y recuperación con Resend, panel ABC con Cloudinary (`next.config.ts` ya permite `res.cloudinary.com`), luego extras.
 - **Pendiente de la clienta:** API key de Gemini (antes del 30 nov), dominio, datos reales de sucursales, precios, servicios capilares, textos y fotos de "Sobre Bugambilia".
 - **Netlify:** plan gratuito con créditos por despliegue (quedan menos de 200 de 300). Juntar cambios y hacer pocos pushes; `npm run build` local antes de subir.
@@ -133,7 +133,7 @@ Si el panel ABC no termina en S13, se termina antes de los extras. Una pieza est
 
 **El diseño está decidido con la dueña: seguir exactamente los mockups** de `../bugambilia-wireframes-html/` (sitio público y panel). El CSS del sitio público está portado tal cual en `src/app/bugambilia.css` con los mismos nombres de clase; no se usa Tailwind en el sitio público. Tipografías: Cormorant Garamond (títulos) + Jost (texto), locales en `src/app/fuentes/`. Colores, foto e ingrediente por línea: `src/lib/catalogo.ts`. El panel debe seguir `admin/*.html` y `css/admin.css` del mockup.
 
-Datos que faltan: no se muestran placeholders como "[Precio]"; si un dato no existe, se oculta. Los botones del asistente ("Encuentra tu ritual", burbuja) llevan temporalmente al DM de Instagram hasta que exista el chatbot (S14): `ENLACE_ASISTENTE` en `src/lib/contacto.ts`.
+Datos que faltan: no se muestran placeholders como "[Precio]"; si un dato no existe, se oculta. El widget del chatbot es `src/components/Asistente.tsx` (en el layout, con la burbuja); cualquier botón con el atributo `data-open-chat` lo abre ("Encuentra tu ritual", "Hablar con el asistente", "¿Es para mí?").
 
 Mensaje: lujo accesible, experiencia profesional, feminidad sofisticada; evitar lo clínico o genérico. Firma: "Tu cabello. Tu ritual. Tu Bugambilia." El chatbot habla de tú.
 
