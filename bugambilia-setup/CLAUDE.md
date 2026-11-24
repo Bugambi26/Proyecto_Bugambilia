@@ -123,7 +123,7 @@ Las necesidades de la conversación viven solo en la sesión del navegador; no s
 - **Falta — Miguelinchis:** completar Better Auth (`src/lib/auth.ts` ya tiene email+contraseña sin registro; el admin ya existe en la base, sembrado desde `ADMIN_EMAIL`/`ADMIN_PASSWORD`), login y recuperación con Resend, panel ABC con Cloudinary (`next.config.ts` ya permite `res.cloudinary.com`), luego extras.
 - **Pendiente de la clienta:** API key de Gemini (antes del 30 nov), dominio, datos reales de sucursales, precios, servicios capilares, textos y fotos de "Sobre Bugambilia".
 - **Netlify:** plan gratuito con créditos por despliegue (quedan menos de 200 de 300). Juntar cambios y hacer pocos pushes; `npm run build` local antes de subir.
-- **Base de datos:** una sola rama de Neon (`production`) para desarrollo y producción; el seed solo crea, nunca sobrescribe. Cualquier cambio de datos o esquema afecta al sitio publicado.
+- **Base de datos:** dos ramas en Neon. `production` = el sitio publicado (Netlify); **`desarrollo`** = copia para trabajar en local, con stock de prueba (20 productos con stock 10 y la Loción Activadora en 0). El `.env` local apunta a `desarrollo`. Nunca correr `prisma migrate dev`, `migrate reset` ni `db push` contra `production`; los cambios de esquema se prueban en `desarrollo` y se aplican a producción con `prisma migrate deploy`, avisando al compañero. El seed solo crea, nunca sobrescribe.
 
 Si el panel ABC no termina en S13, se termina antes de los extras. Una pieza está terminada cuando cumple su documento de diseño, funciona en Netlify, se ve bien en celular y la probó el compañero.
 
