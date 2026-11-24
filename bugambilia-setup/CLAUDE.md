@@ -69,12 +69,13 @@ Restricciones de la Fase 5 (no cambian el ER):
 - 1 categoría con productos: **Capilares**. "Faciales" son servicios, no productos.
 - **7 líneas y 21 productos** (3 por línea): Rubios Perfectos (Blonde Ritual), Cobres Brillantes (Copper Ritual), Hidratación (Hydra Ritual), Reestructurante (Repair Ritual), Crecimiento (Growth Ritual), Cotton Candy (**Sweet Ritual**), **Kit Antioxidante**. Nombres, beneficios, ingredientes por línea y descripciones: ver `prisma/seed.ts`.
 - Contenido neto: 250 ml en todos. Fotos de producto en `public/img/productos/` (el seed guarda la ruta en `imagen_url`; las que suba el panel van a Cloudinary).
-- Pendientes: precios, ingrediente protagonista del Kit Antioxidante (vacío = no se muestra), servicios capilares, fotos del equipo/espacio y antes/después de faciales.
+- Kit Antioxidante: ingrediente protagonista **Sábila** (confirmado 23 nov 2026).
+- Pendientes: precios, servicios capilares, fotos del equipo/espacio y antes/después de faciales.
 - Sucursales: **Estética Bugambilia** (propia) y **Kokoro** (tercero, con foto). Dirección, coordenadas, teléfono y horario aún no están: valores de ejemplo marcados con `// TODO: dato real de la clienta`.
 
 ## Chatbot (Fase 4)
 
-**Necesidades (6):** cabello-rubio, cabello-cobrizo, hidratacion, reparacion, crecimiento, cuidado-integral. Cada producto lleva **una** necesidad, la de su línea (21 relaciones): Blonde → cabello-rubio, Copper → cabello-cobrizo, Hydra → hidratacion, Repair → reparacion, Growth → crecimiento, **Cotton Candy → hidratacion**, **Kit Antioxidante → cuidado-integral**. Las dos últimas son la propuesta según el mockup (`n3` / `n6`): **pendiente de confirmar con la clienta**.
+**Necesidades (6):** cabello-rubio, cabello-cobrizo, hidratacion, reparacion, crecimiento, cuidado-integral. Cada producto lleva **una** necesidad, la de su línea (21 relaciones): Blonde → cabello-rubio, Copper → cabello-cobrizo, Hydra → hidratacion, Repair → reparacion, Growth → crecimiento, **Cotton Candy → hidratacion**, **Kit Antioxidante → cuidado-integral**. Las dos últimas quedaron **confirmadas por la clienta** (23 nov 2026).
 
 **Árbol (2 preguntas):**
 - P1 (inicial) "¿De qué tono es tu cabello?": Rubio → cabello-rubio; Cobrizo → cabello-cobrizo; Otro tono → (ninguna). Todas llevan a P2.
@@ -114,6 +115,15 @@ Las necesidades de la conversación viven solo en la sesión del navegador; no s
 | S13 (23–29 nov) | Natalinchis: presentación, catálogo, servicios, mapa · Miguelinchis: login, recuperación, ABC de productos |
 | S14 (30 nov–6 dic) | Natalinchis: chatbot · Miguelinchis: extras · Ambos: pruebas cruzadas |
 | S15 (7–9 dic) | Correcciones, dominio y entrega |
+
+### Estado (23 nov 2026)
+
+- **Hecho:** base S12 completa; sitio público con el diseño del mockup (inicio con servicios, catálogo con filtros, ficha, sucursales). Desplegado en https://proyecto-bugambilia.netlify.app (aún privado).
+- **Falta — Natalinchis:** mapa real en `/sucursales` (hoy es un mapa de referencia en `src/components/ListaSucursales.tsx`; servicio por elegir) y el chatbot (S14, según `docs/fase-4-motor-chatbot.md` y `js/chatbot.js` del mockup).
+- **Falta — Miguelinchis:** completar Better Auth (`src/lib/auth.ts` ya tiene email+contraseña sin registro; el admin ya existe en la base, sembrado desde `ADMIN_EMAIL`/`ADMIN_PASSWORD`), login y recuperación con Resend, panel ABC con Cloudinary (`next.config.ts` ya permite `res.cloudinary.com`), luego extras.
+- **Pendiente de la clienta:** API key de Gemini (antes del 30 nov), dominio, datos reales de sucursales, precios, servicios capilares, textos y fotos de "Sobre Bugambilia".
+- **Netlify:** plan gratuito con créditos por despliegue (quedan menos de 200 de 300). Juntar cambios y hacer pocos pushes; `npm run build` local antes de subir.
+- **Base de datos:** una sola rama de Neon (`production`) para desarrollo y producción; el seed solo crea, nunca sobrescribe. Cualquier cambio de datos o esquema afecta al sitio publicado.
 
 Si el panel ABC no termina en S13, se termina antes de los extras. Una pieza está terminada cuando cumple su documento de diseño, funciona en Netlify, se ve bien en celular y la probó el compañero.
 

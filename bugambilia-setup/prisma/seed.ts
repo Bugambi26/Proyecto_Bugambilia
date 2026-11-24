@@ -54,8 +54,8 @@ type LineaSeed = {
   ritual: string;
   descripcion: string;
   ingredientes: string; // definidos por línea en las etiquetas
-  // TODO: confirmar con la clienta el etiquetado de Cotton Candy y Kit Antioxidante (propuesto
-  // según el mockup: Cotton Candy → hidratación; Kit Antioxidante → cuidado integral).
+  // Etiquetado confirmado por la clienta (23 nov 2026): Cotton Candy → hidratación;
+  // Kit Antioxidante → cuidado integral.
   necesidades: ClaveNecesidad[];
   productos: ProductoSeed[];
 };
@@ -145,7 +145,7 @@ const LINEAS: LineaSeed[] = [
     ritual: "Kit Antioxidante",
     descripcion:
       "Una rutina completa para devolverle vida a tu cabello: elimina la acumulación de minerales, prepara el cabello para recibir mejor los nutrientes y potencia los resultados de tu rutina de cuidado.",
-    ingredientes: "", // TODO: ingrediente protagonista (pendiente con la clienta); vacío = no se muestra
+    ingredientes: "Sábila", // confirmado por la clienta (23 nov 2026)
     necesidades: ["integral"],
     productos: [
       { nombre: "Shampoo Antioxidante", tipo: TipoProducto.Shampoo, beneficio: "Limpieza profunda y protección.", imagen: "shampoo-antioxidante" },
