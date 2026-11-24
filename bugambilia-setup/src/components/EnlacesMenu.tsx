@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ENLACE_ASISTENTE } from "@/lib/contacto";
 
 // ruta: null = sin marcar la página actual (fallback mientras se lee la URL).
 export function EnlacesMenu({ ruta }: { ruta?: string | null }) {
@@ -29,9 +28,9 @@ function Enlaces({ ruta }: { ruta: string | null }) {
       <Link href="/sucursales" className="nav__link" aria-current={actual(!!ruta?.startsWith("/sucursales"))}>
         Sucursales
       </Link>
-      <a href={ENLACE_ASISTENTE} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+      <button type="button" className="btn btn--primary" data-open-chat>
         Encuentra tu ritual
-      </a>
+      </button>
     </div>
   );
 }

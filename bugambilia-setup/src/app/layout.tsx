@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "Bugambilia Hair Boutique: tratamientos faciales, servicios capilares y la Línea Bugambilia de cuidado capilar profesional.",
 };
 
-// Layout raíz: solo fuentes y estilos. El encabezado, el pie y la burbuja del
+// Layout raíz: solo fuentes y estilos. El encabezado, el pie y el asistente del
 // sitio público viven en (sitio)/layout.tsx; el panel tiene el suyo en admin/.
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

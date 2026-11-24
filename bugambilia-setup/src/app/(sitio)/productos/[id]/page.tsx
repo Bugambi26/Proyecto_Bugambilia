@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ImagenProducto } from "@/components/ImagenProducto";
 import { aparienciaDeLinea, estiloLinea } from "@/lib/catalogo";
-import { ENLACE_ASISTENTE } from "@/lib/contacto";
 import { obtenerProducto } from "@/lib/datos-catalogo";
 
 type Params = PageProps<"/productos/[id]">["params"];
@@ -90,9 +89,9 @@ async function Ficha({ params }: { params: Params }) {
             <Link href="/sucursales" className="btn btn--primary">
               Dónde comprarlo
             </Link>
-            <a href={ENLACE_ASISTENTE} className="btn" target="_blank" rel="noopener noreferrer">
+            <button type="button" className="btn" data-open-chat>
               ¿Es para mí? Pregunta al asistente
-            </a>
+            </button>
           </div>
           <p className="note">Sin carrito ni pagos: la compra se hace en la estética o en el punto de venta.</p>
         </div>

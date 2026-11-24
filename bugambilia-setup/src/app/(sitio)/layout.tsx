@@ -1,4 +1,4 @@
-import { BurbujaChat } from "@/components/BurbujaChat";
+import { Asistente } from "@/components/Asistente";
 import { Encabezado } from "@/components/Encabezado";
 import { PiePagina } from "@/components/PiePagina";
 
@@ -12,7 +12,7 @@ export default function SitioLayout({ children }: { children: React.ReactNode })
       <Encabezado />
       <main id="contenido">{children}</main>
       <PiePagina />
-      <BurbujaChat />
+      <Asistente />
     </>
   );
 }

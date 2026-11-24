@@ -81,7 +81,7 @@ Restricciones de la Fase 5 (no cambian el ER):
 - P1 (inicial) "¿De qué tono es tu cabello?": Rubio → cabello-rubio; Cobrizo → cabello-cobrizo; Otro tono → (ninguna). Todas llevan a P2.
 - P2 "¿Qué necesita principalmente tu cabello?": Hidratación, suavidad y nutrición → hidratacion; Reparación: está sensibilizado o procesado → reparacion; Crecimiento y fortalecimiento → crecimiento; Una rutina completa de cuidado → cuidado-integral; Otra necesidad → (ninguna). Todas llevan al fin.
 
-**Regla de selección (sin IA, determinista; va en una función pura con pruebas Vitest):**
+**Regla de selección (sin IA, determinista): función pura `seleccionarRituales` en `src/lib/chatbot/seleccion.ts`, con pruebas en `seleccion.test.ts`. Correr con `npm test` (pasa por `scripts/vitest.mjs`, que evita un fallo de Vitest en Windows cuando la ruta empieza con `c:` en minúscula).**
 1. Productos con `activo = true` y `stock > 0` que tengan al menos una necesidad activa (OR).
 2. Si no hay ninguno → mensaje de cita de diagnóstico + botón a Instagram; **no se llama a la IA**.
 3. Agrupar por línea (ritual).
@@ -94,6 +94,8 @@ Casos esperados (catálogo de 21 productos): Rubio+Reparación → Blonde + Repa
 **Redacción:** `generateObject` con esquema `{ introduccion, rituales: [{ id_linea, mensaje }] }`. Gemini solo escribe esos textos; las tarjetas de producto (nombre, beneficio, enlace) y la firma "Tu cabello. Tu ritual. Tu Bugambilia." las arma el código. Si los `id_linea` no coinciden (mismos y en el mismo orden), si Gemini falla, rebasa su límite o tarda más de 8 s → plantilla de respaldo. Prompt de sistema completo en `docs/fase-4-motor-chatbot.md`. Temperatura inicial 0.4, ~400 tokens. Solo se envían datos públicos del catálogo. Growth Ritual: nunca prometer resultados ni plazos de crecimiento.
 
 Las necesidades de la conversación viven solo en la sesión del navegador; no se guarda nada.
+
+**API** (`src/app/api/chatbot/route.ts`, lógica en `src/lib/chatbot/`): `GET` devuelve el árbol (`{ estado: "roto" }` si falla alguna regla de `arbol.ts`: una sola inicial, 2–6 opciones, destinos existentes, sin ciclos); `POST { necesidades: number[] }` (ids, en el orden en que se activaron) devuelve la recomendación o `{ tipo: "diagnostico" }`. Formatos en `tipos.ts`. Los textos salen de `redaccion.ts` (plantilla; Gemini en el paso 4).
 
 ## Panel admin (Fase 5)
 
@@ -119,13 +121,13 @@ Las necesidades de la conversación viven solo en la sesión del navegador; no s
 ### Estado (23 nov 2026)
 
 - **Hecho:** base S12 completa; sitio público con el diseño del mockup (inicio con servicios, catálogo con filtros, ficha, sucursales con mapa Leaflet). Desplegado en https://proyecto-bugambilia.netlify.app (aún privado).
-- **Falta — Natalinchis:** el chatbot (S14, según `docs/fase-4-motor-chatbot.md` y `js/chatbot.js` del mockup).
-- **Estructura (24 nov 2026):** las páginas públicas viven en el grupo `src/app/(sitio)/` (su layout pone encabezado, pie y burbuja); el layout raíz solo carga fuentes y estilos. El panel vive en `src/app/admin/` con su propio CSS (`admin/admin.css`). `(sitio)/[...resto]` hace que las URLs inexistentes muestren el 404 del sitio.
+- **Falta — Natalinchis:** del chatbot solo falta la redacción con Gemini (paso 4; regla, API y widget ya hechos) (S14, según `docs/fase-4-motor-chatbot.md` y `js/chatbot.js` del mockup).
+- **Estructura (24 nov 2026):** las páginas públicas viven en el grupo `src/app/(sitio)/` (su layout pone encabezado, pie y asistente); el layout raíz solo carga fuentes y estilos. El panel vive en `src/app/admin/` con su propio CSS (`admin/admin.css`). `(sitio)/[...resto]` hace que las URLs inexistentes muestren el 404 del sitio.
 - **Hecho — Miguelinchis:** login en `/admin/login` (Better Auth, ruta `api/auth/[...all]`), `/admin` protegido por `src/proxy.ts` (cookie) y `requerirSesion()` de `src/lib/auth-sesion.ts` (validación real; úsala también en cada Server Action del panel). Cada página del panel lleva `export const instant = false`.
 - **Falta — Miguelinchis:** completar Better Auth (`src/lib/auth.ts` ya tiene email+contraseña sin registro; el admin ya existe en la base, sembrado desde `ADMIN_EMAIL`/`ADMIN_PASSWORD`), login y recuperación con Resend, panel ABC con Cloudinary (`next.config.ts` ya permite `res.cloudinary.com`), luego extras.
 - **Pendiente de la clienta:** API key de Gemini (antes del 30 nov), dominio, datos reales de sucursales, precios, servicios capilares, textos y fotos de "Sobre Bugambilia".
 - **Netlify:** plan gratuito con créditos por despliegue (quedan menos de 200 de 300). Juntar cambios y hacer pocos pushes; `npm run build` local antes de subir.
-- **Base de datos:** una sola rama de Neon (`production`) para desarrollo y producción; el seed solo crea, nunca sobrescribe. Cualquier cambio de datos o esquema afecta al sitio publicado.
+- **Base de datos:** dos ramas en Neon. `production` = el sitio publicado (Netlify); **`desarrollo`** = copia para trabajar en local, con stock de prueba (20 productos con stock 10 y la Loción Activadora en 0). El `.env` local apunta a `desarrollo`. Nunca correr `prisma migrate dev`, `migrate reset` ni `db push` contra `production`; los cambios de esquema se prueban en `desarrollo` y se aplican a producción con `prisma migrate deploy`, avisando al compañero. El seed solo crea, nunca sobrescribe.
 
 Si el panel ABC no termina en S13, se termina antes de los extras. Una pieza está terminada cuando cumple su documento de diseño, funciona en Netlify, se ve bien en celular y la probó el compañero.
 
@@ -133,7 +135,7 @@ Si el panel ABC no termina en S13, se termina antes de los extras. Una pieza est
 
 **El diseño está decidido con la dueña: seguir exactamente los mockups** de `../bugambilia-wireframes-html/` (sitio público y panel). El CSS del sitio público está portado tal cual en `src/app/bugambilia.css` con los mismos nombres de clase; no se usa Tailwind en el sitio público. Tipografías: Cormorant Garamond (títulos) + Jost (texto), locales en `src/app/fuentes/`. Colores, foto e ingrediente por línea: `src/lib/catalogo.ts`. El panel debe seguir `admin/*.html` y `css/admin.css` del mockup.
 
-Datos que faltan: no se muestran placeholders como "[Precio]"; si un dato no existe, se oculta. Los botones del asistente ("Encuentra tu ritual", burbuja) llevan temporalmente al DM de Instagram hasta que exista el chatbot (S14): `ENLACE_ASISTENTE` en `src/lib/contacto.ts`.
+Datos que faltan: no se muestran placeholders como "[Precio]"; si un dato no existe, se oculta. El widget del chatbot es `src/components/Asistente.tsx` (en `src/app/(sitio)/layout.tsx`, con la burbuja); cualquier botón con el atributo `data-open-chat` lo abre ("Encuentra tu ritual", "Hablar con el asistente", "¿Es para mí?").
 
 Mensaje: lujo accesible, experiencia profesional, feminidad sofisticada; evitar lo clínico o genérico. Firma: "Tu cabello. Tu ritual. Tu Bugambilia." El chatbot habla de tú.
 

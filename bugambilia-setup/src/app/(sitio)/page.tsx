@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { PestanasServicios } from "@/components/PestanasServicios";
 import { aparienciaDeLinea, estiloLinea } from "@/lib/catalogo";
-import { CONTACTO, ENLACE_ASISTENTE, FIRMA } from "@/lib/contacto";
+import { CONTACTO, FIRMA } from "@/lib/contacto";
 import { obtenerLineasConProductos, obtenerSucursales } from "@/lib/datos-catalogo";
 import { diaDeHoy, formatoHorario } from "@/lib/horarios";
 
@@ -24,9 +24,9 @@ export default function Inicio() {
               <Link href="/productos" className="btn btn--primary">
                 Ver productos
               </Link>
-              <a href={ENLACE_ASISTENTE} className="btn" target="_blank" rel="noopener noreferrer">
+              <button type="button" className="btn" data-open-chat>
                 Encuentra tu ritual
-              </a>
+              </button>
             </div>
           </div>
           <Image
@@ -122,9 +122,9 @@ export default function Inicio() {
                 Responde unas preguntas y te recomendamos el ritual ideal para tu cabello.
               </p>
             </div>
-            <a href={ENLACE_ASISTENTE} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+            <button type="button" className="btn btn--primary" data-open-chat>
               Hablar con el asistente
-            </a>
+            </button>
           </div>
         </div>
       </section>
