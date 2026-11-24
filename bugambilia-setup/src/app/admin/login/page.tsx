@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { FormularioLogin } from "./FormularioLogin";
+import { Suspense } from "react";
+import { FormularioConEnlace, FormularioLogin } from "./FormularioLogin";
 
 export const metadata: Metadata = {
   title: "Iniciar sesión",
@@ -20,7 +21,9 @@ export default function Login() {
           height={80}
           priority
         />
-        <FormularioLogin />
+        <Suspense fallback={<FormularioLogin />}>
+          <FormularioConEnlace />
+        </Suspense>
         <Link href="/" style={{ textAlign: "center", fontSize: 14, padding: 10 }}>
           ← Volver al sitio
         </Link>
