@@ -4,7 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { TIPOS_PRODUCTO } from "@/lib/catalogo";
 import { FIRMA } from "@/lib/contacto";
 import { inicialSiEsValido } from "./arbol";
-import { redactarConPlantilla } from "./redaccion";
+import { redactarConIA } from "./ia";
+import { redactarConPlantilla, type RitualParaRedactar } from "./redaccion";
 import { seleccionarRituales } from "./seleccion";
 import type { RespuestaArbol, RespuestaRecomendacion } from "./tipos";
 
@@ -37,10 +38,10 @@ export async function obtenerArbol(): Promise<RespuestaArbol> {
 export async function recomendar(necesidadesPedidas: number[]): Promise<RespuestaRecomendacion> {
   await connection();
   // Solo cuentan las necesidades que existen (se conserva el orden en que se activaron).
-  const existentes = new Set(
-    (await prisma.necesidad.findMany({ where: { id: { in: necesidadesPedidas } }, select: { id: true } })).map((n) => n.id),
+  const existentes = new Map(
+    (await prisma.necesidad.findMany({ where: { id: { in: necesidadesPedidas } } })).map((n) => [n.id, n]),
   );
-  const necesidades = necesidadesPedidas.filter((id) => existentes.has(id));
+  const necesidades = [...new Set(necesidadesPedidas)].filter((id) => existentes.has(id));
   if (necesidades.length === 0) return { tipo: "diagnostico" };
 
   const filas = await prisma.producto.findMany({
@@ -53,9 +54,23 @@ export async function recomendar(necesidadesPedidas: number[]): Promise<Respuest
   if (seleccion.length === 0) return { tipo: "diagnostico" };
 
   const rituales = seleccion.map(({ lineaId, productos }) => ({ lineaId, linea: productos[0].linea, productos }));
-  const redaccion = redactarConPlantilla(
-    rituales.map((r) => ({ lineaId: r.lineaId, ritual: r.linea.nombreRitual, descripcion: r.linea.descripcion })),
+  const paraRedactar: RitualParaRedactar[] = rituales.map((r) => ({
+    lineaId: r.lineaId,
+    linea: r.linea.nombre,
+    ritual: r.linea.nombreRitual,
+    descripcion: r.linea.descripcion,
+    productos: r.productos.map((p) => ({
+      paso: TIPOS_PRODUCTO[p.tipoProducto].paso,
+      nombre: p.nombre,
+      ingredientes: p.ingredientesProtagonistas,
+      beneficio: p.beneficioPrincipal,
+    })),
+  }));
+  const conIA = await redactarConIA(
+    necesidades.map((id) => existentes.get(id)!),
+    paraRedactar,
   );
+  const redaccion = conIA ?? redactarConPlantilla(paraRedactar);
   const mensajes = new Map(redaccion.rituales.map((r) => [r.id_linea, r.mensaje]));
 
   return {
@@ -76,6 +91,6 @@ export async function recomendar(necesidadesPedidas: number[]): Promise<Respuest
       })),
     })),
     cierre: FIRMA,
-    origen: "plantilla",
+    origen: conIA ? "ia" : "plantilla",
   };
 }
