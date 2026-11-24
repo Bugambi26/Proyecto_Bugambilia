@@ -81,7 +81,7 @@ Restricciones de la Fase 5 (no cambian el ER):
 - P1 (inicial) "¿De qué tono es tu cabello?": Rubio → cabello-rubio; Cobrizo → cabello-cobrizo; Otro tono → (ninguna). Todas llevan a P2.
 - P2 "¿Qué necesita principalmente tu cabello?": Hidratación, suavidad y nutrición → hidratacion; Reparación: está sensibilizado o procesado → reparacion; Crecimiento y fortalecimiento → crecimiento; Una rutina completa de cuidado → cuidado-integral; Otra necesidad → (ninguna). Todas llevan al fin.
 
-**Regla de selección (sin IA, determinista; va en una función pura con pruebas Vitest):**
+**Regla de selección (sin IA, determinista): función pura `seleccionarRituales` en `src/lib/chatbot/seleccion.ts`, con pruebas en `seleccion.test.ts`. Correr con `npm test` (pasa por `scripts/vitest.mjs`, que evita un fallo de Vitest en Windows cuando la ruta empieza con `c:` en minúscula).**
 1. Productos con `activo = true` y `stock > 0` que tengan al menos una necesidad activa (OR).
 2. Si no hay ninguno → mensaje de cita de diagnóstico + botón a Instagram; **no se llama a la IA**.
 3. Agrupar por línea (ritual).
