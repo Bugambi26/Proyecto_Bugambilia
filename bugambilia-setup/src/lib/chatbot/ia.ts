@@ -36,9 +36,11 @@ const esquema = z.object({
 // Parámetros iniciales de la Fase 4 (ajustar en pruebas).
 export const AJUSTES_IA = { temperatura: 0.4, maxTokens: 400, esperaMs: 8000 } as const;
 
-// "gemini-flash-latest" lo mueve Google al Flash vigente (no se rompe si retiran un modelo).
-// Para fijar otro: GEMINI_MODELO en el .env / Netlify.
-const MODELO_POR_DEFECTO = "gemini-flash-latest";
+// "gemini-flash-lite-latest" lo mueve Google al Flash-Lite vigente (no se rompe si retiran
+// un modelo). Probado el 24 nov 2026 con la llave del plan gratuito: "gemini-flash-latest"
+// no tenía cuota gratuita (429) y "gemini-3.5-flash" estaba saturado (503); Flash-Lite sí
+// respondía. Para fijar otro: GEMINI_MODELO en el .env / Netlify.
+const MODELO_POR_DEFECTO = "gemini-flash-lite-latest";
 
 function modeloConfigurado(): LanguageModel | null {
   if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY) return null;
@@ -60,10 +62,12 @@ export async function redactarConIA(
       temperature: AJUSTES_IA.temperatura,
       maxOutputTokens: AJUSTES_IA.maxTokens,
       timeout: AJUSTES_IA.esperaMs,
-      maxRetries: 0, // un reintento no cabe en los 8 s; mejor la plantilla
-      // Sin "pensamiento" largo: los textos son cortos y los tokens de razonamiento
-      // contarían contra el límite de salida.
-      providerOptions: { google: { thinkingConfig: { thinkingLevel: "minimal" } } },
+      // Un reintento para los picos pasajeros de "alta demanda" (503) del plan gratuito; la
+      // espera de 8 s cubre también el reintento.
+      maxRetries: 1,
+      // Razonamiento al mínimo: los textos son cortos y los tokens de razonamiento cuentan
+      // contra el límite de salida. "low" porque el Flash actual rechaza "minimal" (24 nov 2026).
+      providerOptions: { google: { thinkingConfig: { thinkingLevel: "low" } } },
     });
     if (redaccionCoincide(output, rituales.map((r) => r.lineaId))) return output;
     console.warn("chatbot IA: la respuesta no coincide con los rituales enviados; se usa la plantilla");
