@@ -19,6 +19,7 @@ export default function Login() {
           alt="Bugambilia Hair Boutique"
           width={170}
           height={80}
+          style={{ width: "auto" }}
           priority
         />
         <Suspense fallback={<FormularioLogin />}>

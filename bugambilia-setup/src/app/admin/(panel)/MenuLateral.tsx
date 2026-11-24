@@ -6,10 +6,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 // Sucursales y Árbol son extras (S14): sus páginas aún no existen.
+// "rutas": prefijos que marcan la sección como actual (el formulario de producto
+// cuenta como Inventario, igual que en el mockup).
 const SECCIONES = [
-  { href: "/admin/inventario", texto: "Inventario" },
-  { href: "/admin/sucursales", texto: "Sucursales" },
-  { href: "/admin/arbol", texto: "Árbol del chatbot" },
+  { href: "/admin/inventario", texto: "Inventario", rutas: ["/admin/inventario", "/admin/productos"] },
+  { href: "/admin/sucursales", texto: "Sucursales", rutas: ["/admin/sucursales"] },
+  { href: "/admin/arbol", texto: "Árbol del chatbot", rutas: ["/admin/arbol"] },
 ];
 
 // Menú lateral del mockup (admin/*.html).
@@ -25,7 +27,14 @@ export function MenuLateral() {
   return (
     <nav className="sidebar" aria-label="Panel">
       <div className="sidebar__brand">
-        <Image className="logo" src="/img/logo-blanco.webp" alt="Bugambilia Hair Boutique" width={128} height={60} />
+        <Image
+          className="logo"
+          src="/img/logo-blanco.webp"
+          alt="Bugambilia Hair Boutique"
+          width={128}
+          height={60}
+          style={{ width: "auto" }}
+        />
         <span>Panel de administración</span>
       </div>
       {SECCIONES.map((s) => (
@@ -33,7 +42,7 @@ export function MenuLateral() {
           key={s.href}
           href={s.href}
           className="side-link"
-          aria-current={ruta.startsWith(s.href) ? "page" : undefined}
+          aria-current={s.rutas.some((r) => ruta.startsWith(r)) ? "page" : undefined}
         >
           {s.texto}
         </Link>
