@@ -1,7 +1,8 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { DIAS_SEMANA, formatoHorario } from "@/lib/horarios";
 
 export type SucursalCliente = {
@@ -17,49 +18,28 @@ export type SucursalCliente = {
   horarios: { diaSemana: number; horaApertura: string; horaCierre: string }[];
 };
 
-// Posición de cada marcador dentro del mapa de referencia (en %), a partir de lat/lng.
-// TODO: reemplazar por el mapa real cuando se elija el servicio (pendiente en docs/).
-function posiciones(sucursales: SucursalCliente[]) {
-  const lats = sucursales.map((s) => s.latitud);
-  const lngs = sucursales.map((s) => s.longitud);
-  const [minLat, maxLat, minLng, maxLng] = [Math.min(...lats), Math.max(...lats), Math.min(...lngs), Math.max(...lngs)];
-  return sucursales.map((s) => ({
-    x: maxLng === minLng ? 50 : 25 + (50 * (s.longitud - minLng)) / (maxLng - minLng),
-    y: maxLat === minLat ? 50 : 25 + (50 * (maxLat - s.latitud)) / (maxLat - minLat),
-  }));
-}
+// Leaflet usa window: el mapa se carga solo en el navegador; mientras, se ve el recuadro del mockup.
+const MapaSucursales = dynamic(() => import("@/components/MapaSucursales"), {
+  ssr: false,
+  loading: () => <div className="ph map" aria-hidden="true" />,
+});
 
-// Mapa + acordeón del mockup (una tarjeta abierta a la vez; los marcadores la abren).
+// Mapa + acordeón del mockup (una tarjeta abierta a la vez; los marcadores la abren y
+// abrir una tarjeta centra el mapa en esa sucursal).
 type Props = { sucursales: SucursalCliente[]; hoy: number; inicial: number | null };
 
 export function ListaSucursales({ sucursales, hoy, inicial }: Props) {
   // Abre la sucursal del enlace (?sucursal=2) al llegar desde el inicio; si no, la primera.
   const [abierta, setAbierta] = useState<number | null>(inicial ?? sucursales[0]?.id ?? null);
-  const pos = posiciones(sucursales);
 
-  function abrirDesdeMapa(id: number) {
+  const abrirDesdeMapa = useCallback((id: number) => {
     setAbierta(id);
     document.getElementById(`sucursal-${id}`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }
+  }, []);
 
   return (
     <>
-      <div className="ph map" data-mapa>
-        <span>Mapa de referencia</span>
-        {sucursales.map((s, i) => (
-          <button
-            key={s.id}
-            type="button"
-            className={`map__pin${s.tipo === "Tercero" ? " map__pin--third" : ""}`}
-            style={{ left: `${pos[i].x}%`, top: `${pos[i].y}%` }}
-            aria-label={`Ver ${s.nombre}`}
-            onClick={() => abrirDesdeMapa(s.id)}
-          >
-            <span className="map__pin-dot" aria-hidden="true" />
-            <span className="map__pin-label">{s.nombre}</span>
-          </button>
-        ))}
-      </div>
+      <MapaSucursales sucursales={sucursales} abierta={abierta} onSeleccionar={abrirDesdeMapa} />
 
       <div className="branch-list">
         <div className="stack gap-16">

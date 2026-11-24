@@ -26,7 +26,7 @@ La documentación completa de diseño está en `docs/`. Antes de implementar un 
 | Hosting | **Netlify** (cada push a `main` despliega a producción) |
 | Pruebas | **Vitest** solo para la regla de selección del chatbot; el resto, pruebas manuales |
 
-Pendiente: **no se ha elegido el servicio del mapa** (Google Maps embebido, Leaflet + OpenStreetMap, etc.). Pregunta antes de implementarlo.
+Mapa de sucursales: **Leaflet + mosaicos de OpenStreetMap** (sin llave; elegido el 23 nov 2026). Componente `src/components/MapaSucursales.tsx`; las coordenadas salen de la base.
 
 ## Alcance
 
@@ -118,8 +118,8 @@ Las necesidades de la conversación viven solo en la sesión del navegador; no s
 
 ### Estado (23 nov 2026)
 
-- **Hecho:** base S12 completa; sitio público con el diseño del mockup (inicio con servicios, catálogo con filtros, ficha, sucursales). Desplegado en https://proyecto-bugambilia.netlify.app (aún privado).
-- **Falta — Natalinchis:** mapa real en `/sucursales` (hoy es un mapa de referencia en `src/components/ListaSucursales.tsx`; servicio por elegir) y el chatbot (S14, según `docs/fase-4-motor-chatbot.md` y `js/chatbot.js` del mockup).
+- **Hecho:** base S12 completa; sitio público con el diseño del mockup (inicio con servicios, catálogo con filtros, ficha, sucursales con mapa Leaflet). Desplegado en https://proyecto-bugambilia.netlify.app (aún privado).
+- **Falta — Natalinchis:** el chatbot (S14, según `docs/fase-4-motor-chatbot.md` y `js/chatbot.js` del mockup).
 - **Falta — Miguelinchis:** completar Better Auth (`src/lib/auth.ts` ya tiene email+contraseña sin registro; el admin ya existe en la base, sembrado desde `ADMIN_EMAIL`/`ADMIN_PASSWORD`), login y recuperación con Resend, panel ABC con Cloudinary (`next.config.ts` ya permite `res.cloudinary.com`), luego extras.
 - **Pendiente de la clienta:** API key de Gemini (antes del 30 nov), dominio, datos reales de sucursales, precios, servicios capilares, textos y fotos de "Sobre Bugambilia".
 - **Netlify:** plan gratuito con créditos por despliegue (quedan menos de 200 de 300). Juntar cambios y hacer pocos pushes; `npm run build` local antes de subir.

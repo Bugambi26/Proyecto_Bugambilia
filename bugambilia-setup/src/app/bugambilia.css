@@ -555,6 +555,13 @@ img.detail__img { box-shadow: 18px 18px 0 0 var(--l-bg, var(--arena)), var(--som
 .map__pin-dot { background: var(--bugambilia); }
 .map__pin--third .map__pin-dot { background: var(--crema); border-color: var(--chocolate); }
 .map__pin-label { border: none; border-radius: 999px; padding: 5px 12px; box-shadow: var(--sombra-sm); background: #FFFCF8; font-weight: 500; }
+/* Mapa real (Leaflet): contiene sus capas para que no tapen el encabezado fijo, y
+   ancla la punta de la gota del mockup en la coordenada exacta. */
+.map.leaflet-container { isolation: isolate; z-index: 0; font-family: var(--sans); }
+.map__marker { background: none; border: none; }
+.map__marker .map__pin { transform: translate(-17px, -41px); }
+.map__marker:focus-visible { outline: none; }
+.map__marker:focus-visible .map__pin-label { outline: 2px solid var(--dorado); outline-offset: 2px; }
 .branch { border-radius: var(--r-lg); }
 .branch[data-open="true"] { border: 1.5px solid var(--dorado); }
 .branch__name { font-family: var(--serif); font-size: 26px; }
