@@ -77,7 +77,7 @@ Restricciones de la Fase 5 (no cambian el ER):
   - **Kokoro** (tercero, con foto): Montes Himalaya 902, Local 1, Plaza Florencia, Jardines de la Concepción II (coordenadas de Plaza Florencia en OpenStreetMap). Teléfono y WhatsApp 449 548 9257, Instagram `kokoro.showroom`. L–V 10:00–19:00, S 10:00–17:00, domingo cerrado.
   - El seed solo crea; en las ramas existentes estos datos se cargaron con un SQL de una sola vez.
 - Antes/después: es de **servicios capilares**; las tarjetas de faciales no lo llevan.
-- "Sobre Bugambilia": la foto del espacio es `public/img/espacio.webp` (recorte de una publicación de la clienta, sin su texto). Faltan la foto del equipo, la frase de bienvenida, la historia y la misión. Servicios capilares: la clienta mandará los datos (en su publicación aparecen Color personalizado, Corrección de color, Tratamientos capilares y Mantenimiento de color, pero sin enfoque ni "ideal para").
+- Textos de la clienta (25 nov 2026, se usan tal cual): frase de bienvenida en el hero; historia y misión en la sección del inicio (título "Bienvenidas a Bugambilia"); "Porque cada cabello tiene su propia historia" como introducción de `/productos`. La foto del espacio es `public/img/espacio.webp` (recorte de una publicación de la clienta, sin su texto). Falta la foto del equipo. Servicios capilares: la clienta mandará los datos (en su publicación aparecen Color personalizado, Corrección de color, Tratamientos capilares y Mantenimiento de color, pero sin enfoque ni "ideal para").
 
 ## Chatbot (Fase 4)
 

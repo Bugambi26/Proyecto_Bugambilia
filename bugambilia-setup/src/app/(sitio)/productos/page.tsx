@@ -19,6 +19,34 @@ export default function Productos({ searchParams }: PageProps<"/productos">) {
         </Suspense>
       </section>
 
+      {/* Por qué existe la línea: texto de la clienta (25 nov 2026), sin cambios. */}
+      <section className="container" style={{ paddingBottom: 32 }} aria-labelledby="t-historia">
+        <div className="historia stack gap-16">
+          <h2 id="t-historia" className="title-sm">
+            Porque cada cabello tiene su propia historia
+          </h2>
+          <p className="text">Así como cada mujer tiene una historia diferente, cada cabello también.</p>
+          <p className="text">
+            A lo largo de los años hemos aprendido que no existen dos cabellos iguales: cada uno ha vivido procesos,
+            cambios, coloraciones, tratamientos y cuidados diferentes. Por eso decidimos crear y maquilar nuestros
+            propios productos.
+          </p>
+          <p className="text">
+            En Bugambilia creemos en una belleza más consciente y personalizada. Creamos fórmulas pensadas para
+            responder a las necesidades reales de cada cabello, porque no queremos ofrecer un producto más; queremos
+            encontrar el cuidado que tu cabello verdaderamente necesita.
+          </p>
+          <p className="text">
+            Cada tratamiento, cada fórmula y cada recomendación nace de nuestra experiencia y del conocimiento que
+            hemos construido trabajando día a día con nuestras clientas.
+          </p>
+          <p className="historia__frase">
+            Porque para nosotras, cuidar tu cabello también es conocer su historia.
+            <br />Y cuando conocemos su historia, podemos darle exactamente lo que necesita para volver a florecer.
+          </p>
+        </div>
+      </section>
+
       <section className="container catalog" style={{ paddingBottom: 64 }}>
         <Suspense fallback={<p className="text">Cargando productos…</p>}>
           <CatalogoConDatos searchParams={searchParams} />

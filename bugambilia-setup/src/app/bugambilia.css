@@ -496,6 +496,17 @@ img.hero__img { border-radius: 26px; box-shadow: 22px 22px 0 0 var(--arena), var
 .section--alt { background: var(--arena-2) var(--grano); }
 .about__imgs .ph:first-child { border-radius: 160px 160px var(--r) var(--r); }
 
+/* Textos de la clienta: "Bienvenidas a Bugambilia" (inicio) y la historia de la línea (Productos). */
+.historia { max-width: 760px; }
+.historia__frase {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 22px; line-height: 1.35; color: var(--chocolate);
+}
+.historia__mision {
+  padding-left: 16px; border-left: 2px solid var(--dorado);
+  font-size: 16px; line-height: 1.6; font-weight: 500; color: var(--tinta);
+}
+
 .tabs .btn { border-radius: 999px; }
 .tabs .btn[aria-selected="true"] { background: var(--chocolate); color: var(--crema); }
 
