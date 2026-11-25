@@ -54,13 +54,21 @@ export default function Inicio() {
       <section className="section section--alt" aria-labelledby="t-sobre">
         <div className="container split">
           <div className="about__imgs">
-            {/* TODO: fotos del equipo y del espacio (pendientes con la clienta). */}
+            {/* TODO: foto del equipo (pendiente con la clienta). */}
             <div className="ph" role="img" aria-label="Foto del equipo">
               Foto del equipo
             </div>
-            <div className="ph" role="img" aria-label="Foto del espacio">
-              Foto del espacio
-            </div>
+            {/* Foto de la clienta (25 nov 2026), recortada sin el texto de la publicación. */}
+            <Image
+              className="ph"
+              src="/img/espacio.webp"
+              alt="Tocador y sillón de Estética Bugambilia con lavacabezas, iluminados por la luz de la tarde"
+              width={900}
+              height={614}
+              sizes="(min-width: 960px) 280px, 50vw"
+              style={{ objectPosition: "28% 50%" }} // en celular el recuadro es angosto: centra el sillón
+            />
+
           </div>
           <div className="stack gap-16">
             <span className="lbl">Nuestra esencia</span>

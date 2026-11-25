@@ -73,10 +73,11 @@ Restricciones de la Fase 5 (no cambian el ER):
 - **Precios (25 nov 2026):** la clienta vende cada **ritual completo** (los 3 productos de la línea) a un precio: Rubios Perfectos $680, Cobres Brillantes $680, Hidratación $580, Reestructurante $680, Crecimiento $1,060, Cotton Candy $720, Kit Antioxidante $510. Va en `linea.precio_ritual` y se muestra en la franja del catálogo, la ficha, las tarjetas de líneas del inicio y el chatbot. `producto.precio` sigue vacío (no se muestra). Las clientas también pueden **armar su propio ritual**: la dueña lo cotiza por mensaje (ver «Arma tu ritual» en Chatbot).
 - Pendientes: si los precios incluyen IVA (no se muestra nada hasta confirmarlo), servicios capilares, fotos del equipo/espacio y antes/después de faciales.
 - Sucursales (datos de la clienta, 25 nov 2026):
-  - **Estética Bugambilia** (propia): la dueña **no publica la dirección**, así que no tiene dirección ni coordenadas y no sale en el mapa ni lleva "Cómo llegar". Teléfono y WhatsApp 449 341 9419 (el mismo del pie de página). Solo atiende con cita: falta decidir qué mostrar como horario (mientras, sin horarios, la tarjeta no muestra la tabla) y la foto.
+  - **Estética Bugambilia** (propia): la dueña **no publica la dirección**, así que no tiene dirección ni coordenadas y no sale en el mapa ni lleva "Cómo llegar". Teléfono y WhatsApp 449 341 9419 (el mismo del pie de página). Solo atiende con cita: falta decidir qué mostrar como horario (mientras, sin horarios, la tarjeta no muestra la tabla). Foto `public/img/sucursales/bugambilia.webp`, recortada de una publicación de la clienta.
   - **Kokoro** (tercero, con foto): Montes Himalaya 902, Local 1, Plaza Florencia, Jardines de la Concepción II (coordenadas de Plaza Florencia en OpenStreetMap). Teléfono y WhatsApp 449 548 9257, Instagram `kokoro.showroom`. L–V 10:00–19:00, S 10:00–17:00, domingo cerrado.
   - El seed solo crea; en las ramas existentes estos datos se cargaron con un SQL de una sola vez.
 - Antes/después: es de **servicios capilares**; las tarjetas de faciales no lo llevan.
+- "Sobre Bugambilia": la foto del espacio es `public/img/espacio.webp` (recorte de una publicación de la clienta, sin su texto). Faltan la foto del equipo, la frase de bienvenida, la historia y la misión. Servicios capilares: la clienta mandará los datos (en su publicación aparecen Color personalizado, Corrección de color, Tratamientos capilares y Mantenimiento de color, pero sin enfoque ni "ideal para").
 
 ## Chatbot (Fase 4)
 
