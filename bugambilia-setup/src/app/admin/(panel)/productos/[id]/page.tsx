@@ -50,7 +50,14 @@ export default async function EditarProducto({ params }: PageProps<"/admin/produ
         <span className="lbl">Mismo formulario para Alta (vacío) y Cambio (con datos)</span>
         <h1 className="admin-title">Editar producto</h1>
       </div>
-      <FormularioProducto producto={producto} lineas={lineas} necesidades={necesidades} />
+      {/* La llave son los datos: si cambiaron (p. ej. el stock desde la tabla), el
+          formulario vuelve a empezar con ellos en vez de conservar los de antes. */}
+      <FormularioProducto
+        key={JSON.stringify(producto)}
+        producto={producto}
+        lineas={lineas}
+        necesidades={necesidades}
+      />
     </>
   );
 }

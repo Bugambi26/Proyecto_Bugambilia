@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { connection } from "next/server";
-import { FormularioProducto } from "../FormularioProducto";
+import { FormularioAlta } from "../FormularioProducto";
 import { opcionesDelFormulario } from "../opciones";
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default async function NuevoProducto() {
         <span className="lbl">Mismo formulario para Alta (vacío) y Cambio (con datos)</span>
         <h1 className="admin-title">Dar de alta producto</h1>
       </div>
-      <FormularioProducto producto={null} lineas={lineas} necesidades={necesidades} />
+      <FormularioAlta lineas={lineas} necesidades={necesidades} />
     </>
   );
 }

@@ -27,6 +27,15 @@ export type ProductoEditable = {
 
 type Opcion = { id: number; nombre: string };
 
+// Next 16 conserva el estado de las páginas ya visitadas (<Activity>). Sin una
+// llave, al volver a "Dar de alta" seguirían los datos de la vez anterior y el
+// botón en "Guardando…". bfcacheId cambia en cada navegación nueva (no al usar
+// atrás/adelante). "Editar" usa como llave los datos del producto (ver [id]/page).
+export function FormularioAlta(props: { lineas: Opcion[]; necesidades: Opcion[] }) {
+  const { bfcacheId } = useRouter();
+  return <FormularioProducto key={bfcacheId} producto={null} {...props} />;
+}
+
 // Formulario de admin/producto.html: vacío para el alta, con datos para el cambio.
 export function FormularioProducto({
   producto,
@@ -37,7 +46,6 @@ export function FormularioProducto({
   lineas: Opcion[];
   necesidades: Opcion[];
 }) {
-  const router = useRouter();
   const { aviso, mostrar } = useAviso();
   const formulario = useRef<HTMLFormElement>(null);
   const dialogoBaja = useRef<HTMLDialogElement>(null);
@@ -132,21 +140,22 @@ export function FormularioProducto({
     }
 
     setEnviando(true);
+    // Si se guarda, la acción redirige al inventario desde el servidor y este
+    // código ya no sigue; por eso el aviso se deja listo antes y se cancela si falla.
+    avisarEnSiguientePagina(producto ? "Cambios guardados" : "Producto dado de alta");
     let resultado;
     try {
       resultado = await guardarProducto(datos);
     } catch {
       resultado = { ok: false as const, errores: {}, mensaje: "No se pudo guardar. Revisa tu conexión e intenta de nuevo." };
     }
-    if (!resultado.ok) {
+    if (resultado) {
+      avisarEnSiguientePagina("");
       setErrores(resultado.errores);
       setMensaje(resultado.mensaje ?? "");
       setEnviando(false);
       enfocarPrimerError(resultado.errores);
-      return;
     }
-    avisarEnSiguientePagina(producto ? "Cambios guardados" : "Producto dado de alta");
-    router.push("/admin/inventario");
   }
 
   const hayErrores = Object.values(errores).some(Boolean);

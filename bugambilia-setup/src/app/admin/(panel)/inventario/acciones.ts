@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { requerirSesion } from "@/lib/auth-sesion";
 import { prisma } from "@/lib/prisma";
 
@@ -16,6 +17,7 @@ export async function ajustarStock(id: number, delta: 1 | -1): Promise<number> {
     await prisma.producto.update({ where: { id }, data: { stock: { increment: 1 } } });
   }
   const { stock } = await prisma.producto.findUniqueOrThrow({ where: { id }, select: { stock: true } });
+  revalidarProducto(id);
   return stock;
 }
 
@@ -23,4 +25,12 @@ export async function ajustarStock(id: number, delta: 1 | -1): Promise<number> {
 export async function cambiarActivo(id: number, activo: boolean): Promise<void> {
   await requerirSesion();
   await prisma.producto.update({ where: { id }, data: { activo } });
+  revalidarProducto(id);
+}
+
+// El navegador guarda en caché las páginas que ya visitó; sin esto, volver al
+// inventario o abrir "Editar" mostraría el stock o el estado de antes.
+function revalidarProducto(id: number) {
+  revalidatePath("/admin/inventario");
+  revalidatePath(`/admin/productos/${id}`);
 }

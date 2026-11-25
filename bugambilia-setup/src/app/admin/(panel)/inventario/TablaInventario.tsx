@@ -30,6 +30,14 @@ export function TablaInventario({
   lineas: { id: number; nombre: string }[];
 }) {
   const [productos, setProductos] = useState(productosIniciales);
+  // Next 16 conserva el estado de la tabla al salir y volver (<Activity>), así que
+  // cuando el servidor manda datos nuevos (p. ej. al regresar del formulario) se
+  // toman aquí. Búsqueda, filtros y página se conservan.
+  const [recibidos, setRecibidos] = useState(productosIniciales);
+  if (productosIniciales !== recibidos) {
+    setRecibidos(productosIniciales);
+    setProductos(productosIniciales);
+  }
   const [busqueda, setBusqueda] = useState("");
   const [linea, setLinea] = useState("todas");
   const [vista, setVista] = useState<Vista>("activos");

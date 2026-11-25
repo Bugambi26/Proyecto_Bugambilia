@@ -141,3 +141,5 @@ Datos que faltan: no se muestran placeholders como "[Precio]"; si un dato no exi
 Mensaje: lujo accesible, experiencia profesional, feminidad sofisticada; evitar lo clínico o genérico. Firma: "Tu cabello. Tu ritual. Tu Bugambilia." El chatbot habla de tú.
 
 Next 16 tiene `cacheComponents` activo: toda consulta a la base va en un componente async con `await connection()` dentro de `<Suspense>` (ver `src/lib/datos-catalogo.ts`).
+
+Con `cacheComponents`, Next 16 **conserva el estado de las páginas ya visitadas** (`<Activity>`): un `useState` iniciado con props no se actualiza solo al volver a la página. En el panel: las Server Actions que cambian datos llaman `revalidatePath` (y `redirect` al terminar un formulario, en vez de `router.push`); la tabla del inventario toma los datos nuevos cuando cambian sus props; el formulario de "Editar" lleva como `key` los datos del producto y el de "Dar de alta" `useRouter().bfcacheId`.

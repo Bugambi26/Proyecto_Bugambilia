@@ -1,12 +1,15 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { Prisma } from "@/generated/prisma/client";
 import { requerirSesion } from "@/lib/auth-sesion";
 import { borrarImagen, subirImagen } from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
 import { validarProducto, type ErroresProducto } from "./validacion";
 
-export type ResultadoGuardar = { ok: true } | { ok: false; errores: ErroresProducto; mensaje?: string };
+// Si todo sale bien no se devuelve nada: la acción redirige al inventario.
+export type ResultadoGuardar = { ok: false; errores: ErroresProducto; mensaje?: string };
 
 const CARPETA = "bugambilia/productos";
 
@@ -76,5 +79,11 @@ export async function guardarProducto(formulario: FormData): Promise<ResultadoGu
   }
 
   if (anterior?.imagenUrl !== imagenUrl) await borrarImagen(anterior?.imagenUrl ?? null);
-  return { ok: true };
+
+  // Redirigir desde el servidor manda la navegación y la lista nueva en la misma
+  // respuesta; con router.push en el navegador el botón se quedaba en "Guardando…"
+  // y el inventario mostraba datos viejos hasta recargar.
+  revalidatePath("/admin/inventario");
+  if (id) revalidatePath(`/admin/productos/${id}`);
+  redirect("/admin/inventario");
 }

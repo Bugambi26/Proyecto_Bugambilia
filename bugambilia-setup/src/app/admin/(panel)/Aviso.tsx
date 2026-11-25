@@ -42,10 +42,11 @@ export function useAviso() {
   return { aviso, mostrar };
 }
 
-// Deja un aviso para mostrarlo en la siguiente página del panel.
+// Deja un aviso para mostrarlo en la siguiente página del panel ("" lo cancela).
 export function avisarEnSiguientePagina(texto: string) {
   try {
-    sessionStorage.setItem(CLAVE_PENDIENTE, texto);
+    if (texto) sessionStorage.setItem(CLAVE_PENDIENTE, texto);
+    else sessionStorage.removeItem(CLAVE_PENDIENTE);
   } catch {
     // Sin almacenamiento: se pierde el aviso, no pasa nada.
   }
