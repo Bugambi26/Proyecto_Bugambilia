@@ -2,6 +2,8 @@
 
 > **Actualización (21 nov 2026):** la PARTE 1 (productos) quedó **sustituida** por el catálogo de los mockups aprobados con la dueña (`bugambilia-wireframes-html/js/data.js`), tomado de las etiquetas reales: **7 líneas y 21 productos**. Cambios principales: se agrega la línea **Kit Antioxidante**; Growth pasa a Shampoo Estimulante, Bálsamo Fortalecedor y Loción Activadora (romero, jengibre y biotina); Cotton Candy pasa a **Sweet Ritual** con 3 productos (vainilla y algodón); todos los productos son de 250 ml y los beneficios son los de cada etiqueta. Los datos vigentes están en `prisma/seed.ts`. Las PARTES 2 y 3 (servicios faciales, dirección visual) siguen vigentes.
 
+> **Actualización (25 nov 2026):** Growth pasa a **4 productos**: Shampoo Estimulante, Bálsamo Fortalecedor, **Loción Crecimiento** (antes Loción Activadora) y **Aceite Crecimiento** (minoxidil, romero y bergamota); la loción y el aceite son de **50 ml**. El precio del ritual completo ($1,060) cubre los 4. Los precios de los rituales incluyen IVA. Los servicios capilares se quitaron del sitio por ahora.
+
 Información oficial proporcionada por la clienta (Bugambilia Hair Boutique). Fuente de datos para el catálogo del sitio, el modelo de la base de datos y el motor de recomendación del chatbot (Fase 4).
 
 ---

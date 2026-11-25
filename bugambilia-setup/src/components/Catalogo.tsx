@@ -122,7 +122,7 @@ export function Catalogo({ lineas, lineaInicial }: Props) {
               {linea.precioRitual && (
                 <p className="row gap-10" style={{ alignItems: "baseline", margin: 0 }}>
                   <span className="detail__price">{linea.precioRitual}</span>
-                  <span className="small">ritual completo · {linea.productos.length} productos</span>
+                  <span className="small">ritual completo · {linea.productos.length} productos · IVA incluido</span>
                 </p>
               )}
             </div>

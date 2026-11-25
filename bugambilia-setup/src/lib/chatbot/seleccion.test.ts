@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { TipoProducto } from "@/generated/prisma/enums";
 import { MAX_RITUALES, seleccionarRituales, type ProductoCandidato } from "./seleccion";
 
-// Copia del catálogo del seed (7 líneas, 21 productos), con los ids en el orden del catálogo.
+// Copia del catálogo del seed (7 líneas, 22 productos), con los ids en el orden del catálogo.
 const N = { rubio: 1, cobrizo: 2, hidratacion: 3, reparacion: 4, crecimiento: 5, integral: 6 } as const;
 const L = { blonde: 1, copper: 2, hydra: 3, repair: 4, growth: 5, cotton: 6, kit: 7 } as const;
 
@@ -11,7 +11,7 @@ const LINEAS: [linea: number, necesidad: number, tipos: TipoProducto[]][] = [
   [L.copper, N.cobrizo, ["Shampoo", "Balsamo", "CremaParaPeinar"]],
   [L.hydra, N.hidratacion, ["Shampoo", "Balsamo", "CremaParaPeinar"]],
   [L.repair, N.reparacion, ["Shampoo", "Balsamo", "CremaParaPeinar"]],
-  [L.growth, N.crecimiento, ["Shampoo", "Balsamo", "Locion"]],
+  [L.growth, N.crecimiento, ["Shampoo", "Balsamo", "Locion", "Aceite"]], // 4 productos desde el 25 nov 2026
   [L.cotton, N.hidratacion, ["Shampoo", "Balsamo", "CremaParaPeinar"]],
   [L.kit, N.integral, ["Shampoo", "Balsamo", "CremaParaPeinar"]],
 ];
@@ -39,7 +39,7 @@ const P2 = {
 const lineas = (r: ReturnType<typeof seleccionarRituales>) => r.map((x) => x.lineaId);
 const cuantos = (r: ReturnType<typeof seleccionarRituales>) => r.map((x) => x.productos.length);
 
-describe("casos esperados de la Fase 4 (catálogo de 21 productos)", () => {
+describe("casos esperados de la Fase 4 (catálogo de 22 productos)", () => {
   const todos = catalogo();
 
   it("Rubio + Reparación → Blonde + Repair", () => {
@@ -83,7 +83,7 @@ describe("casos esperados de la Fase 4 (catálogo de 21 productos)", () => {
 describe("filtro de disponibilidad (regla 1)", () => {
   it("un producto agotado no entra; el resto de su ritual sí", () => {
     const r = seleccionarRituales(P2.crecimiento, catalogo((p) => (p.tipoProducto === "Locion" ? { stock: 0 } : {})));
-    expect(cuantos(r)).toEqual([2]);
+    expect(cuantos(r)).toEqual([3]);
     expect(r[0].productos.some((p) => p.tipoProducto === "Locion")).toBe(false);
   });
 
@@ -152,9 +152,9 @@ describe("orden de rutina dentro del ritual (regla 6)", () => {
     expect(r[0].productos.map((p) => p.tipoProducto)).toEqual(["Shampoo", "Mascarilla", "CremaParaPeinar"]);
   });
 
-  it("dos tratamientos empatan por orden del catálogo (Growth: Bálsamo antes que Loción)", () => {
+  it("dos tratamientos empatan por orden del catálogo (Growth: Bálsamo antes que Loción; el aceite al final)", () => {
     const r = seleccionarRituales(P2.crecimiento, [...catalogo()].reverse());
-    expect(r[0].productos.map((p) => p.tipoProducto)).toEqual(["Shampoo", "Balsamo", "Locion"]);
+    expect(r[0].productos.map((p) => p.tipoProducto)).toEqual(["Shampoo", "Balsamo", "Locion", "Aceite"]);
   });
 
   it("es determinista: misma entrada, mismo resultado", () => {

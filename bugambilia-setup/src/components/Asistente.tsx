@@ -393,7 +393,7 @@ function Ritual({ ritual, alElegir, elegidos, alAlternar }: PropsRitual) {
       })}
       {ritual.precioRitual && (
         <p className="small" style={{ margin: 0 }}>
-          {ritual.ritual} completo: <strong>{ritual.precioRitual}</strong>
+          {ritual.ritual} completo: <strong>{ritual.precioRitual}</strong> (IVA incluido)
         </p>
       )}
     </>

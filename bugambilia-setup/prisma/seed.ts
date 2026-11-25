@@ -38,8 +38,8 @@ type ClaveNecesidad = keyof typeof NECESIDADES;
 
 // ─────────────────────────────── Catálogo ───────────────────────────────
 // Fuente: mockups aprobados con la dueña (bugambilia-wireframes-html/js/data.js), tomados
-// de las etiquetas reales: 7 líneas y 21 productos. Reemplaza a la versión de 6 líneas y
-// 20 productos de la Fase 4.
+// de las etiquetas reales: 7 líneas y 22 productos (Crecimiento tiene 4 desde el 25 nov 2026).
+// Reemplaza a la versión de 6 líneas y 20 productos de la Fase 4.
 // El orden de este arreglo es el "orden del catálogo" (desempate del chatbot).
 
 type ProductoSeed = {
@@ -47,6 +47,8 @@ type ProductoSeed = {
   tipo: TipoProducto;
   beneficio: string;
   imagen: string; // archivo en public/img/productos/
+  contenido?: string; // si falta, CONTENIDO_NETO
+  ingredientes?: string; // si faltan, los de la línea
 };
 
 type LineaSeed = {
@@ -61,7 +63,7 @@ type LineaSeed = {
   productos: ProductoSeed[];
 };
 
-const CONTENIDO_NETO = "250 ml"; // igual en las 21 etiquetas
+const CONTENIDO_NETO = "250 ml"; // el de casi todas las etiquetas (la loción y el aceite de Crecimiento son de 50 ml)
 
 const LINEAS: LineaSeed[] = [
   {
@@ -130,7 +132,17 @@ const LINEAS: LineaSeed[] = [
     productos: [
       { nombre: "Shampoo Estimulante", tipo: TipoProducto.Shampoo, beneficio: "Limpia, activa y fortalece la raíz.", imagen: "shampoo-estimulante" },
       { nombre: "Bálsamo Fortalecedor", tipo: TipoProducto.Balsamo, beneficio: "Nutre, desenreda y da cuerpo.", imagen: "balsamo-fortalecedor" },
-      { nombre: "Loción Activadora", tipo: TipoProducto.Locion, beneficio: "Estimula el crecimiento y reduce la caída.", imagen: "locion-activadora" },
+      // Growth Ritual con 4 productos (25 nov 2026, datos de la clienta): la "Loción Activadora" se
+      // llama "Loción Crecimiento" y se agregó el aceite. El precio del ritual cubre los 4.
+      { nombre: "Loción Crecimiento", tipo: TipoProducto.Locion, beneficio: "Estimula el crecimiento y reduce la caída.", imagen: "locion-crecimiento", contenido: "50 ml" },
+      {
+        nombre: "Aceite Crecimiento",
+        tipo: TipoProducto.Aceite,
+        beneficio: "Nutre el cuero cabelludo y fortalece la fibra capilar.",
+        imagen: "aceite-crecimiento",
+        contenido: "50 ml",
+        ingredientes: "Minoxidil, romero y bergamota",
+      },
     ],
   },
   {
@@ -194,6 +206,8 @@ const SUCURSALES = [
     // La dueña no publica la dirección: sin dirección ni coordenadas (no sale en el mapa).
     nombre: "Estética Bugambilia",
     tipo: TipoSucursal.Propia,
+    // Frase aprobada por la clienta (25 nov 2026), tal cual; reemplaza la tabla de horario.
+    notaHorario: "Todos los días, con cita. Acomodamos tu horario según tu disponibilidad y la nuestra.",
     direccion: null,
     latitud: null,
     longitud: null,
@@ -254,9 +268,9 @@ async function sembrarCatalogo(necesidadIds: Record<ClaveNecesidad, number>) {
           lineaId: linea.id,
           nombre: p.nombre,
           tipoProducto: p.tipo,
-          ingredientesProtagonistas: l.ingredientes,
+          ingredientesProtagonistas: p.ingredientes ?? l.ingredientes,
           beneficioPrincipal: p.beneficio,
-          contenidoNeto: CONTENIDO_NETO,
+          contenidoNeto: p.contenido ?? CONTENIDO_NETO,
           imagenUrl: `/img/productos/${p.imagen}.webp`, // fotos del mockup; las nuevas van a Cloudinary
           stock: 0, // la dueña captura el inventario real desde el panel
         },

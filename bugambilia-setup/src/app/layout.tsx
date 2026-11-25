@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     template: "%s — Bugambilia Hair Boutique",
   },
   description:
-    "Bugambilia Hair Boutique: tratamientos faciales, servicios capilares y la Línea Bugambilia de cuidado capilar profesional.",
+    "Bugambilia Hair Boutique: tratamientos faciales y la Línea Bugambilia de cuidado capilar profesional.",
 };
 
 // Layout raíz: solo fuentes y estilos. El encabezado, el pie y el asistente del

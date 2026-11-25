@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { PestanasServicios } from "@/components/PestanasServicios";
+import { ServiciosFaciales } from "@/components/ServiciosFaciales";
 import { aparienciaDeLinea, estiloLinea } from "@/lib/catalogo";
 import { CONTACTO, FIRMA } from "@/lib/contacto";
 import { obtenerLineasConProductos, obtenerSucursales } from "@/lib/datos-catalogo";
@@ -120,7 +120,7 @@ export default function Inicio() {
               Cada piel tiene necesidades diferentes. Piel limpia. Piel cuidada. Piel luminosa.
             </p>
           </div>
-          <PestanasServicios />
+          <ServiciosFaciales />
           <div className="row gap-16">
             <p style={{ fontSize: 16 }}>¿Quieres un tratamiento personalizado?</p>
             <a href={CONTACTO.instagramMensaje} className="btn" target="_blank" rel="noopener noreferrer">
@@ -220,7 +220,11 @@ async function Lineas() {
                 {l.productos[0]?.ingredientes ? `${l.productos[0].ingredientes} · ` : ""}
                 {l.productos.length} productos
               </span>
-              {l.precioRitual && <span className="small">Ritual completo · <strong>{l.precioRitual}</strong></span>}
+              {l.precioRitual && (
+                <span className="small">
+                  Ritual completo · <strong>{l.precioRitual}</strong> · IVA incluido
+                </span>
+              )}
             </div>
           </Link>
         ))}
@@ -243,10 +247,16 @@ async function SucursalesPrevia() {
         >
           <span className="meta">{s.tipo === "Propia" ? "Establecimiento propio" : "Punto de venta"}</span>
           <span style={{ fontSize: 18, fontWeight: 700 }}>{s.nombre}</span>
-          {/* Solo lo que existe: la estética no publica dirección y aún no tiene horario. */}
-          {(s.direccion || s.horarios.length > 0) && (
+          {/* Solo lo que existe: la estética no publica dirección y en lugar del horario de hoy
+              lleva su nota (atiende solo con cita). */}
+          {(s.direccion || s.notaHorario || s.horarios.length > 0) && (
             <span className="small">
-              {[s.direccion, s.horarios.length > 0 && `Hoy: ${formatoHorario(s.horarios, hoy)}`].filter(Boolean).join(" · ")}
+              {[
+                s.direccion,
+                s.notaHorario ?? (s.horarios.length > 0 && `Hoy: ${formatoHorario(s.horarios, hoy)}`),
+              ]
+                .filter(Boolean)
+                .join(" · ")}
             </span>
           )}
         </Link>

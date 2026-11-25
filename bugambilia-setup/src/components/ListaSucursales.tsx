@@ -16,6 +16,7 @@ export type SucursalCliente = {
   whatsapp: string | null;
   instagram: string | null;
   fotoUrl: string | null;
+  notaHorario: string | null; // si existe, se muestra en lugar de la tabla de horario
   horarios: { diaSemana: number; horaApertura: string; horaCierre: string }[];
 };
 
@@ -86,8 +87,15 @@ export function ListaSucursales({ sucursales, hoy, inicial }: Props) {
                   </div>
                 </button>
                 <div className="branch__body" id={`b-${s.id}`} hidden={!on}>
-                  {/* Sin ningún horario capturado no se muestra la tabla (diría "Cerrado" toda la semana). */}
-                  {s.horarios.length > 0 && (
+                  {/* Con nota (la estética: solo con cita), la nota va en lugar de la tabla. Sin nota ni
+                      horarios no se muestra nada (la tabla diría "Cerrado" toda la semana). */}
+                  {s.notaHorario ? (
+                    <div className="stack" style={{ gap: 6, fontSize: 14 }}>
+                      <span style={{ fontWeight: 600 }}>Horario</span>
+                      <p style={{ margin: 0, color: "var(--ink-2)" }}>{s.notaHorario}</p>
+                    </div>
+                  ) : (
+                    s.horarios.length > 0 && (
                     <table className="hours">
                       <caption>Horario</caption>
                       <tbody>
@@ -99,6 +107,7 @@ export function ListaSucursales({ sucursales, hoy, inicial }: Props) {
                         ))}
                       </tbody>
                     </table>
+                    )
                   )}
                   {/* Solo se muestran los botones que tienen datos (sin enlaces vacíos). */}
                   <div className="row gap-10">

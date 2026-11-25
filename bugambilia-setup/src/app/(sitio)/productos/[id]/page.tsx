@@ -87,7 +87,13 @@ async function Ficha({ params }: { params: Params }) {
             {l.precioRitual && (
               <div className="specs__full">
                 <dt>Ritual completo · {otros.length + 1} productos</dt>
-                <dd>{l.precioRitual}</dd>
+                <dd>
+                  {l.precioRitual}{" "}
+                  {/* La clienta confirmó (25 nov 2026) que el precio ya incluye IVA. */}
+                  <span className="small" style={{ fontFamily: "var(--sans)", fontWeight: 400 }}>
+                    IVA incluido
+                  </span>
+                </dd>
               </div>
             )}
           </dl>
