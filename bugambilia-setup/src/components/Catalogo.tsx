@@ -119,6 +119,12 @@ export function Catalogo({ lineas, lineaInicial }: Props) {
               {linea.productos[0]?.ingredientes && (
                 <span className="small">Ingrediente protagonista: {linea.productos[0].ingredientes}</span>
               )}
+              {linea.precioRitual && (
+                <p className="row gap-10" style={{ alignItems: "baseline", margin: 0 }}>
+                  <span className="detail__price">{linea.precioRitual}</span>
+                  <span className="small">ritual completo · {linea.productos.length} productos</span>
+                </p>
+              )}
             </div>
           </section>
         )}

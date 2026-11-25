@@ -192,6 +192,7 @@ async function Lineas() {
                 {l.productos[0]?.ingredientes ? `${l.productos[0].ingredientes} · ` : ""}
                 {l.productos.length} productos
               </span>
+              {l.precioRitual && <span className="small">Ritual completo · <strong>{l.precioRitual}</strong></span>}
             </div>
           </Link>
         ))}

@@ -15,6 +15,7 @@ export type LineaVista = {
   nombreRitual: string;
   descripcion: string;
   numerada: string; // "01 · Rubios perfectos"
+  precioRitual: string | null; // precio del ritual completo, ya formateado; null = no se muestra
 };
 
 export type ProductoVista = {
@@ -60,6 +61,7 @@ async function lineasYProductos() {
       nombreRitual: l.nombreRitual,
       descripcion: l.descripcion,
       numerada: etiquetaNumerada(i + 1, l.nombre),
+      precioRitual: formatearPrecio(l.precioRitual),
     };
     return { ...vista, productos: [...l.productos].sort(compararPorRutina).map((p) => aVista(p, vista)) };
   });

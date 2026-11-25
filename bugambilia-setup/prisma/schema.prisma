@@ -46,6 +46,8 @@ model Linea {
   nombre       String     @unique
   nombreRitual String     @map("nombre_ritual")
   descripcion  String
+  // Precio del ritual completo (los productos de la línea juntos), en pesos. null = no se muestra.
+  precioRitual Decimal?   @map("precio_ritual") @db.Decimal(10, 2)
   categoria    Categoria  @relation(fields: [categoriaId], references: [id], onDelete: Restrict)
   productos    Producto[]
 

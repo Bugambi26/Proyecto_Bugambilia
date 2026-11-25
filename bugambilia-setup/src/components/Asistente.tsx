@@ -298,6 +298,11 @@ function Ritual({ ritual, alElegir }: { ritual: RitualRecomendado; alElegir: () 
           </div>
         </Link>
       ))}
+      {ritual.precioRitual && (
+        <p className="small" style={{ margin: 0 }}>
+          {ritual.ritual} completo: <strong>{ritual.precioRitual}</strong>
+        </p>
+      )}
     </>
   );
 }

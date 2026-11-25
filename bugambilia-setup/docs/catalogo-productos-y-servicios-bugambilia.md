@@ -140,7 +140,9 @@ Cada etiqueta contempla: logo Bugambilia, nombre de la línea, nombre del ritual
 
 ## Pendientes por confirmar con la clienta
 
-- [ ] Precio de los 20 productos.
+- [x] Precio del ritual completo por línea (25 nov 2026; ver CLAUDE.md, «Catálogo»).
+- [ ] Precio de los productos sueltos y de los rituales que arma cada clienta.
+- [ ] Si los precios incluyen IVA.
 - [ ] Contenido neto de cada producto.
 - [ ] Precio y duración de cada tratamiento facial.
 - [ ] Información de los servicios capilares (corte, tinte y tratamientos).

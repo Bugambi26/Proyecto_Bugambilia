@@ -52,6 +52,7 @@ type ProductoSeed = {
 type LineaSeed = {
   nombre: string;
   ritual: string;
+  precioRitual: number; // precio del ritual completo en pesos (dado por la clienta, 25 nov 2026)
   descripcion: string;
   ingredientes: string; // definidos por línea en las etiquetas
   // Etiquetado confirmado por la clienta (23 nov 2026): Cotton Candy → hidratación;
@@ -66,6 +67,7 @@ const LINEAS: LineaSeed[] = [
   {
     nombre: "Rubios Perfectos",
     ritual: "Blonde Ritual",
+    precioRitual: 680,
     descripcion:
       "Línea especializada en el mantenimiento y cuidado de cabellos rubios, ayudando a conservar una apariencia luminosa, brillante y tonalmente equilibrada.",
     ingredientes: "Aceite de pepita de uva",
@@ -79,6 +81,7 @@ const LINEAS: LineaSeed[] = [
   {
     nombre: "Cobres Brillantes",
     ritual: "Copper Ritual",
+    precioRitual: 680,
     descripcion:
       "Línea diseñada para el cuidado y mantenimiento de tonos cobrizos, buscando conservar intensidad, brillo y una apariencia saludable.",
     ingredientes: "Cacao",
@@ -92,6 +95,7 @@ const LINEAS: LineaSeed[] = [
   {
     nombre: "Hidratación",
     ritual: "Hydra Ritual",
+    precioRitual: 580,
     descripcion:
       "Ritual de hidratación para cabello que necesita recuperar suavidad, luminosidad y una sensación de mayor nutrición.",
     ingredientes: "Aloe vera + sangre de grado",
@@ -105,6 +109,7 @@ const LINEAS: LineaSeed[] = [
   {
     nombre: "Reestructurante",
     ritual: "Repair Ritual",
+    precioRitual: 680,
     descripcion: "Ritual especializado para cabello sensibilizado, procesado o que necesita un cuidado intensivo.",
     ingredientes: "Ácido hialurónico, células madre, colágeno",
     necesidades: ["reparacion"],
@@ -117,6 +122,7 @@ const LINEAS: LineaSeed[] = [
   {
     nombre: "Crecimiento",
     ritual: "Growth Ritual",
+    precioRitual: 1060,
     descripcion:
       "Una combinación de activos naturales que estimulan el crecimiento, fortalecen la raíz y mantienen un cabello más fuerte, sano y abundante.",
     ingredientes: "Romero, jengibre y biotina",
@@ -130,6 +136,7 @@ const LINEAS: LineaSeed[] = [
   {
     nombre: "Cotton Candy",
     ritual: "Sweet Ritual",
+    precioRitual: 720,
     descripcion:
       "Una fórmula inspirada en la suavidad del algodón y la calidez de la vainilla, que envuelve tu cabello en un aroma irresistible, dejándolo suave, brillante y lleno de vida.",
     ingredientes: "Extracto de vainilla y algodón",
@@ -143,6 +150,7 @@ const LINEAS: LineaSeed[] = [
   {
     nombre: "Kit Antioxidante",
     ritual: "Kit Antioxidante",
+    precioRitual: 510,
     descripcion:
       "Una rutina completa para devolverle vida a tu cabello: elimina la acumulación de minerales, prepara el cabello para recibir mejor los nutrientes y potencia los resultados de tu rutina de cuidado.",
     ingredientes: "Sábila", // confirmado por la clienta (23 nov 2026)
@@ -231,7 +239,7 @@ async function sembrarCatalogo(necesidadIds: Record<ClaveNecesidad, number>) {
     const linea = await prisma.linea.upsert({
       where: { nombre: l.nombre },
       update: {},
-      create: { categoriaId: categoria.id, nombre: l.nombre, nombreRitual: l.ritual, descripcion: l.descripcion },
+      create: { categoriaId: categoria.id, nombre: l.nombre, nombreRitual: l.ritual, descripcion: l.descripcion, precioRitual: l.precioRitual },
     });
 
     for (const p of l.productos) {

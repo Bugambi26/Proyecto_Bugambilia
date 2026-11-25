@@ -60,8 +60,11 @@ export function etiquetaNumerada(posicion: number, nombreLinea: string) {
 }
 
 const formatoPesos = new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" });
+const formatoPesosEnteros = new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 });
 
 // Precio y contenido neto son opcionales (Fase 5): si faltan, no se muestran.
 export function formatearPrecio(precio: { toString(): string } | null): string | null {
-  return precio === null ? null : formatoPesos.format(Number(precio.toString()));
+  if (precio === null) return null;
+  const n = Number(precio.toString());
+  return (Number.isInteger(n) ? formatoPesosEnteros : formatoPesos).format(n); // $680 · $680.50
 }

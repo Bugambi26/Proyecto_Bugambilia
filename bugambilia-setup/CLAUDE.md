@@ -45,7 +45,7 @@ Mapa de sucursales: **Leaflet + mosaicos de OpenStreetMap** (sin llave; elegido 
 ## Modelo de datos (diagrama ER, Crow's Foot)
 
 - **CATEGORIA**(id, nombre) 1—N **LINEA**
-- **LINEA**(id, categoria_id, nombre, nombre_ritual, descripcion) 1—N **PRODUCTO**
+- **LINEA**(id, categoria_id, nombre, nombre_ritual, descripcion, precio_ritual) 1—N **PRODUCTO** — `precio_ritual` (opcional, > 0) agregado el 25 nov 2026, migración `20261125060000_precio_ritual`
 - **PRODUCTO**(id, linea_id, nombre, tipo_producto, ingredientes_protagonistas, beneficio_principal, contenido_neto, precio, imagen_url, stock, activo)
 - **NECESIDAD**(id, nombre, descripcion)
 - **PRODUCTO_NECESIDAD**(producto_id, necesidad_id) — N:M
@@ -70,7 +70,8 @@ Restricciones de la Fase 5 (no cambian el ER):
 - **7 líneas y 21 productos** (3 por línea): Rubios Perfectos (Blonde Ritual), Cobres Brillantes (Copper Ritual), Hidratación (Hydra Ritual), Reestructurante (Repair Ritual), Crecimiento (Growth Ritual), Cotton Candy (**Sweet Ritual**), **Kit Antioxidante**. Nombres, beneficios, ingredientes por línea y descripciones: ver `prisma/seed.ts`.
 - Contenido neto: 250 ml en todos. Fotos de producto en `public/img/productos/` (el seed guarda la ruta en `imagen_url`; las que suba el panel van a Cloudinary).
 - Kit Antioxidante: ingrediente protagonista **Sábila** (confirmado 23 nov 2026).
-- Pendientes: precios, servicios capilares, fotos del equipo/espacio y antes/después de faciales.
+- **Precios (25 nov 2026):** la clienta vende cada **ritual completo** (los 3 productos de la línea) a un precio: Rubios Perfectos $680, Cobres Brillantes $680, Hidratación $580, Reestructurante $680, Crecimiento $1,060, Cotton Candy $720, Kit Antioxidante $510. Va en `linea.precio_ritual` y se muestra en la franja del catálogo, la ficha, las tarjetas de líneas del inicio y el chatbot. `producto.precio` sigue vacío (no se muestra). Las clientas también pueden **armar su propio ritual**: pendiente saber cómo se cobra.
+- Pendientes: precio de los productos sueltos / rituales armados, si incluye IVA, servicios capilares, fotos del equipo/espacio y antes/después de faciales.
 - Sucursales: **Estética Bugambilia** (propia) y **Kokoro** (tercero, con foto). Dirección, coordenadas, teléfono y horario aún no están: valores de ejemplo marcados con `// TODO: dato real de la clienta`.
 
 ## Chatbot (Fase 4)

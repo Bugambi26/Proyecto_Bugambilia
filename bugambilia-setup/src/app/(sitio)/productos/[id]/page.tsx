@@ -84,6 +84,12 @@ async function Ficha({ params }: { params: Params }) {
               <dt>Beneficio principal</dt>
               <dd>{p.beneficio}</dd>
             </div>
+            {l.precioRitual && (
+              <div className="specs__full">
+                <dt>Ritual completo · {otros.length + 1} productos</dt>
+                <dd>{l.precioRitual}</dd>
+              </div>
+            )}
           </dl>
           <div className="row gap-12">
             <Link href="/sucursales" className="btn btn--primary">

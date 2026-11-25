@@ -30,6 +30,7 @@ export type RitualRecomendado = {
   lineaId: number;
   linea: string; // "Rubios Perfectos" (para el color de la línea)
   ritual: string; // "Blonde Ritual"
+  precioRitual: string | null; // precio del ritual completo, ya formateado; null = no se muestra
   mensaje: string;
   productos: ProductoRecomendado[];
 };

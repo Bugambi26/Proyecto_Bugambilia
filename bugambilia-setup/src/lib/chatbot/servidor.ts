@@ -1,7 +1,7 @@
 import "server-only";
 import { connection } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { TIPOS_PRODUCTO } from "@/lib/catalogo";
+import { formatearPrecio, TIPOS_PRODUCTO } from "@/lib/catalogo";
 import { FIRMA } from "@/lib/contacto";
 import { inicialSiEsValido } from "./arbol";
 import { redactarConIA } from "./ia";
@@ -80,6 +80,7 @@ export async function recomendar(necesidadesPedidas: number[]): Promise<Respuest
       lineaId: r.lineaId,
       linea: r.linea.nombre,
       ritual: r.linea.nombreRitual,
+      precioRitual: formatearPrecio(r.linea.precioRitual),
       mensaje: mensajes.get(r.lineaId) ?? "",
       productos: r.productos.map((p) => ({
         id: p.id,
