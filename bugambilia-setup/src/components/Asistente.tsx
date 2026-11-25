@@ -141,8 +141,8 @@ export function Asistente() {
       if (r.tipo === "diagnostico") return mostrarDiagnostico();
       decir(
         { tipo: "bot", texto: r.introduccion },
-        ...r.rituales.map((ritual): Entrada => ({ tipo: "ritual", ritual })),
         { tipo: "bot", texto: INVITACION_ARMAR },
+        ...r.rituales.map((ritual): Entrada => ({ tipo: "ritual", ritual })),
         { tipo: "bot", texto: r.cierre },
       );
       setFase("recomendacion");
