@@ -80,8 +80,6 @@ export function PestanasServicios() {
       >
         {FACIALES.map((s) => (
           <article key={s.nombre} className="card service">
-            {/* TODO: fotos de antes/después de faciales (pendientes con la clienta). */}
-            <Comparador etiqueta={s.nombre} />
             <div className="service__body">
               <h3 className="service__name">{s.nombre}</h3>
               <p className="service__focus">{s.enfoque}</p>
@@ -94,6 +92,7 @@ export function PestanasServicios() {
       <div id="panel-capilares" role="tabpanel" aria-labelledby="tab-capilares" hidden={activa !== "capilares"}>
         <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20 }}>
           <article className="card service">
+            {/* El antes/después es de servicios capilares (no de faciales). TODO: fotos reales de la clienta. */}
             <Comparador
               etiqueta="servicio capilar"
               antes={{ src: "/img/antes.webp", alt: "Antes: cabello rizado sin tratamiento" }}

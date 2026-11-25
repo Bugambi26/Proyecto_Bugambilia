@@ -19,10 +19,10 @@ export function PiePagina() {
           </a>
         </nav>
         <div className="stack gap-8">
-          {/* TODO: teléfono real de la clienta (mientras, solo WhatsApp). */}
           <a href={CONTACTO.whatsapp} target="_blank" rel="noopener noreferrer">
             WhatsApp
           </a>
+          <a href={`tel:+52${CONTACTO.telefono}`}>Llamar · {CONTACTO.telefonoVisible}</a>
           {/* La ruta del panel la define Miguelinchis en la S13. */}
           <Link href="/admin" className="muted-link">
             Acceso administrador

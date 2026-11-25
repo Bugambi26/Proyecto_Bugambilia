@@ -147,11 +147,14 @@ model Sucursal {
   id        Int          @id @default(autoincrement())
   nombre    String       @unique
   tipo      TipoSucursal
-  direccion String
-  latitud   Float
-  longitud  Float
+  // Opcionales (25 nov 2026): la dueña no publica la dirección de la estética.
+  // Sin coordenadas, la sucursal no sale en el mapa ni lleva "Cómo llegar".
+  direccion String?
+  latitud   Float?
+  longitud  Float?
   telefono  String? // 10 dígitos, guardado como texto
   whatsapp  String? // 10 dígitos; el enlace wa.me agrega el prefijo 52
+  instagram String? // URL del perfil (agregado el 25 nov 2026)
   fotoUrl   String?      @map("foto_url") // Cloudinary
   horarios  Horario[]
 

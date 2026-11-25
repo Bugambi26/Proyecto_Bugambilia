@@ -215,9 +215,12 @@ async function SucursalesPrevia() {
         >
           <span className="meta">{s.tipo === "Propia" ? "Establecimiento propio" : "Punto de venta"}</span>
           <span style={{ fontSize: 18, fontWeight: 700 }}>{s.nombre}</span>
-          <span className="small">
-            {s.direccion} · Hoy: {formatoHorario(s.horarios, hoy)}
-          </span>
+          {/* Solo lo que existe: la estética no publica dirección y aún no tiene horario. */}
+          {(s.direccion || s.horarios.length > 0) && (
+            <span className="small">
+              {[s.direccion, s.horarios.length > 0 && `Hoy: ${formatoHorario(s.horarios, hoy)}`].filter(Boolean).join(" · ")}
+            </span>
+          )}
         </Link>
       ))}
     </div>

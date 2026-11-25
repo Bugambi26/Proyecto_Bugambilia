@@ -186,34 +186,37 @@ const P2 = {
 };
 
 // ─────────────────────────────── Sucursales ───────────────────────────────
-// TODO: dato real de la clienta (dirección, coordenadas, teléfono, WhatsApp y horario).
-// Valores de ejemplo para poder desarrollar el mapa y los horarios.
-
-const HORARIO_EJEMPLO = [1, 2, 3, 4, 5, 6].map((dia) => ({
-  diaSemana: dia, // lunes a sábado; domingo sin renglón = "Cerrado"
-  horaApertura: "10:00", // TODO: dato real de la clienta
-  horaCierre: "20:00", // TODO: dato real de la clienta
-}));
+// Datos de la clienta (25 nov 2026). Un día sin renglón de horario = "Cerrado";
+// una sucursal sin ningún horario no muestra la tabla.
 
 const SUCURSALES = [
   {
+    // La dueña no publica la dirección: sin dirección ni coordenadas (no sale en el mapa).
     nombre: "Estética Bugambilia",
     tipo: TipoSucursal.Propia,
-    direccion: "Dirección pendiente, Aguascalientes, Ags.", // TODO: dato real de la clienta
-    latitud: 21.8818, // TODO: dato real de la clienta (centro de Aguascalientes)
-    longitud: -102.2916, // TODO: dato real de la clienta
-    telefono: null, // TODO: dato real de la clienta
-    whatsapp: null, // TODO: dato real de la clienta
+    direccion: null,
+    latitud: null,
+    longitud: null,
+    telefono: "4493419419",
+    whatsapp: "4493419419",
+    instagram: null,
+    // TODO: dato real de la clienta (solo atiende con cita; falta definir qué mostrar como horario y la foto).
+    horarios: [] as { diaSemana: number; horaApertura: string; horaCierre: string }[],
   },
   {
     nombre: "Kokoro",
     tipo: TipoSucursal.Tercero,
-    direccion: "Dirección pendiente, Aguascalientes, Ags.", // TODO: dato real de la clienta
-    latitud: 21.8853, // TODO: dato real de la clienta
-    longitud: -102.2869, // TODO: dato real de la clienta
-    telefono: null, // TODO: dato real de la clienta
-    whatsapp: null, // TODO: dato real de la clienta
+    direccion: "Montes Himalaya 902, Local 1, Plaza Florencia, Jardines de la Concepción II, 20120 Aguascalientes, Ags.",
+    latitud: 21.9228935, // Plaza Florencia (OpenStreetMap)
+    longitud: -102.2985236,
+    telefono: "4495489257",
+    whatsapp: "4495489257",
+    instagram: "https://www.instagram.com/kokoro.showroom",
     fotoUrl: "/img/sucursales/kokoro.webp", // foto del mockup
+    horarios: [
+      ...[1, 2, 3, 4, 5].map((dia) => ({ diaSemana: dia, horaApertura: "10:00", horaCierre: "19:00" })),
+      { diaSemana: 6, horaApertura: "10:00", horaCierre: "17:00" },
+    ],
   },
 ];
 
@@ -295,10 +298,10 @@ async function sembrarArbol(necesidadIds: Record<ClaveNecesidad, number>) {
 }
 
 async function sembrarSucursales() {
-  for (const s of SUCURSALES) {
+  for (const { horarios, ...s } of SUCURSALES) {
     const existe = await prisma.sucursal.findUnique({ where: { nombre: s.nombre } });
     if (existe) continue;
-    await prisma.sucursal.create({ data: { ...s, horarios: { create: HORARIO_EJEMPLO } } });
+    await prisma.sucursal.create({ data: { ...s, horarios: { create: horarios } } });
   }
 }
 

@@ -7,6 +7,9 @@ export const CONTACTO = {
   whatsapp: "https://w.app/bugambilia",
   // Número de WhatsApp de la clienta (+52 1 449 341 9419), en el formato de wa.me (52 + 10 dígitos).
   whatsappNumero: "524493419419",
+  // Teléfono para llamar: el mismo número del WhatsApp.
+  telefono: "4493419419",
+  telefonoVisible: "449 341 9419",
 } as const;
 
 // Enlace que abre WhatsApp con el mensaje ya escrito ("Arma tu ritual" del chatbot).

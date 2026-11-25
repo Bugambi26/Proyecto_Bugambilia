@@ -2,18 +2,19 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { DIAS_SEMANA, formatoHorario } from "@/lib/horarios";
 
 export type SucursalCliente = {
   id: number;
   nombre: string;
   tipo: "Propia" | "Tercero";
-  direccion: string;
-  latitud: number;
-  longitud: number;
+  direccion: string | null;
+  latitud: number | null;
+  longitud: number | null;
   telefono: string | null;
   whatsapp: string | null;
+  instagram: string | null;
   fotoUrl: string | null;
   horarios: { diaSemana: number; horaApertura: string; horaCierre: string }[];
 };
@@ -26,11 +27,24 @@ const MapaSucursales = dynamic(() => import("@/components/MapaSucursales"), {
 
 // Mapa + acordeón del mockup (una tarjeta abierta a la vez; los marcadores la abren y
 // abrir una tarjeta centra el mapa en esa sucursal).
-type Props = { sucursales: SucursalCliente[]; hoy: number; inicial: number | null };
+type Props = {
+  sucursales: SucursalCliente[];
+  hoy: number;
+  inicial: number | null;
+};
 
 export function ListaSucursales({ sucursales, hoy, inicial }: Props) {
   // Abre la sucursal del enlace (?sucursal=2) al llegar desde el inicio; si no, la primera.
   const [abierta, setAbierta] = useState<number | null>(inicial ?? sucursales[0]?.id ?? null);
+
+  // Solo van al mapa las sucursales con coordenadas (la estética no publica su dirección).
+  const puntos = useMemo(
+    () =>
+      sucursales.flatMap((s) =>
+        s.latitud !== null && s.longitud !== null ? [{ ...s, latitud: s.latitud, longitud: s.longitud }] : [],
+      ),
+    [sucursales],
+  );
 
   const abrirDesdeMapa = useCallback((id: number) => {
     setAbierta(id);
@@ -39,7 +53,7 @@ export function ListaSucursales({ sucursales, hoy, inicial }: Props) {
 
   return (
     <>
-      <MapaSucursales sucursales={sucursales} abierta={abierta} onSeleccionar={abrirDesdeMapa} />
+      {puntos.length > 0 && <MapaSucursales sucursales={puntos} abierta={abierta} onSeleccionar={abrirDesdeMapa} />}
 
       <div className="branch-list">
         <div className="stack gap-16">
@@ -68,41 +82,56 @@ export function ListaSucursales({ sucursales, hoy, inicial }: Props) {
                       {s.tipo === "Propia" ? "Establecimiento propio" : "Punto de venta · tercero"}
                     </span>
                     <span className="branch__name">{s.nombre}</span>
-                    <span className="small">{s.direccion}</span>
+                    {s.direccion && <span className="small">{s.direccion}</span>}
                   </div>
                 </button>
                 <div className="branch__body" id={`b-${s.id}`} hidden={!on}>
-                  <table className="hours">
-                    <caption>Horario</caption>
-                    <tbody>
-                      {DIAS_SEMANA.map((dia, i) => (
-                        <tr key={dia} aria-current={i + 1 === hoy ? "date" : undefined}>
-                          <th scope="row">{dia}</th>
-                          <td>{formatoHorario(s.horarios, i + 1)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  {/* Sin ningún horario capturado no se muestra la tabla (diría "Cerrado" toda la semana). */}
+                  {s.horarios.length > 0 && (
+                    <table className="hours">
+                      <caption>Horario</caption>
+                      <tbody>
+                        {DIAS_SEMANA.map((dia, i) => (
+                          <tr key={dia} aria-current={i + 1 === hoy ? "date" : undefined}>
+                            <th scope="row">{dia}</th>
+                            <td>{formatoHorario(s.horarios, i + 1)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
                   {/* Solo se muestran los botones que tienen datos (sin enlaces vacíos). */}
                   <div className="row gap-10">
                     {wa && (
-                      <a className="btn btn--primary btn--sm" href={`https://wa.me/52${wa}`} target="_blank" rel="noopener noreferrer">
+                      <a
+                        className="btn btn--primary btn--sm"
+                        href={`https://wa.me/52${wa}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         WhatsApp
                       </a>
                     )}
                     {tel && (
-                      <a className="btn btn--sm" href={`tel:${tel}`}>
-                        Llamar · {s.telefono}
+                      <a className="btn btn--sm" href={`tel:+52${tel}`}>
+                        Llamar · {tel.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1 $2 $3")}
                       </a>
                     )}
-                    <a
-                      className="btn btn--sm"
-                      href={`https://www.google.com/maps/search/?api=1&query=${s.latitud},${s.longitud}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Cómo llegar
-                    </a>
+                    {s.instagram && (
+                      <a className="btn btn--sm" href={s.instagram} target="_blank" rel="noopener noreferrer">
+                        Instagram
+                      </a>
+                    )}
+                    {s.latitud !== null && s.longitud !== null && (
+                      <a
+                        className="btn btn--sm"
+                        href={`https://www.google.com/maps/search/?api=1&query=${s.latitud},${s.longitud}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Cómo llegar
+                      </a>
+                    )}
                   </div>
                 </div>
               </article>
