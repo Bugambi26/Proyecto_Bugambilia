@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { DIAS_SEMANA, formatoHorario } from "@/lib/horarios";
 
@@ -34,7 +35,15 @@ type Props = {
   inicial: number | null;
 };
 
-export function ListaSucursales({ sucursales, hoy, inicial }: Props) {
+// Next 16 conserva el estado de las páginas ya visitadas (<Activity>): sin esta llave, al
+// llegar desde una tarjeta del inicio (?sucursal=2) seguía abierta la sucursal de la visita
+// anterior. bfcacheId cambia en cada navegación nueva y no al usar atrás/adelante.
+export function ListaSucursales(props: Props) {
+  const { bfcacheId } = useRouter();
+  return <ListaYMapa key={bfcacheId} {...props} />;
+}
+
+function ListaYMapa({ sucursales, hoy, inicial }: Props) {
   // Abre la sucursal del enlace (?sucursal=2) al llegar desde el inicio; si no, la primera.
   const [abierta, setAbierta] = useState<number | null>(inicial ?? sucursales[0]?.id ?? null);
 

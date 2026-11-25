@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { TarjetaProducto } from "@/components/TarjetaProducto";
 import { ORDEN_FILTRO_TIPOS, TIPOS_PRODUCTO, aparienciaDeLinea, estiloLinea } from "@/lib/catalogo";
@@ -9,9 +10,17 @@ import type { TipoProducto } from "@/generated/prisma/enums";
 
 type Props = { lineas: LineaConProductos[]; lineaInicial: number | null };
 
+// Next 16 conserva el estado de las páginas ya visitadas (<Activity>): sin esta llave, al
+// volver a Productos desde una tarjeta de línea del inicio se restauraba el filtro anterior
+// e ignoraba ?linea=. bfcacheId cambia en cada navegación nueva y no al usar atrás/adelante.
+export function Catalogo(props: Props) {
+  const { bfcacheId } = useRouter();
+  return <CatalogoFiltros key={bfcacheId} {...props} />;
+}
+
 // Catálogo del mockup: búsqueda + filtro por línea + casillas de tipo, combinables.
 // La línea elegida se guarda en la URL (?linea=) para poder compartir el enlace.
-export function Catalogo({ lineas, lineaInicial }: Props) {
+function CatalogoFiltros({ lineas, lineaInicial }: Props) {
   const [lineaId, setLineaId] = useState<number | null>(lineaInicial);
   const [busqueda, setBusqueda] = useState("");
   const [tipos, setTipos] = useState<TipoProducto[]>([]);
