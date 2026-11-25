@@ -598,6 +598,20 @@ img.detail__img { box-shadow: 18px 18px 0 0 var(--l-bg, var(--arena)), var(--som
 .msg-me { background: var(--chocolate); }
 .reco { border-radius: var(--r); background: #fff; }
 .reco:hover { border-color: var(--dorado); }
+/* "Arma tu ritual" (no estaba en el mockup; mismos colores y bordes del chat) */
+.reco-item { display: flex; flex-direction: column; gap: 6px; }
+.reco__agregar {
+  align-self: flex-end; min-height: 36px; padding: 0 14px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--line-2); background: #fff; color: var(--chocolate); font: 500 13px var(--sans);
+}
+.reco__agregar:hover { border-color: var(--dorado); }
+.reco__agregar[aria-pressed="true"] { background: var(--chocolate); border-color: var(--chocolate); color: #fff; }
+.mi-ritual {
+  flex-basis: 100%; display: flex; flex-direction: column; gap: 6px; padding: 10px 12px;
+  border: 1.5px solid var(--dorado); border-radius: var(--r); background: var(--arena-2);
+}
+.mi-ritual__titulo { font-family: var(--serif); font-size: 18px; font-weight: 600; }
+.mi-ritual .row > * { flex: 1; }
 
 /* ---------- 10. Responsivo ---------- */
 @media (max-width: 640px) {
