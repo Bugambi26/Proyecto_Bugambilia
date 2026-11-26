@@ -2,6 +2,12 @@
 
 Cerrada el 27 de octubre de 2026.
 
+> **Actualización (25 nov 2026), árbol ampliado a pedido de la clienta** (sustituye al árbol de 2 preguntas de la sección 3; la regla de selección de la sección 4 no cambia):
+> - **5 preguntas, en este orden:** 1) «¿De qué tono es tu cabello?» (igual); 2) «¿Qué necesita principalmente tu cabello?» (la P2 de siempre); 3) «¿Cómo es tu cuero cabelludo?»; 4) «¿Cómo es tu cabello?»; 5) «¿Cómo están tus puntas?» → fin. La necesidad principal va 2.ª porque la prioridad de los rituales sigue el orden en que se activan las necesidades.
+> - **Las respuestas nuevas usan las necesidades existentes** (la clienta dijo qué ritual va con cada una): cuero graso → `hidratacion`, seco → `reparacion`, sensible o con comezón → `hidratacion`, normal → ninguna; cabello fino o sin cuerpo → `crecimiento`, grueso o abundante → `cuidado-integral`, rizado u ondulado → **`cabello-rizado`**, teñido o decolorado → ninguna (el tono ya decide Blonde o Copper); puntas abiertas o quebradizas → `reparacion`, resecas o con frizz → `hidratacion`, sanas → ninguna.
+> - **Necesidad nueva `cabello-rizado`** («Cabello rizado»), ligada solo a los 3 productos de Cotton Candy (que conservan `hidratacion`). Así Cotton Candy suma 2 etiquetas y Hydra 1: en «Otro tono + Hidratación» Hydra gana por ser más específico (antes empataban), con el mismo resultado Hydra + Cotton Candy.
+> - El árbol se administra desde el panel (`/admin/arbol`); en las ramas existentes se cargó con un SQL de una sola vez. Casos nuevos en `seleccion.test.ts` («árbol ampliado de 5 preguntas»).
+
 > **Actualización (21 nov 2026), por el cambio de catálogo a 7 líneas y 21 productos (ver `catalogo-productos-y-servicios-bugambilia.md`):**
 > - Las 6 necesidades, el árbol (sección 3), la regla de selección (sección 4) y la redacción con Gemini (sección 5) **no cambian**.
 > - La tabla de la sección 2 queda sustituida: los beneficios son los de las etiquetas (`prisma/seed.ts`) y cada producto lleva **una** necesidad, la de su línea (**21 relaciones**): Blonde → `cabello-rubio`, Copper → `cabello-cobrizo`, Hydra → `hidratacion`, Repair → `reparacion`, Growth → `crecimiento`, **Cotton Candy (Sweet Ritual) → `hidratacion`**, **Kit Antioxidante → `cuidado-integral`**. Las dos últimas quedaron **confirmadas por la clienta el 23 nov 2026**.

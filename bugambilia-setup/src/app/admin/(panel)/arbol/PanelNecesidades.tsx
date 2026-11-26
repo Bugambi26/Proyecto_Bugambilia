@@ -55,14 +55,7 @@ function ListaYFormulario({ necesidades }: { necesidades: NecesidadPanel[] }) {
 
   return (
     <>
-      <div className="admin-head">
-        <div className="stack gap-8">
-          <span className="lbl">Chatbot</span>
-          <h1 className="admin-title">Árbol del chatbot</h1>
-        </div>
-      </div>
-
-      <section className="stack gap-16" aria-labelledby="t-necesidades">
+      <section className="stack gap-16" aria-labelledby="t-necesidades" style={{ borderTop: "1px solid var(--line)", paddingTop: 24 }}>
         <div className="admin-head">
           <div className="stack gap-8">
             <h2 id="t-necesidades" style={{ fontSize: 22 }}>

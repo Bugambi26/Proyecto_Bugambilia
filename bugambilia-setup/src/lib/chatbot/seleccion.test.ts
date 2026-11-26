@@ -3,24 +3,25 @@ import type { TipoProducto } from "@/generated/prisma/enums";
 import { MAX_RITUALES, seleccionarRituales, type ProductoCandidato } from "./seleccion";
 
 // Copia del catálogo del seed (7 líneas, 22 productos), con los ids en el orden del catálogo.
-const N = { rubio: 1, cobrizo: 2, hidratacion: 3, reparacion: 4, crecimiento: 5, integral: 6 } as const;
+const N = { rubio: 1, cobrizo: 2, hidratacion: 3, reparacion: 4, crecimiento: 5, integral: 6, rizado: 7 } as const;
 const L = { blonde: 1, copper: 2, hydra: 3, repair: 4, growth: 5, cotton: 6, kit: 7 } as const;
 
-const LINEAS: [linea: number, necesidad: number, tipos: TipoProducto[]][] = [
-  [L.blonde, N.rubio, ["Shampoo", "Mascarilla", "CremaParaPeinar"]],
-  [L.copper, N.cobrizo, ["Shampoo", "Balsamo", "CremaParaPeinar"]],
-  [L.hydra, N.hidratacion, ["Shampoo", "Balsamo", "CremaParaPeinar"]],
-  [L.repair, N.reparacion, ["Shampoo", "Balsamo", "CremaParaPeinar"]],
-  [L.growth, N.crecimiento, ["Shampoo", "Balsamo", "Locion", "Aceite"]], // 4 productos desde el 25 nov 2026
-  [L.cotton, N.hidratacion, ["Shampoo", "Balsamo", "CremaParaPeinar"]],
-  [L.kit, N.integral, ["Shampoo", "Balsamo", "CremaParaPeinar"]],
+// Cotton Candy lleva además «Cabello rizado» (árbol ampliado, 25 nov 2026).
+const LINEAS: [linea: number, necesidades: number[], tipos: TipoProducto[]][] = [
+  [L.blonde, [N.rubio], ["Shampoo", "Mascarilla", "CremaParaPeinar"]],
+  [L.copper, [N.cobrizo], ["Shampoo", "Balsamo", "CremaParaPeinar"]],
+  [L.hydra, [N.hidratacion], ["Shampoo", "Balsamo", "CremaParaPeinar"]],
+  [L.repair, [N.reparacion], ["Shampoo", "Balsamo", "CremaParaPeinar"]],
+  [L.growth, [N.crecimiento], ["Shampoo", "Balsamo", "Locion", "Aceite"]], // 4 productos desde el 25 nov 2026
+  [L.cotton, [N.hidratacion, N.rizado], ["Shampoo", "Balsamo", "CremaParaPeinar"]],
+  [L.kit, [N.integral], ["Shampoo", "Balsamo", "CremaParaPeinar"]],
 ];
 
 function catalogo(cambios: (p: ProductoCandidato) => Partial<ProductoCandidato> = () => ({})): ProductoCandidato[] {
   let id = 0;
-  return LINEAS.flatMap(([lineaId, necesidad, tipos]) =>
+  return LINEAS.flatMap(([lineaId, necesidades, tipos]) =>
     tipos.map((tipoProducto) => {
-      const p: ProductoCandidato = { id: ++id, tipoProducto, activo: true, stock: 5, lineaId, necesidades: [necesidad] };
+      const p: ProductoCandidato = { id: ++id, tipoProducto, activo: true, stock: 5, lineaId, necesidades: [...necesidades] };
       return { ...p, ...cambios(p) };
     }),
   );
@@ -53,7 +54,7 @@ describe("casos esperados de la Fase 4 (catálogo de 22 productos)", () => {
     expect(lineas(r)).toEqual([L.blonde, L.hydra]);
   });
 
-  it("Otro tono + Hidratación → Hydra + Cotton Candy (empate: gana el orden del catálogo)", () => {
+  it("Otro tono + Hidratación → Hydra + Cotton Candy (Hydra es más específico: una sola etiqueta)", () => {
     const r = seleccionarRituales([...P1.otro, ...P2.hidratacion], todos);
     expect(lineas(r)).toEqual([L.hydra, L.cotton]);
     expect(cuantos(r)).toEqual([3, 3]);
@@ -122,10 +123,10 @@ describe("orden y límite de rituales (reglas 4 y 5)", () => {
   });
 
   it("entre rituales de la misma necesidad gana el más específico (menos etiquetas)", () => {
-    // Hydra con una etiqueta extra: Cotton Candy pasa a ser más específico.
+    // Hydra con dos etiquetas extra (Cotton Candy tiene dos): Cotton Candy pasa a ser más específico.
     const r = seleccionarRituales(
       P2.hidratacion,
-      catalogo((p) => (p.lineaId === L.hydra ? { necesidades: [N.hidratacion, N.reparacion] } : {})),
+      catalogo((p) => (p.lineaId === L.hydra ? { necesidades: [N.hidratacion, N.reparacion, N.crecimiento] } : {})),
     );
     expect(lineas(r)).toEqual([L.cotton, L.hydra]);
   });
@@ -162,5 +163,41 @@ describe("orden de rutina dentro del ritual (regla 6)", () => {
     const a = seleccionarRituales([N.rubio, N.hidratacion], todos);
     const b = seleccionarRituales([N.rubio, N.hidratacion], todos);
     expect(a).toEqual(b);
+  });
+});
+
+// Árbol ampliado (25 nov 2026): tono → necesidad principal → cuero cabelludo → cabello → puntas.
+// Cada respuesta activa una necesidad existente (o «Cabello rizado»); la prioridad sigue el orden.
+const CUERO = { graso: [N.hidratacion], seco: [N.reparacion], sensible: [N.hidratacion], normal: [] };
+const CABELLO = { fino: [N.crecimiento], grueso: [N.integral], rizado: [N.rizado], tenido: [] };
+const PUNTAS = { abiertas: [N.reparacion], resecas: [N.hidratacion], sanas: [] };
+
+describe("árbol ampliado de 5 preguntas", () => {
+  const todos = catalogo();
+  const respuestas = (...grupos: number[][]) => grupos.flat();
+
+  it("Otro tono + Hidratación + Normal + Rizado + Sanas → Hydra + Cotton Candy", () => {
+    const r = seleccionarRituales(respuestas(P1.otro, P2.hidratacion, CUERO.normal, CABELLO.rizado, PUNTAS.sanas), todos);
+    expect(lineas(r)).toEqual([L.hydra, L.cotton]);
+  });
+
+  it("la necesidad principal pesa más que cuero, cabello y puntas", () => {
+    const r = seleccionarRituales(respuestas(P1.rubio, P2.reparacion, CUERO.graso, CABELLO.fino, PUNTAS.sanas), todos);
+    expect(lineas(r)).toEqual([L.blonde, L.repair]);
+  });
+
+  it("solo «Rizado» → Cotton Candy", () => {
+    const r = seleccionarRituales(respuestas(P1.otro, P2.otra, CUERO.normal, CABELLO.rizado, PUNTAS.sanas), todos);
+    expect(lineas(r)).toEqual([L.cotton]);
+  });
+
+  it("Cobrizo + Rutina completa + Grueso + Puntas abiertas → Copper + Kit Antioxidante", () => {
+    const r = seleccionarRituales(respuestas(P1.cobrizo, P2.completa, CUERO.normal, CABELLO.grueso, PUNTAS.abiertas), todos);
+    expect(lineas(r)).toEqual([L.copper, L.kit]);
+  });
+
+  it("respuestas que no activan nada (Otro tono, Otra, Normal, Teñido, Sanas) → cita de diagnóstico", () => {
+    const r = seleccionarRituales(respuestas(P1.otro, P2.otra, CUERO.normal, CABELLO.tenido, PUNTAS.sanas), todos);
+    expect(r).toEqual([]);
   });
 });
