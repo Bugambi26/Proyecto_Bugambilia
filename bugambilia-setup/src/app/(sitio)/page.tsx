@@ -59,15 +59,15 @@ export default function Inicio() {
             <div className="ph" role="img" aria-label="Foto del equipo">
               Foto del equipo
             </div>
-            {/* Foto de la clienta (25 nov 2026), recortada sin el texto de la publicación. */}
+            {/* Foto del local (25 nov 2026), la misma de la tarjeta de la estética en Sucursales. */}
             <Image
               className="ph"
-              src="/img/espacio.webp"
-              alt="Tocador y sillón de Estética Bugambilia con lavacabezas, iluminados por la luz de la tarde"
-              width={900}
-              height={614}
+              src="/img/sucursales/estetica-bugambilia.webp"
+              alt="Estética Bugambilia: tocador con espejo, sillón y lavacabezas, iluminados por la luz de la tarde"
+              width={800}
+              height={600}
               sizes="(min-width: 960px) 280px, 50vw"
-              style={{ objectPosition: "28% 50%" }} // en celular el recuadro es angosto: centra el sillón
+              style={{ objectPosition: "35% 50%" }} // en celular el recuadro es angosto: centra el sillón
             />
 
           </div>
