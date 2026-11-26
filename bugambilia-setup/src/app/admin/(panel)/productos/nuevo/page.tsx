@@ -22,7 +22,6 @@ export default async function NuevoProducto() {
         <Link href="/admin/inventario" style={{ fontSize: 14 }}>
           ← Volver al inventario
         </Link>
-        <span className="lbl">Mismo formulario para Alta (vacío) y Cambio (con datos)</span>
         <h1 className="admin-title">Dar de alta producto</h1>
       </div>
       <FormularioAlta lineas={lineas} necesidades={necesidades} />

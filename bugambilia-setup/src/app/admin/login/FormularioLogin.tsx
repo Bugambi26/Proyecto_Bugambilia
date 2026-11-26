@@ -98,7 +98,7 @@ function IniciarSesion({
 
   return (
     <form className="auth__form" onSubmit={entrar} hidden={hidden} noValidate>
-      <span className="lbl">Panel de administración · 1 cuenta</span>
+      <span className="lbl">Panel de administración</span>
       <h1 className="auth__title">Iniciar sesión</h1>
       <div className="field">
         <label htmlFor="correo">Correo</label>

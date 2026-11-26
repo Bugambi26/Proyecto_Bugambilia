@@ -68,7 +68,7 @@ function ListaYFormulario({ sucursales }: { sucursales: SucursalPanel[] }) {
     <>
       <div className="admin-head">
         <div className="stack gap-8">
-          <span className="lbl">Sucursales · agregar / editar / eliminar</span>
+          <span className="lbl">Panel de administración</span>
           <h1 className="admin-title">Sucursales</h1>
         </div>
         <button type="button" className="btn btn--primary" onClick={() => setSeleccion(null)}>

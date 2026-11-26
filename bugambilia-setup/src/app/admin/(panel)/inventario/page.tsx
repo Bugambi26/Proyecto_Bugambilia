@@ -37,7 +37,7 @@ export default async function Inventario() {
     <>
       <div className="admin-head">
         <div className="stack gap-8">
-          <span className="lbl">Inventario · Alta / Baja / Cambio + stock global</span>
+          <span className="lbl">Inventario</span>
           <h1 className="admin-title">Productos</h1>
         </div>
         <Link href="/admin/productos/nuevo" className="btn btn--primary">

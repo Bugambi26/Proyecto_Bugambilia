@@ -47,7 +47,6 @@ export default async function EditarProducto({ params }: PageProps<"/admin/produ
         <Link href="/admin/inventario" style={{ fontSize: 14 }}>
           ← Volver al inventario
         </Link>
-        <span className="lbl">Mismo formulario para Alta (vacío) y Cambio (con datos)</span>
         <h1 className="admin-title">Editar producto</h1>
       </div>
       {/* La llave son los datos: si cambiaron (p. ej. el stock desde la tabla), el
