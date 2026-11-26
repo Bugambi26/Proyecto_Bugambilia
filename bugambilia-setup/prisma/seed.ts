@@ -214,7 +214,7 @@ const SUCURSALES = [
     telefono: "4493419419",
     whatsapp: "4493419419",
     instagram: null,
-    fotoUrl: "/img/sucursales/bugambilia.webp", // foto de la clienta (25 nov 2026)
+    fotoUrl: "/img/sucursales/estetica-bugambilia.webp", // foto del local, mejorada (25 nov 2026)
     // TODO: dato real de la clienta (solo atiende con cita; falta definir qué mostrar como horario).
     horarios: [] as { diaSemana: number; horaApertura: string; horaCierre: string }[],
   },
