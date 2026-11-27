@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { ServiciosFaciales } from "@/components/ServiciosFaciales";
-import { aparienciaDeLinea, estiloLinea } from "@/lib/catalogo";
+import { aparienciaDeLinea, cuantosProductos, estiloLinea } from "@/lib/catalogo";
 import { CONTACTO, FIRMA } from "@/lib/contacto";
 import { obtenerLineasConProductos, obtenerSucursales } from "@/lib/datos-catalogo";
 import { diaDeHoy, formatoHorario } from "@/lib/horarios";
@@ -218,7 +218,7 @@ async function Lineas() {
               <span className="line-card__name">{l.nombreRitual}</span>
               <span className="small">
                 {l.productos[0]?.ingredientes ? `${l.productos[0].ingredientes} · ` : ""}
-                {l.productos.length} productos
+                {cuantosProductos(l.productos.length)}
               </span>
               {l.precioRitual && (
                 <span className="small">

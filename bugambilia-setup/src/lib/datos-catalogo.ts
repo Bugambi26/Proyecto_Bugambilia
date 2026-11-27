@@ -54,7 +54,11 @@ async function lineasYProductos() {
     orderBy: { id: "asc" },
     include: { productos: { where: { activo: true } } },
   });
-  return lineas.map((l, i) => {
+  // Una línea sin productos activos no se muestra (p. ej. Gotas de Oro mientras su producto
+  // espera los datos de la clienta). Se filtra antes de numerarlas para no saltar números.
+  return lineas
+    .filter((l) => l.productos.length > 0)
+    .map((l, i) => {
     const vista: LineaVista = {
       id: l.id,
       nombre: l.nombre,
@@ -64,7 +68,7 @@ async function lineasYProductos() {
       precioRitual: formatearPrecio(l.precioRitual),
     };
     return { ...vista, productos: [...l.productos].sort(compararPorRutina).map((p) => aVista(p, vista)) };
-  });
+    });
 }
 
 export type LineaConProductos = Awaited<ReturnType<typeof lineasYProductos>>[number];

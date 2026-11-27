@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { TarjetaProducto } from "@/components/TarjetaProducto";
-import { ORDEN_FILTRO_TIPOS, TIPOS_PRODUCTO, aparienciaDeLinea, estiloLinea } from "@/lib/catalogo";
+import { ORDEN_FILTRO_TIPOS, TIPOS_PRODUCTO, aparienciaDeLinea, cuantosProductos, estiloLinea } from "@/lib/catalogo";
 import type { LineaConProductos } from "@/lib/datos-catalogo";
 import type { TipoProducto } from "@/generated/prisma/enums";
 
@@ -131,7 +131,7 @@ function CatalogoFiltros({ lineas, lineaInicial }: Props) {
               {linea.precioRitual && (
                 <p className="row gap-10" style={{ alignItems: "baseline", margin: 0 }}>
                   <span className="detail__price">{linea.precioRitual}</span>
-                  <span className="small">ritual completo · {linea.productos.length} productos · IVA incluido</span>
+                  <span className="small">ritual completo · {cuantosProductos(linea.productos.length)} · IVA incluido</span>
                 </p>
               )}
             </div>

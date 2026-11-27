@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ImagenProducto } from "@/components/ImagenProducto";
-import { aparienciaDeLinea, estiloLinea } from "@/lib/catalogo";
+import { aparienciaDeLinea, cuantosProductos, estiloLinea } from "@/lib/catalogo";
 import { obtenerProducto } from "@/lib/datos-catalogo";
 
 type Params = PageProps<"/productos/[id]">["params"];
@@ -86,7 +86,7 @@ async function Ficha({ params }: { params: Params }) {
             </div>
             {l.precioRitual && (
               <div className="specs__full">
-                <dt>Ritual completo · {otros.length + 1} productos</dt>
+                <dt>Ritual completo · {cuantosProductos(otros.length + 1)}</dt>
                 <dd>
                   {l.precioRitual}{" "}
                   {/* La clienta confirmó (25 nov 2026) que el precio ya incluye IVA. */}

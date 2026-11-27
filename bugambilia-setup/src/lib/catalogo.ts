@@ -39,6 +39,8 @@ const APARIENCIA_POR_LINEA: Record<string, AparienciaLinea> = {
   Crecimiento: { color: "#DCE5CF", tinta: "#4A5A2E", img: "/img/lineas/growth.webp", ingImg: "/img/ingredientes/growth.webp" },
   "Cotton Candy": { color: "#F8DCE3", tinta: "#A42A55", img: "/img/lineas/cotton.webp", ingImg: "/img/ingredientes/cotton.webp" },
   "Kit Antioxidante": { color: "#EDE1CF", tinta: "#6B4A2B", img: "/img/lineas/antiox.webp", ingImg: "/img/ingredientes/antiox.webp" },
+  // Producto suelto (26 nov 2026): "oro claro"; aún sin foto de línea ni de ingrediente, usa la del producto.
+  "Gotas de Oro": { color: "#F3E2B0", tinta: "#6B4E0F", img: "/img/productos/gotas-de-oro.webp", ingImg: "" },
 };
 
 const APARIENCIA_NEUTRA: AparienciaLinea = { color: "#EDE1CF", tinta: "#6B4A2B", img: "/img/hero.webp", ingImg: "" };
@@ -51,6 +53,11 @@ export function aparienciaDeLinea(nombreLinea: string): AparienciaLinea {
 export function estiloLinea(nombreLinea: string): CSSProperties {
   const a = aparienciaDeLinea(nombreLinea);
   return { "--l-bg": a.color, "--l-ink": a.tinta } as CSSProperties;
+}
+
+// "1 producto" / "3 productos" (Gotas de Oro es una línea de un solo producto).
+export function cuantosProductos(n: number) {
+  return `${n} producto${n === 1 ? "" : "s"}`;
 }
 
 // "01 · Rubios perfectos" (etiqueta numerada de la línea, como en el mockup).
